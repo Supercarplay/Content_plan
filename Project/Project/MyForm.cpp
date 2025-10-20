@@ -9,4 +9,4 @@ int main(array<String^>^args) {
 	Application::EnableVisualStyles();
 	Project::MyForm form;
 	Application::Run(% form);
-}
+} //проверка
