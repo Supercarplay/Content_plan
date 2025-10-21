@@ -10,7 +10,7 @@ namespace Project {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// Сводка для MyForm
+	/// РЎРІРѕРґРєР° РґР»СЏ MyForm
 	/// </summary>
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
@@ -19,13 +19,13 @@ namespace Project {
 		{
 			InitializeComponent();
 			//
-			//TODO: добавьте код конструктора
+			//TODO: РґРѕР±Р°РІСЊС‚Рµ РєРѕРґ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 			//
 		}
 
 	protected:
 		/// <summary>
-		/// Освободить все используемые ресурсы.
+		/// РћСЃРІРѕР±РѕРґРёС‚СЊ РІСЃРµ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ СЂРµСЃСѓСЂСЃС‹.
 		/// </summary>
 		~MyForm()
 		{
@@ -61,19 +61,19 @@ namespace Project {
 
 	private: System::Windows::Forms::Label^ Continuity_new_post;
 	private: System::Windows::Forms::Button^ Save_button;
-	private: System::Windows::Forms::DataGridView^ dataGridView;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column1;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column2;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column3;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column4;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column5;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column6;
+	private: System::Windows::Forms::TableLayoutPanel^ Table_post;
 
+	private: System::Windows::Forms::Label^ Number_post;
 
+	private: int postCounter = 0;
+	private: System::Windows::Forms::Label^ Date_post;
+	private: System::Windows::Forms::Label^ Text_post;
 
-
-
-
+	private: System::Windows::Forms::Label^ About_post;
+	private: System::Windows::Forms::Label^ Name_post;
+	private: System::Windows::Forms::Label^ Continuity_post;
+	private: System::Windows::Forms::Label^ view_post;
+	private: System::Windows::Forms::Label^ Actioin_post;
 
 
 	protected:
@@ -85,17 +85,18 @@ namespace Project {
 
 	private:
 		/// <summary>
-		/// Обязательная переменная конструктора.
+		/// РћР±СЏР·Р°С‚РµР»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°.
 		/// </summary>
 		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Требуемый метод для поддержки конструктора — не изменяйте 
-		/// содержимое этого метода с помощью редактора кода.
+		/// РўСЂРµР±СѓРµРјС‹Р№ РјРµС‚РѕРґ РґР»СЏ РїРѕРґРґРµСЂР¶РєРё РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° вЂ” РЅРµ РёР·РјРµРЅСЏР№С‚Рµ 
+		/// СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РѕРіРѕ РјРµС‚РѕРґР° СЃ РїРѕРјРѕС‰СЊСЋ СЂРµРґР°РєС‚РѕСЂР° РєРѕРґР°.
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->button_New_post = (gcnew System::Windows::Forms::Button());
 			this->Panel_New_post = (gcnew System::Windows::Forms::GroupBox());
 			this->Save_button = (gcnew System::Windows::Forms::Button());
@@ -113,33 +114,29 @@ namespace Project {
 			this->About_new_post = (gcnew System::Windows::Forms::Label());
 			this->Textbox_Name_new_post = (gcnew System::Windows::Forms::TextBox());
 			this->Name_new_post = (gcnew System::Windows::Forms::Label());
-			this->dataGridView = (gcnew System::Windows::Forms::DataGridView());
-			this->Column1 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Column2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Column3 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Column4 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Column5 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Column6 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Table_post = (gcnew System::Windows::Forms::TableLayoutPanel());
+			this->Actioin_post = (gcnew System::Windows::Forms::Label());
+			this->view_post = (gcnew System::Windows::Forms::Label());
+			this->Continuity_post = (gcnew System::Windows::Forms::Label());
+			this->Text_post = (gcnew System::Windows::Forms::Label());
+			this->About_post = (gcnew System::Windows::Forms::Label());
+			this->Name_post = (gcnew System::Windows::Forms::Label());
+			this->Number_post = (gcnew System::Windows::Forms::Label());
+			this->Date_post = (gcnew System::Windows::Forms::Label());
 			this->Panel_New_post->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView))->BeginInit();
+			this->Table_post->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// button_New_post
 			// 
-			this->button_New_post->Font = (gcnew System::Drawing::Font(L"Times New Roman", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->button_New_post->Location = System::Drawing::Point(374, 14);
-			this->button_New_post->Margin = System::Windows::Forms::Padding(5);
+			resources->ApplyResources(this->button_New_post, L"button_New_post");
 			this->button_New_post->Name = L"button_New_post";
-			this->button_New_post->Size = System::Drawing::Size(131, 36);
-			this->button_New_post->TabIndex = 0;
-			this->button_New_post->Text = L"Добавить пост";
 			this->button_New_post->UseVisualStyleBackColor = true;
 			this->button_New_post->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
 			// 
 			// Panel_New_post
 			// 
-			this->Panel_New_post->AutoSize = true;
+			resources->ApplyResources(this->Panel_New_post, L"Panel_New_post");
 			this->Panel_New_post->Controls->Add(this->Save_button);
 			this->Panel_New_post->Controls->Add(this->Generation_Continuity_new_post);
 			this->Panel_New_post->Controls->Add(this->generation_text_post);
@@ -156,275 +153,200 @@ namespace Project {
 			this->Panel_New_post->Controls->Add(this->Textbox_Name_new_post);
 			this->Panel_New_post->Controls->Add(this->Name_new_post);
 			this->Panel_New_post->ForeColor = System::Drawing::Color::White;
-			this->Panel_New_post->Location = System::Drawing::Point(12, 58);
 			this->Panel_New_post->Name = L"Panel_New_post";
-			this->Panel_New_post->Size = System::Drawing::Size(847, 350);
-			this->Panel_New_post->TabIndex = 1;
 			this->Panel_New_post->TabStop = false;
 			this->Panel_New_post->Tag = L"New_post";
-			this->Panel_New_post->Visible = false;
+			this->Panel_New_post->Enter += gcnew System::EventHandler(this, &MyForm::Panel_New_post_Enter);
 			// 
 			// Save_button
 			// 
-			this->Save_button->Font = (gcnew System::Drawing::Font(L"Times New Roman", 12));
+			resources->ApplyResources(this->Save_button, L"Save_button");
 			this->Save_button->ForeColor = System::Drawing::Color::Black;
-			this->Save_button->Location = System::Drawing::Point(362, 283);
 			this->Save_button->Name = L"Save_button";
-			this->Save_button->Size = System::Drawing::Size(131, 32);
-			this->Save_button->TabIndex = 14;
-			this->Save_button->Text = L"Сохранить";
 			this->Save_button->UseVisualStyleBackColor = true;
 			this->Save_button->Click += gcnew System::EventHandler(this, &MyForm::Save_button_Click);
 			// 
 			// Generation_Continuity_new_post
 			// 
+			resources->ApplyResources(this->Generation_Continuity_new_post, L"Generation_Continuity_new_post");
 			this->Generation_Continuity_new_post->ForeColor = System::Drawing::Color::Black;
-			this->Generation_Continuity_new_post->Location = System::Drawing::Point(670, 186);
 			this->Generation_Continuity_new_post->Name = L"Generation_Continuity_new_post";
-			this->Generation_Continuity_new_post->Size = System::Drawing::Size(116, 32);
-			this->Generation_Continuity_new_post->TabIndex = 13;
-			this->Generation_Continuity_new_post->Text = L"Сгенерировать";
 			this->Generation_Continuity_new_post->UseVisualStyleBackColor = true;
 			// 
 			// generation_text_post
 			// 
+			resources->ApplyResources(this->generation_text_post, L"generation_text_post");
 			this->generation_text_post->ForeColor = System::Drawing::Color::Black;
-			this->generation_text_post->Location = System::Drawing::Point(438, 186);
 			this->generation_text_post->Name = L"generation_text_post";
-			this->generation_text_post->Size = System::Drawing::Size(116, 32);
-			this->generation_text_post->TabIndex = 12;
-			this->generation_text_post->Text = L"Сгенерировать";
 			this->generation_text_post->UseVisualStyleBackColor = true;
 			// 
 			// textBox_Continuity_new_post
 			// 
 			this->textBox_Continuity_new_post->AcceptsReturn = true;
 			this->textBox_Continuity_new_post->AcceptsTab = true;
+			resources->ApplyResources(this->textBox_Continuity_new_post, L"textBox_Continuity_new_post");
 			this->textBox_Continuity_new_post->BackColor = System::Drawing::Color::Gray;
 			this->textBox_Continuity_new_post->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->textBox_Continuity_new_post->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9));
 			this->textBox_Continuity_new_post->ForeColor = System::Drawing::Color::White;
-			this->textBox_Continuity_new_post->Location = System::Drawing::Point(644, 68);
-			this->textBox_Continuity_new_post->Multiline = true;
 			this->textBox_Continuity_new_post->Name = L"textBox_Continuity_new_post";
-			this->textBox_Continuity_new_post->Size = System::Drawing::Size(169, 112);
-			this->textBox_Continuity_new_post->TabIndex = 11;
 			this->textBox_Continuity_new_post->Tag = L"Name_Project";
 			// 
 			// textBox_Text_New_post
 			// 
 			this->textBox_Text_New_post->AcceptsReturn = true;
 			this->textBox_Text_New_post->AcceptsTab = true;
+			resources->ApplyResources(this->textBox_Text_New_post, L"textBox_Text_New_post");
 			this->textBox_Text_New_post->BackColor = System::Drawing::Color::Gray;
 			this->textBox_Text_New_post->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->textBox_Text_New_post->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9));
 			this->textBox_Text_New_post->ForeColor = System::Drawing::Color::White;
-			this->textBox_Text_New_post->Location = System::Drawing::Point(414, 68);
-			this->textBox_Text_New_post->Multiline = true;
 			this->textBox_Text_New_post->Name = L"textBox_Text_New_post";
-			this->textBox_Text_New_post->Size = System::Drawing::Size(169, 112);
-			this->textBox_Text_New_post->TabIndex = 10;
 			this->textBox_Text_New_post->Tag = L"Name_Project";
 			// 
 			// Continuity_new_post
 			// 
-			this->Continuity_new_post->AutoSize = true;
-			this->Continuity_new_post->Font = (gcnew System::Drawing::Font(L"Times New Roman", 12));
-			this->Continuity_new_post->Location = System::Drawing::Point(690, 36);
+			resources->ApplyResources(this->Continuity_new_post, L"Continuity_new_post");
 			this->Continuity_new_post->Name = L"Continuity_new_post";
-			this->Continuity_new_post->Size = System::Drawing::Size(78, 19);
-			this->Continuity_new_post->TabIndex = 9;
-			this->Continuity_new_post->Text = L"Сценарий";
 			// 
 			// Text_New_post
 			// 
-			this->Text_New_post->AutoSize = true;
-			this->Text_New_post->Font = (gcnew System::Drawing::Font(L"Times New Roman", 12));
-			this->Text_New_post->Location = System::Drawing::Point(473, 36);
+			resources->ApplyResources(this->Text_New_post, L"Text_New_post");
 			this->Text_New_post->Name = L"Text_New_post";
-			this->Text_New_post->Size = System::Drawing::Size(45, 19);
-			this->Text_New_post->TabIndex = 8;
-			this->Text_New_post->Text = L"Текст";
 			// 
 			// Swith_view_media
 			// 
-			this->Swith_view_media->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9));
+			resources->ApplyResources(this->Swith_view_media, L"Swith_view_media");
 			this->Swith_view_media->FormattingEnabled = true;
-			this->Swith_view_media->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Ничего", L"Видео", L"Фото" });
-			this->Swith_view_media->Location = System::Drawing::Point(252, 180);
+			this->Swith_view_media->Items->AddRange(gcnew cli::array< System::Object^  >(3) {
+				resources->GetString(L"Swith_view_media.Items"),
+					resources->GetString(L"Swith_view_media.Items1"), resources->GetString(L"Swith_view_media.Items2")
+			});
 			this->Swith_view_media->Name = L"Swith_view_media";
-			this->Swith_view_media->Size = System::Drawing::Size(104, 23);
-			this->Swith_view_media->TabIndex = 7;
-			this->Swith_view_media->Text = L"Ничего";
 			// 
 			// view_media
 			// 
-			this->view_media->AutoSize = true;
-			this->view_media->Font = (gcnew System::Drawing::Font(L"Times New Roman", 12));
-			this->view_media->Location = System::Drawing::Point(264, 150);
+			resources->ApplyResources(this->view_media, L"view_media");
 			this->view_media->Name = L"view_media";
-			this->view_media->Size = System::Drawing::Size(81, 19);
-			this->view_media->TabIndex = 6;
-			this->view_media->Text = L"Вид медиа";
 			// 
 			// Swith_date_new_post
 			// 
-			this->Swith_date_new_post->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9));
-			this->Swith_date_new_post->Location = System::Drawing::Point(41, 182);
+			resources->ApplyResources(this->Swith_date_new_post, L"Swith_date_new_post");
 			this->Swith_date_new_post->MinDate = System::DateTime(2000, 1, 1, 0, 0, 0, 0);
 			this->Swith_date_new_post->Name = L"Swith_date_new_post";
-			this->Swith_date_new_post->Size = System::Drawing::Size(157, 21);
-			this->Swith_date_new_post->TabIndex = 5;
 			// 
 			// Date_new_post
 			// 
-			this->Date_new_post->AutoSize = true;
-			this->Date_new_post->Font = (gcnew System::Drawing::Font(L"Times New Roman", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->Date_new_post->Location = System::Drawing::Point(56, 150);
+			resources->ApplyResources(this->Date_new_post, L"Date_new_post");
 			this->Date_new_post->Name = L"Date_new_post";
-			this->Date_new_post->Size = System::Drawing::Size(109, 19);
-			this->Date_new_post->TabIndex = 4;
-			this->Date_new_post->Text = L"Выберите дату";
 			// 
 			// Textbox_About_new_post
 			// 
 			this->Textbox_About_new_post->AcceptsReturn = true;
 			this->Textbox_About_new_post->AcceptsTab = true;
+			resources->ApplyResources(this->Textbox_About_new_post, L"Textbox_About_new_post");
 			this->Textbox_About_new_post->BackColor = System::Drawing::Color::Gray;
 			this->Textbox_About_new_post->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->Textbox_About_new_post->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9));
 			this->Textbox_About_new_post->ForeColor = System::Drawing::Color::White;
-			this->Textbox_About_new_post->Location = System::Drawing::Point(217, 68);
-			this->Textbox_About_new_post->Multiline = true;
 			this->Textbox_About_new_post->Name = L"Textbox_About_new_post";
-			this->Textbox_About_new_post->Size = System::Drawing::Size(169, 64);
-			this->Textbox_About_new_post->TabIndex = 3;
 			this->Textbox_About_new_post->Tag = L"Name_Project";
 			// 
 			// About_new_post
 			// 
-			this->About_new_post->AutoSize = true;
-			this->About_new_post->Font = (gcnew System::Drawing::Font(L"Times New Roman", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->About_new_post->Location = System::Drawing::Point(267, 36);
+			resources->ApplyResources(this->About_new_post, L"About_new_post");
 			this->About_new_post->Name = L"About_new_post";
-			this->About_new_post->Size = System::Drawing::Size(78, 19);
-			this->About_new_post->TabIndex = 2;
-			this->About_new_post->Text = L"Описание";
 			// 
 			// Textbox_Name_new_post
 			// 
 			this->Textbox_Name_new_post->AcceptsReturn = true;
 			this->Textbox_Name_new_post->AcceptsTab = true;
+			resources->ApplyResources(this->Textbox_Name_new_post, L"Textbox_Name_new_post");
 			this->Textbox_Name_new_post->BackColor = System::Drawing::Color::Gray;
 			this->Textbox_Name_new_post->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->Textbox_Name_new_post->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9));
 			this->Textbox_Name_new_post->ForeColor = System::Drawing::Color::White;
-			this->Textbox_Name_new_post->Location = System::Drawing::Point(29, 68);
-			this->Textbox_Name_new_post->Multiline = true;
 			this->Textbox_Name_new_post->Name = L"Textbox_Name_new_post";
-			this->Textbox_Name_new_post->Size = System::Drawing::Size(169, 64);
-			this->Textbox_Name_new_post->TabIndex = 1;
 			this->Textbox_Name_new_post->Tag = L"Name_Project";
 			// 
 			// Name_new_post
 			// 
-			this->Name_new_post->AutoSize = true;
-			this->Name_new_post->Font = (gcnew System::Drawing::Font(L"Times New Roman", 12));
+			resources->ApplyResources(this->Name_new_post, L"Name_new_post");
 			this->Name_new_post->ForeColor = System::Drawing::Color::White;
-			this->Name_new_post->Location = System::Drawing::Point(73, 36);
 			this->Name_new_post->Name = L"Name_new_post";
-			this->Name_new_post->Size = System::Drawing::Size(73, 19);
-			this->Name_new_post->TabIndex = 0;
-			this->Name_new_post->Text = L"Название";
 			// 
-			// dataGridView
+			// Table_post
 			// 
-			this->dataGridView->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
-				| System::Windows::Forms::AnchorStyles::Left)
-				| System::Windows::Forms::AnchorStyles::Right));
-			this->dataGridView->BackgroundColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
-				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			this->dataGridView->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->dataGridView->ColumnHeadersHeight = 20;
-			this->dataGridView->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::DisableResizing;
-			this->dataGridView->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(6) {
-				this->Column1,
-					this->Column2, this->Column3, this->Column4, this->Column5, this->Column6
-			});
-			this->dataGridView->Location = System::Drawing::Point(171, 176);
-			this->dataGridView->Margin = System::Windows::Forms::Padding(5);
-			this->dataGridView->Name = L"dataGridView";
-			this->dataGridView->RowHeadersWidth = 70;
-			this->dataGridView->Size = System::Drawing::Size(528, 86);
-			this->dataGridView->TabIndex = 4;
-			this->dataGridView->Tag = L"Table_post";
+			resources->ApplyResources(this->Table_post, L"Table_post");
+			this->Table_post->Controls->Add(this->Actioin_post, 7, 0);
+			this->Table_post->Controls->Add(this->view_post, 6, 0);
+			this->Table_post->Controls->Add(this->Continuity_post, 5, 0);
+			this->Table_post->Controls->Add(this->Text_post, 4, 0);
+			this->Table_post->Controls->Add(this->About_post, 3, 0);
+			this->Table_post->Controls->Add(this->Name_post, 2, 0);
+			this->Table_post->Controls->Add(this->Number_post, 0, 0);
+			this->Table_post->Controls->Add(this->Date_post, 1, 0);
+			this->Table_post->ForeColor = System::Drawing::Color::White;
+			this->Table_post->Name = L"Table_post";
 			// 
-			// Column1
+			// Actioin_post
 			// 
-			this->Column1->Frozen = true;
-			this->Column1->HeaderText = L"Дата";
-			this->Column1->Name = L"Column1";
-			this->Column1->ReadOnly = true;
-			this->Column1->Width = 58;
+			resources->ApplyResources(this->Actioin_post, L"Actioin_post");
+			this->Actioin_post->ForeColor = System::Drawing::Color::White;
+			this->Actioin_post->Name = L"Actioin_post";
 			// 
-			// Column2
+			// view_post
 			// 
-			this->Column2->Frozen = true;
-			this->Column2->HeaderText = L"Название";
-			this->Column2->Name = L"Column2";
-			this->Column2->ReadOnly = true;
-			this->Column2->Width = 82;
+			resources->ApplyResources(this->view_post, L"view_post");
+			this->view_post->ForeColor = System::Drawing::Color::White;
+			this->view_post->Name = L"view_post";
 			// 
-			// Column3
+			// Continuity_post
 			// 
-			this->Column3->Frozen = true;
-			this->Column3->HeaderText = L"Описание";
-			this->Column3->Name = L"Column3";
-			this->Column3->ReadOnly = true;
-			this->Column3->Width = 82;
+			resources->ApplyResources(this->Continuity_post, L"Continuity_post");
+			this->Continuity_post->ForeColor = System::Drawing::Color::White;
+			this->Continuity_post->Name = L"Continuity_post";
 			// 
-			// Column4
+			// Text_post
 			// 
-			this->Column4->Frozen = true;
-			this->Column4->HeaderText = L"Текст";
-			this->Column4->Name = L"Column4";
-			this->Column4->ReadOnly = true;
-			this->Column4->Width = 62;
+			resources->ApplyResources(this->Text_post, L"Text_post");
+			this->Text_post->ForeColor = System::Drawing::Color::White;
+			this->Text_post->Name = L"Text_post";
 			// 
-			// Column5
+			// About_post
 			// 
-			this->Column5->Frozen = true;
-			this->Column5->HeaderText = L"Сценарий";
-			this->Column5->Name = L"Column5";
-			this->Column5->ReadOnly = true;
-			this->Column5->Width = 81;
+			resources->ApplyResources(this->About_post, L"About_post");
+			this->About_post->ForeColor = System::Drawing::Color::White;
+			this->About_post->Name = L"About_post";
 			// 
-			// Column6
+			// Name_post
 			// 
-			this->Column6->Frozen = true;
-			this->Column6->HeaderText = L"Вид медиа";
-			this->Column6->Name = L"Column6";
-			this->Column6->ReadOnly = true;
-			this->Column6->Width = 86;
+			resources->ApplyResources(this->Name_post, L"Name_post");
+			this->Name_post->ForeColor = System::Drawing::Color::White;
+			this->Name_post->Name = L"Name_post";
+			// 
+			// Number_post
+			// 
+			resources->ApplyResources(this->Number_post, L"Number_post");
+			this->Number_post->ForeColor = System::Drawing::Color::White;
+			this->Number_post->Name = L"Number_post";
+			// 
+			// Date_post
+			// 
+			resources->ApplyResources(this->Date_post, L"Date_post");
+			this->Date_post->ForeColor = System::Drawing::Color::White;
+			this->Date_post->Name = L"Date_post";
 			// 
 			// MyForm
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			this->ClientSize = System::Drawing::Size(871, 439);
 			this->Controls->Add(this->Panel_New_post);
-			this->Controls->Add(this->dataGridView);
 			this->Controls->Add(this->button_New_post);
+			this->Controls->Add(this->Table_post);
 			this->Name = L"MyForm";
-			this->Text = L"MyForm";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->Panel_New_post->ResumeLayout(false);
 			this->Panel_New_post->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView))->EndInit();
+			this->Table_post->ResumeLayout(false);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -445,12 +367,89 @@ namespace Project {
 		String^ text = textBox_Text_New_post->Text;
 		String^ continuity = textBox_Continuity_new_post->Text;
 		String^ media = Swith_view_media->Text;
-		this->dataGridView->Rows->Add(date, name, about, text, continuity, media);
+
+		int newRow = this->Table_post->RowCount;
+		this->Table_post->RowCount = newRow + 1;
+		this->Table_post->RowStyles->Add(gcnew RowStyle(SizeType::Absolute, 80));
+
+		Label^ lblIndex = gcnew Label();
+		lblIndex->Text = (postCounter + 1).ToString();
+		lblIndex->ForeColor = Color::White;
+		lblIndex->BackColor = Color::Transparent;
+		lblIndex->TextAlign = ContentAlignment::MiddleCenter;
+		lblIndex->Dock = DockStyle::Fill;
+		lblIndex->Margin = System::Windows::Forms::Padding(8);
+
+		Label^ lblDate = gcnew Label();
+		lblDate->Text = date;
+		lblDate->ForeColor = Color::White;
+		lblDate->BackColor = Color::Transparent;
+		lblDate->TextAlign = ContentAlignment::MiddleCenter;
+		lblDate->Dock = DockStyle::Fill;
+		lblDate->AutoEllipsis = true;
+
+		Label^ lblName = gcnew Label();
+		lblName->Text = name;
+		lblName->ForeColor = Color::White;
+		lblName->BackColor = Color::Transparent;
+		lblName->TextAlign = ContentAlignment::MiddleCenter;
+		lblName->Dock = DockStyle::Fill;
+		lblName->AutoEllipsis = true;
+
+		Label^ lblAbout = gcnew Label();
+		lblAbout->Text = about;
+		lblAbout->ForeColor = Color::White;
+		lblAbout->BackColor = Color::Transparent;
+		lblAbout->TextAlign = ContentAlignment::MiddleCenter;
+		lblAbout->Dock = DockStyle::Fill;
+		lblAbout->AutoEllipsis = true;
+
+		Label^ lblText = gcnew Label();
+		lblText->Text = text;
+		lblText->ForeColor = Color::White;
+		lblText->BackColor = Color::Transparent;
+		lblText->TextAlign = ContentAlignment::MiddleCenter;
+		lblText->Dock = DockStyle::Fill;
+		lblText->AutoEllipsis = true;
+
+		Label^ lblContinuity = gcnew Label();
+		lblContinuity->Text = continuity;
+		lblContinuity->ForeColor = Color::White;
+		lblContinuity->BackColor = Color::Transparent;
+		lblContinuity->TextAlign = ContentAlignment::MiddleCenter;
+		lblContinuity->Dock = DockStyle::Fill;
+		lblContinuity->AutoEllipsis = true;
+
+		Label^ lblMedia = gcnew Label();
+		lblMedia->Text = media;
+		lblMedia->ForeColor = Color::White;
+		lblMedia->BackColor = Color::Transparent;
+		lblMedia->TextAlign = ContentAlignment::MiddleCenter;
+		lblMedia->Dock = DockStyle::Fill;
+		lblMedia->AutoEllipsis = true;
+
+		Label^ lblAction = gcnew Label();
+		lblAction->Controls->Add(gcnew Button());
+		lblMedia->TextAlign = ContentAlignment::MiddleCenter;
+		lblMedia->Dock = DockStyle::Fill;
+
+		this->Table_post->Controls->Add(lblIndex, 0, newRow);
+		this->Table_post->Controls->Add(lblDate, 1, newRow);
+		this->Table_post->Controls->Add(lblName, 2, newRow);
+		this->Table_post->Controls->Add(lblAbout, 3, newRow);
+		this->Table_post->Controls->Add(lblText, 4, newRow);
+		this->Table_post->Controls->Add(lblContinuity, 5, newRow);
+		this->Table_post->Controls->Add(lblMedia, 6, newRow);
+		this->Table_post->Controls->Add(lblAction, 7, newRow);
+		postCounter++;
 		Panel_New_post->Visible = false;
 		Textbox_Name_new_post->Clear();
 		Textbox_About_new_post->Clear();
 		textBox_Text_New_post->Clear();
 		textBox_Continuity_new_post->Clear();
+		Swith_view_media->Text = L"РќРёС‡РµРіРѕ";
 	};
+	private: System::Void Panel_New_post_Enter(System::Object^ sender, System::EventArgs^ e) {
 	}
+}
 	; }
