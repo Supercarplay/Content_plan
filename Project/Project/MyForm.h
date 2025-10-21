@@ -8,9 +8,10 @@ namespace Project {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Data::OleDb;
 
 	/// <summary>
-	/// Сводка для MyForm
+	/// РЎРІРѕРґРєР° РґР»СЏ MyForm
 	/// </summary>
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
@@ -18,14 +19,12 @@ namespace Project {
 		MyForm(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: добавьте код конструктора
-			//
+
 		}
 
 	protected:
 		/// <summary>
-		/// Освободить все используемые ресурсы.
+		/// РћСЃРІРѕР±РѕРґРёС‚СЊ РІСЃРµ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ СЂРµСЃСѓСЂСЃС‹.
 		/// </summary>
 		~MyForm()
 		{
@@ -52,7 +51,6 @@ namespace Project {
 	private: System::Windows::Forms::Label^ Text_New_post;
 	private: System::Windows::Forms::Button^ Generation_Continuity_new_post;
 
-
 	private: System::Windows::Forms::Button^ generation_text_post;
 
 	private: System::Windows::Forms::TextBox^ textBox_Continuity_new_post;
@@ -66,6 +64,7 @@ namespace Project {
 	private: System::Windows::Forms::Label^ Number_post;
 
 	private: int postCounter = 0;
+	private: String^ connString;
 	private: System::Windows::Forms::Label^ Date_post;
 	private: System::Windows::Forms::Label^ Text_post;
 
@@ -75,9 +74,7 @@ namespace Project {
 	private: System::Windows::Forms::Label^ view_post;
 	private: System::Windows::Forms::Label^ Actioin_post;
 
-
 	protected:
-
 
 	protected:
 
@@ -85,14 +82,14 @@ namespace Project {
 
 	private:
 		/// <summary>
-		/// Обязательная переменная конструктора.
+		/// РћР±СЏР·Р°С‚РµР»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°.
 		/// </summary>
 		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Требуемый метод для поддержки конструктора — не изменяйте 
-		/// содержимое этого метода с помощью редактора кода.
+		/// РўСЂРµР±СѓРµРјС‹Р№ РјРµС‚РѕРґ РґР»СЏ РїРѕРґРґРµСЂР¶РєРё РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° вЂ” РЅРµ РёР·РјРµРЅСЏР№С‚Рµ 
+		/// СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РѕРіРѕ РјРµС‚РѕРґР° СЃ РїРѕРјРѕС‰СЊСЋ СЂРµРґР°РєС‚РѕСЂР° РєРѕРґР°.
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -156,7 +153,6 @@ namespace Project {
 			this->Panel_New_post->Name = L"Panel_New_post";
 			this->Panel_New_post->TabStop = false;
 			this->Panel_New_post->Tag = L"New_post";
-			this->Panel_New_post->Enter += gcnew System::EventHandler(this, &MyForm::Panel_New_post_Enter);
 			// 
 			// Save_button
 			// 
@@ -359,6 +355,51 @@ namespace Project {
 		Panel_New_post->Visible = true;
 	}
 
+	private: void RemoveRow(int rowIndex) {
+		if (rowIndex <= 0 || rowIndex >= this->Table_post->RowCount) return;
+		array<Control^>^ controlsArray = gcnew array<Control^>(this->Table_post->Controls->Count);
+		this->Table_post->Controls->CopyTo(controlsArray, 0);
+		for each(Control ^ c in controlsArray) {
+			TableLayoutPanelCellPosition pos = this->Table_post->GetPositionFromControl(c);
+			if (pos.Row == rowIndex) {
+				this->Table_post->Controls->Remove(c);
+				delete c;
+			}
+		}
+		controlsArray = gcnew array<Control^>(this->Table_post->Controls->Count);
+		this->Table_post->Controls->CopyTo(controlsArray, 0);
+		for each(Control ^ c in controlsArray) {
+			TableLayoutPanelCellPosition pos = this->Table_post->GetPositionFromControl(c);
+			if (pos.Row > rowIndex) {
+				this->Table_post->SetRow(c, pos.Row - 1);
+			}
+		}
+		int lastRowIndex = this->Table_post->RowCount - 1;
+		if (lastRowIndex >= 1) {
+			this->Table_post->RowCount = this->Table_post->RowCount - 1;
+			if (this->Table_post->RowStyles->Count > lastRowIndex)
+				this->Table_post->RowStyles->RemoveAt(lastRowIndex);
+		}
+		if (postCounter > 0) postCounter--;
+		controlsArray = gcnew array<Control^>(this->Table_post->Controls->Count);
+		this->Table_post->Controls->CopyTo(controlsArray, 0);
+		for each(Control ^ c in controlsArray) {
+			TableLayoutPanelCellPosition pos = this->Table_post->GetPositionFromControl(c);
+			if (pos.Column == 0 && pos.Row > 0) {
+				Label^ lbl = dynamic_cast<Label^>(c);
+				if (lbl != nullptr) {
+					lbl->Text = System::Convert::ToString(pos.Row);
+				}
+			}
+		}
+	}
+	private: System::Void DeleteButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		Button^ btn = safe_cast<Button^>(sender);
+		Control^ parentForPosition = btn->Parent;
+		TableLayoutPanelCellPosition pos = this->Table_post->GetPositionFromControl(parentForPosition);
+		int row = pos.Row;
+		RemoveRow(row);
+	}
 
 	private: System::Void Save_button_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ date = Swith_date_new_post->Value.ToShortDateString();
@@ -370,7 +411,7 @@ namespace Project {
 
 		int newRow = this->Table_post->RowCount;
 		this->Table_post->RowCount = newRow + 1;
-		this->Table_post->RowStyles->Add(gcnew RowStyle(SizeType::Absolute, 80));
+		this->Table_post->RowStyles->Add(gcnew RowStyle(SizeType::AutoSize));
 
 		Label^ lblIndex = gcnew Label();
 		lblIndex->Text = (postCounter + 1).ToString();
@@ -428,10 +469,21 @@ namespace Project {
 		lblMedia->Dock = DockStyle::Fill;
 		lblMedia->AutoEllipsis = true;
 
-		Label^ lblAction = gcnew Label();
-		lblAction->Controls->Add(gcnew Button());
-		lblMedia->TextAlign = ContentAlignment::MiddleCenter;
-		lblMedia->Dock = DockStyle::Fill;
+		Panel^ actionPanel = gcnew Panel();
+		actionPanel->Dock = DockStyle::Fill;
+
+		Button^ btnDelete = gcnew Button();
+		btnDelete->Text = L"РЈРґР°Р»РёС‚СЊ";
+		btnDelete->AutoSize = true;
+		btnDelete->Anchor = static_cast<AnchorStyles>(AnchorStyles::None);
+		btnDelete->Click += gcnew System::EventHandler(this, &MyForm::DeleteButton_Click);
+		
+		btnDelete->Margin = System::Windows::Forms::Padding(10000);
+		btnDelete->Font = gcnew System::Drawing::Font(L"Times New Roman", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(204));
+		btnDelete->BackColor = Color::Red;
+
+		actionPanel->Controls->Add(btnDelete);
 
 		this->Table_post->Controls->Add(lblIndex, 0, newRow);
 		this->Table_post->Controls->Add(lblDate, 1, newRow);
@@ -440,16 +492,15 @@ namespace Project {
 		this->Table_post->Controls->Add(lblText, 4, newRow);
 		this->Table_post->Controls->Add(lblContinuity, 5, newRow);
 		this->Table_post->Controls->Add(lblMedia, 6, newRow);
-		this->Table_post->Controls->Add(lblAction, 7, newRow);
+		this->Table_post->Controls->Add(actionPanel, 7, newRow);
+
 		postCounter++;
 		Panel_New_post->Visible = false;
 		Textbox_Name_new_post->Clear();
 		Textbox_About_new_post->Clear();
 		textBox_Text_New_post->Clear();
 		textBox_Continuity_new_post->Clear();
-		Swith_view_media->Text = L"Ничего";
+		Swith_view_media->Text = gcnew System::String(L"РќРёС‡РµРіРѕ");
 	};
-	private: System::Void Panel_New_post_Enter(System::Object^ sender, System::EventArgs^ e) {
-	}
 }
-	; }
+	;}
