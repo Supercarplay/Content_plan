@@ -135,6 +135,7 @@
     <EmbeddedResource Include="MyForm.ru.resx">
       <DependentUpon>MyForm.h</DependentUpon>
       <SubType>Designer</SubType>
+      <DeploymentContent>false</DeploymentContent>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

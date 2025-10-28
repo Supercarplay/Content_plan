@@ -999,6 +999,9 @@
   <data name="Table_post.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="Actioin_post" Row="0" RowSpan="1" Column="7" ColumnSpan="1" /&gt;&lt;Control Name="view_post" Row="0" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="Continuity_post" Row="0" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="Text_post" Row="0" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="About_post" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="Name_post" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="Number_post" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="Date_post" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Absolute,35,Percent,16,66667,Percent,16,66667,Percent,16,66667,Percent,16,66667,Percent,16,66667,Percent,16,66667,Absolute,145" /&gt;&lt;Rows Styles="Absolute,35,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>ru</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -1009,7 +1012,7 @@
     <value>871, 448</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>MyForm</value>
+    <value>Создание и отслеживание контент плана</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MyForm</value>

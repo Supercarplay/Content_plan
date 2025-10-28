@@ -11,20 +11,27 @@ namespace Project {
 	using namespace System::Data::OleDb;
 
 	/// <summary>
-	/// РЎРІРѕРґРєР° РґР»СЏ MyForm
+	/// Сводка для MyForm
 	/// </summary>
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
+
+	public:
+		static String^ connectString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=database_post.accdb;";
+	private: 
+		OleDbConnection^ DBconnection;
 	public:
 		MyForm(void)
 		{
 			InitializeComponent();
-
+			String^ dbPath = System::IO::Path::Combine(Application::StartupPath, "database_post.accdb");
+			connectString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + dbPath + ";Persist Security Info=False;";
+			DBconnection = gcnew OleDbConnection(connectString);
 		}
 
 	protected:
 		/// <summary>
-		/// РћСЃРІРѕР±РѕРґРёС‚СЊ РІСЃРµ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ СЂРµСЃСѓСЂСЃС‹.
+		/// Освободить все используемые ресурсы.
 		/// </summary>
 		~MyForm()
 		{
@@ -64,7 +71,6 @@ namespace Project {
 	private: System::Windows::Forms::Label^ Number_post;
 
 	private: int postCounter = 0;
-	private: String^ connString;
 	private: System::Windows::Forms::Label^ Date_post;
 	private: System::Windows::Forms::Label^ Text_post;
 
@@ -82,14 +88,14 @@ namespace Project {
 
 	private:
 		/// <summary>
-		/// РћР±СЏР·Р°С‚РµР»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°.
+		/// Обязательная переменная конструктора.
 		/// </summary>
 		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// РўСЂРµР±СѓРµРјС‹Р№ РјРµС‚РѕРґ РґР»СЏ РїРѕРґРґРµСЂР¶РєРё РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° вЂ” РЅРµ РёР·РјРµРЅСЏР№С‚Рµ 
-		/// СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РѕРіРѕ РјРµС‚РѕРґР° СЃ РїРѕРјРѕС‰СЊСЋ СЂРµРґР°РєС‚РѕСЂР° РєРѕРґР°.
+		/// Требуемый метод для поддержки конструктора — не изменяйте 
+		/// содержимое этого метода с помощью редактора кода.
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -339,6 +345,7 @@ namespace Project {
 			this->Controls->Add(this->button_New_post);
 			this->Controls->Add(this->Table_post);
 			this->Name = L"MyForm";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MyForm::MyForm_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->Panel_New_post->ResumeLayout(false);
 			this->Panel_New_post->PerformLayout();
@@ -349,6 +356,12 @@ namespace Project {
 		}
 #pragma endregion
 	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
+		try {
+			DBconnection->Open();
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show("Ошибка: " + ex->Message);
+		}
 	}
 
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -473,7 +486,7 @@ namespace Project {
 		actionPanel->Dock = DockStyle::Fill;
 
 		Button^ btnDelete = gcnew Button();
-		btnDelete->Text = L"РЈРґР°Р»РёС‚СЊ";
+		btnDelete->Text = L"Удалить";
 		btnDelete->AutoSize = true;
 		btnDelete->Anchor = static_cast<AnchorStyles>(AnchorStyles::None);
 		btnDelete->Click += gcnew System::EventHandler(this, &MyForm::DeleteButton_Click);
@@ -500,7 +513,17 @@ namespace Project {
 		Textbox_About_new_post->Clear();
 		textBox_Text_New_post->Clear();
 		textBox_Continuity_new_post->Clear();
-		Swith_view_media->Text = gcnew System::String(L"РќРёС‡РµРіРѕ");
+		Swith_view_media->Text = gcnew System::String(L"Ничего");
 	};
+
+	private: System::Void MyForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+		try {
+			if (DBconnection != nullptr && DBconnection->State == ConnectionState::Open) {
+				DBconnection->Close();
+			}
+		}
+		catch (System::Exception^) {
+		}
+	}
 }
 	;}
