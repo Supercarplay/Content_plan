@@ -681,6 +681,9 @@
   <data name="Table_post.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
+  <data name="Table_post.ColumnHeadersHeight" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
   <data name="Date_post.HeaderText" xml:space="preserve">
     <value>Дата</value>
   </data>
@@ -718,7 +721,7 @@
     <value>14, 67</value>
   </data>
   <data name="Table_post.Size" type="System.Drawing.Size, System.Drawing">
-    <value>982, 10000</value>
+    <value>982, 500</value>
   </data>
   <data name="Table_post.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>

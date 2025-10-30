@@ -59,6 +59,18 @@ namespace Project {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 	private:
 		OleDbConnection^ DBconnection;
 	public:
@@ -69,7 +81,10 @@ namespace Project {
 			connectString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + dbPath + ";Persist Security Info=False;";
 			DBconnection = gcnew OleDbConnection(connectString);
 			this->AutoScroll = true;
-
+			Table_post->RowHeadersVisible = false;
+			Table_post->GridColor = System::Drawing::Color::White;
+			Table_post->CellBorderStyle = DataGridViewCellBorderStyle::Single;
+			DBconnection->Open();
 		}
 	protected:
 		/// <summary>
@@ -105,6 +120,9 @@ namespace Project {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->button_New_post = (gcnew System::Windows::Forms::Button());
 			this->Name_new_post = (gcnew System::Windows::Forms::Label());
 			this->Textbox_Name_new_post = (gcnew System::Windows::Forms::TextBox());
@@ -281,52 +299,85 @@ namespace Project {
 			this->Table_post->AllowUserToAddRows = false;
 			this->Table_post->AllowUserToDeleteRows = false;
 			resources->ApplyResources(this->Table_post, L"Table_post");
+			this->Table_post->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::AllCells;
 			this->Table_post->BackgroundColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			this->Table_post->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->Table_post->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			dataGridViewCellStyle1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
+				static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Times New Roman", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			dataGridViewCellStyle1->ForeColor = System::Drawing::Color::White;
+			dataGridViewCellStyle1->Padding = System::Windows::Forms::Padding(5);
+			dataGridViewCellStyle1->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->Table_post->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			this->Table_post->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::DisableResizing;
 			this->Table_post->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(6) {
 				this->Date_post,
 					this->name_post, this->About_post, this->Text_post, this->Scencens_post, this->ViewMedia_post
 			});
+			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle2->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
+				static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
+			dataGridViewCellStyle2->ForeColor = System::Drawing::Color::White;
+			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->Table_post->DefaultCellStyle = dataGridViewCellStyle2;
 			this->Table_post->GridColor = System::Drawing::Color::Black;
 			this->Table_post->Name = L"Table_post";
 			this->Table_post->ReadOnly = true;
+			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->Table_post->RowsDefaultCellStyle = dataGridViewCellStyle3;
 			// 
 			// Date_post
 			// 
 			resources->ApplyResources(this->Date_post, L"Date_post");
 			this->Date_post->Name = L"Date_post";
 			this->Date_post->ReadOnly = true;
+			this->Date_post->Resizable = System::Windows::Forms::DataGridViewTriState::False;
 			// 
 			// name_post
 			// 
 			resources->ApplyResources(this->name_post, L"name_post");
 			this->name_post->Name = L"name_post";
 			this->name_post->ReadOnly = true;
+			this->name_post->Resizable = System::Windows::Forms::DataGridViewTriState::False;
 			// 
 			// About_post
 			// 
 			resources->ApplyResources(this->About_post, L"About_post");
 			this->About_post->Name = L"About_post";
 			this->About_post->ReadOnly = true;
+			this->About_post->Resizable = System::Windows::Forms::DataGridViewTriState::False;
 			// 
 			// Text_post
 			// 
 			resources->ApplyResources(this->Text_post, L"Text_post");
 			this->Text_post->Name = L"Text_post";
 			this->Text_post->ReadOnly = true;
+			this->Text_post->Resizable = System::Windows::Forms::DataGridViewTriState::False;
 			// 
 			// Scencens_post
 			// 
 			resources->ApplyResources(this->Scencens_post, L"Scencens_post");
 			this->Scencens_post->Name = L"Scencens_post";
 			this->Scencens_post->ReadOnly = true;
+			this->Scencens_post->Resizable = System::Windows::Forms::DataGridViewTriState::False;
 			// 
 			// ViewMedia_post
 			// 
 			resources->ApplyResources(this->ViewMedia_post, L"ViewMedia_post");
 			this->ViewMedia_post->Name = L"ViewMedia_post";
 			this->ViewMedia_post->ReadOnly = true;
+			this->ViewMedia_post->Resizable = System::Windows::Forms::DataGridViewTriState::False;
 			// 
 			// MyForm
 			// 
@@ -350,13 +401,11 @@ namespace Project {
 #pragma endregion
 	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
 		Table_post->AutoGenerateColumns = false;
-
-		try {
-			DBconnection->Open();
-		}
-		catch (Exception^ ex) {
-			MessageBox::Show("Ошибка: " + ex->Message);
-		}
+		Date_post->AutoSizeMode = DataGridViewAutoSizeColumnMode::None;
+		Date_post->Width = 100;
+		ViewMedia_post->AutoSizeMode = DataGridViewAutoSizeColumnMode::None;
+		ViewMedia_post->Width = 100;
+		
 		String^ query = "SELECT [Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post] FROM TablePost ORDER BY [Date_post]";
 		OleDbCommand^ command = gcnew OleDbCommand(query, DBconnection);
 		OleDbDataAdapter^ adapter = gcnew OleDbDataAdapter(command);
@@ -374,7 +423,9 @@ namespace Project {
 		Table_post->AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode::Fill;
 		Table_post->DefaultCellStyle->WrapMode = DataGridViewTriState::True;
 		Table_post->AutoSizeRowsMode = DataGridViewAutoSizeRowsMode::AllCells;
-
+		for each (DataGridViewColumn ^ col in Table_post->Columns) {
+			col->SortMode = DataGridViewColumnSortMode::NotSortable;
+		}
 	}
 
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -395,7 +446,9 @@ namespace Project {
 
 			OleDbCommand^ cmd = gcnew OleDbCommand(insertQuery, DBconnection);
 
-			cmd->Parameters->AddWithValue("@Date_post", Swith_date_new_post->Value);
+			DateTime selectedDate = Swith_date_new_post->Value;
+			DateTime dateAt9AM = selectedDate.Date + TimeSpan(9, 0, 0);
+			cmd->Parameters->AddWithValue("@Date_post", dateAt9AM);
 			cmd->Parameters->AddWithValue("@name_post", Textbox_Name_new_post->Text);
 			Object^ aboutValue = String::IsNullOrWhiteSpace(Textbox_About_new_post->Text)
 				? static_cast<Object^>(DBNull::Value)
