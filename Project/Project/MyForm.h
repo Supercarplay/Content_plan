@@ -668,8 +668,8 @@ namespace Project {
 		int deleteColIndex = Table_post->Columns["DeleteButton"]->Index;
 
 		if (e->ColumnIndex == editColIndex) {
+			
 			DataGridViewRow^ row = Table_post->Rows[e->RowIndex];
-
 			Object^ idObj = row->Cells["ID"]->Value;
 			if (idObj == nullptr || idObj == DBNull::Value) {
 				MessageBox::Show("Не удалось загрузить ID записи.", "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
@@ -703,6 +703,7 @@ namespace Project {
 					}
 				}
 			}
+			Edit_post->Visible = true;
 		}
 		else if (e->ColumnIndex == deleteColIndex) {
 			String^ postName = safe_cast<String^>(Table_post->Rows[e->RowIndex]->Cells["name_post"]->Value);
@@ -726,7 +727,7 @@ namespace Project {
 				}
 			}
 		}
-		Edit_post->Visible = true;
+		
 	}
 private: System::Void Save_editbutton_Click(System::Object^ sender, System::EventArgs^ e) {
 	try {
