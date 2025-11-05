@@ -36,43 +36,37 @@ namespace Project {
 	private: System::Windows::Forms::Button^ Save_button;
 	private: System::Windows::Forms::GroupBox^ Panel_New_post;
 	private: System::Windows::Forms::DataGridView^ Table_post;
+	private: System::Windows::Forms::GroupBox^ Edit_post;
+	private: System::Windows::Forms::Button^ Save_editbutton;
+	private: System::Windows::Forms::TextBox^ Continuity_Edit_post;
+	private: System::Windows::Forms::TextBox^ text_Edit_post;
+	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::Label^ label2;
+	private: System::Windows::Forms::ComboBox^ View_media_Edit;
+	private: System::Windows::Forms::Label^ label3;
+	private: System::Windows::Forms::DateTimePicker^ dateTimePicker_Editpost;
+	private: System::Windows::Forms::Label^ label4;
+	private: System::Windows::Forms::TextBox^ About_Edit_post;
+	private: System::Windows::Forms::Label^ label5;
+	private: System::Windows::Forms::TextBox^ Name_Edit_post;
+	private: System::Windows::Forms::Label^ label6;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ID;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Date_post;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ name_post;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ About_post;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Text_post;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Scencens_post;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ViewMedia_post;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	private: System::Windows::Forms::DataGridViewButtonColumn^ EditButton;
+	private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 
 
 
 
 	private:
 		OleDbConnection^ DBconnection;
+	private:
+		int currentEditPostID;
 	public:
 		MyForm(void)
 		{
@@ -140,14 +134,32 @@ namespace Project {
 			this->Generation_Continuity_new_post = (gcnew System::Windows::Forms::Button());
 			this->Save_button = (gcnew System::Windows::Forms::Button());
 			this->Panel_New_post = (gcnew System::Windows::Forms::GroupBox());
+			this->Edit_post = (gcnew System::Windows::Forms::GroupBox());
+			this->Save_editbutton = (gcnew System::Windows::Forms::Button());
+			this->Continuity_Edit_post = (gcnew System::Windows::Forms::TextBox());
+			this->text_Edit_post = (gcnew System::Windows::Forms::TextBox());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->View_media_Edit = (gcnew System::Windows::Forms::ComboBox());
+			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->dateTimePicker_Editpost = (gcnew System::Windows::Forms::DateTimePicker());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->About_Edit_post = (gcnew System::Windows::Forms::TextBox());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->Name_Edit_post = (gcnew System::Windows::Forms::TextBox());
+			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->Table_post = (gcnew System::Windows::Forms::DataGridView());
+			this->ID = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Date_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->name_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->About_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Text_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Scencens_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->ViewMedia_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->EditButton = (gcnew System::Windows::Forms::DataGridViewButtonColumn());
+			this->DeleteButton = (gcnew System::Windows::Forms::DataGridViewButtonColumn());
 			this->Panel_New_post->SuspendLayout();
+			this->Edit_post->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Table_post))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -294,6 +306,126 @@ namespace Project {
 			this->Panel_New_post->TabStop = false;
 			this->Panel_New_post->Tag = L"New_post";
 			// 
+			// Edit_post
+			// 
+			resources->ApplyResources(this->Edit_post, L"Edit_post");
+			this->Edit_post->Controls->Add(this->Save_editbutton);
+			this->Edit_post->Controls->Add(this->Continuity_Edit_post);
+			this->Edit_post->Controls->Add(this->text_Edit_post);
+			this->Edit_post->Controls->Add(this->label1);
+			this->Edit_post->Controls->Add(this->label2);
+			this->Edit_post->Controls->Add(this->View_media_Edit);
+			this->Edit_post->Controls->Add(this->label3);
+			this->Edit_post->Controls->Add(this->dateTimePicker_Editpost);
+			this->Edit_post->Controls->Add(this->label4);
+			this->Edit_post->Controls->Add(this->About_Edit_post);
+			this->Edit_post->Controls->Add(this->label5);
+			this->Edit_post->Controls->Add(this->Name_Edit_post);
+			this->Edit_post->Controls->Add(this->label6);
+			this->Edit_post->ForeColor = System::Drawing::Color::White;
+			this->Edit_post->Name = L"Edit_post";
+			this->Edit_post->TabStop = false;
+			this->Edit_post->Tag = L"Edit_post";
+			// 
+			// Save_editbutton
+			// 
+			resources->ApplyResources(this->Save_editbutton, L"Save_editbutton");
+			this->Save_editbutton->ForeColor = System::Drawing::Color::Black;
+			this->Save_editbutton->Name = L"Save_editbutton";
+			this->Save_editbutton->UseVisualStyleBackColor = true;
+			this->Save_editbutton->Click += gcnew System::EventHandler(this, &MyForm::Save_editbutton_Click);
+			// 
+			// Continuity_Edit_post
+			// 
+			this->Continuity_Edit_post->AcceptsReturn = true;
+			this->Continuity_Edit_post->AcceptsTab = true;
+			resources->ApplyResources(this->Continuity_Edit_post, L"Continuity_Edit_post");
+			this->Continuity_Edit_post->BackColor = System::Drawing::Color::Gray;
+			this->Continuity_Edit_post->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->Continuity_Edit_post->ForeColor = System::Drawing::Color::White;
+			this->Continuity_Edit_post->Name = L"Continuity_Edit_post";
+			this->Continuity_Edit_post->Tag = L"Name_Project";
+			// 
+			// text_Edit_post
+			// 
+			this->text_Edit_post->AcceptsReturn = true;
+			this->text_Edit_post->AcceptsTab = true;
+			resources->ApplyResources(this->text_Edit_post, L"text_Edit_post");
+			this->text_Edit_post->BackColor = System::Drawing::Color::Gray;
+			this->text_Edit_post->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->text_Edit_post->ForeColor = System::Drawing::Color::White;
+			this->text_Edit_post->Name = L"text_Edit_post";
+			this->text_Edit_post->Tag = L"Name_Project";
+			// 
+			// label1
+			// 
+			resources->ApplyResources(this->label1, L"label1");
+			this->label1->Name = L"label1";
+			// 
+			// label2
+			// 
+			resources->ApplyResources(this->label2, L"label2");
+			this->label2->Name = L"label2";
+			// 
+			// View_media_Edit
+			// 
+			resources->ApplyResources(this->View_media_Edit, L"View_media_Edit");
+			this->View_media_Edit->FormattingEnabled = true;
+			this->View_media_Edit->Items->AddRange(gcnew cli::array< System::Object^  >(3) {
+				resources->GetString(L"View_media_Edit.Items"),
+					resources->GetString(L"View_media_Edit.Items1"), resources->GetString(L"View_media_Edit.Items2")
+			});
+			this->View_media_Edit->Name = L"View_media_Edit";
+			// 
+			// label3
+			// 
+			resources->ApplyResources(this->label3, L"label3");
+			this->label3->Name = L"label3";
+			// 
+			// dateTimePicker_Editpost
+			// 
+			resources->ApplyResources(this->dateTimePicker_Editpost, L"dateTimePicker_Editpost");
+			this->dateTimePicker_Editpost->MinDate = System::DateTime(2000, 1, 1, 0, 0, 0, 0);
+			this->dateTimePicker_Editpost->Name = L"dateTimePicker_Editpost";
+			// 
+			// label4
+			// 
+			resources->ApplyResources(this->label4, L"label4");
+			this->label4->Name = L"label4";
+			// 
+			// About_Edit_post
+			// 
+			this->About_Edit_post->AcceptsReturn = true;
+			this->About_Edit_post->AcceptsTab = true;
+			resources->ApplyResources(this->About_Edit_post, L"About_Edit_post");
+			this->About_Edit_post->BackColor = System::Drawing::Color::Gray;
+			this->About_Edit_post->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->About_Edit_post->ForeColor = System::Drawing::Color::White;
+			this->About_Edit_post->Name = L"About_Edit_post";
+			this->About_Edit_post->Tag = L"Name_Project";
+			// 
+			// label5
+			// 
+			resources->ApplyResources(this->label5, L"label5");
+			this->label5->Name = L"label5";
+			// 
+			// Name_Edit_post
+			// 
+			this->Name_Edit_post->AcceptsReturn = true;
+			this->Name_Edit_post->AcceptsTab = true;
+			resources->ApplyResources(this->Name_Edit_post, L"Name_Edit_post");
+			this->Name_Edit_post->BackColor = System::Drawing::Color::Gray;
+			this->Name_Edit_post->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->Name_Edit_post->ForeColor = System::Drawing::Color::White;
+			this->Name_Edit_post->Name = L"Name_Edit_post";
+			this->Name_Edit_post->Tag = L"Name_Project";
+			// 
+			// label6
+			// 
+			resources->ApplyResources(this->label6, L"label6");
+			this->label6->ForeColor = System::Drawing::Color::White;
+			this->label6->Name = L"label6";
+			// 
 			// Table_post
 			// 
 			this->Table_post->AllowUserToAddRows = false;
@@ -306,8 +438,7 @@ namespace Project {
 			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
 			dataGridViewCellStyle1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Times New Roman", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
+			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
 			dataGridViewCellStyle1->ForeColor = System::Drawing::Color::White;
 			dataGridViewCellStyle1->Padding = System::Windows::Forms::Padding(5);
 			dataGridViewCellStyle1->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
@@ -316,9 +447,9 @@ namespace Project {
 			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
 			this->Table_post->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
 			this->Table_post->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::DisableResizing;
-			this->Table_post->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(6) {
-				this->Date_post,
-					this->name_post, this->About_post, this->Text_post, this->Scencens_post, this->ViewMedia_post
+			this->Table_post->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(9) {
+				this->ID, this->Date_post,
+					this->name_post, this->About_post, this->Text_post, this->Scencens_post, this->ViewMedia_post, this->EditButton, this->DeleteButton
 			});
 			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
 			dataGridViewCellStyle2->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
@@ -336,6 +467,13 @@ namespace Project {
 			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->Table_post->RowsDefaultCellStyle = dataGridViewCellStyle3;
+			this->Table_post->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::Table_post_CellContentClick);
+			// 
+			// ID
+			// 
+			resources->ApplyResources(this->ID, L"ID");
+			this->ID->Name = L"ID";
+			this->ID->ReadOnly = true;
 			// 
 			// Date_post
 			// 
@@ -379,12 +517,25 @@ namespace Project {
 			this->ViewMedia_post->ReadOnly = true;
 			this->ViewMedia_post->Resizable = System::Windows::Forms::DataGridViewTriState::False;
 			// 
+			// EditButton
+			// 
+			resources->ApplyResources(this->EditButton, L"EditButton");
+			this->EditButton->Name = L"EditButton";
+			this->EditButton->ReadOnly = true;
+			// 
+			// DeleteButton
+			// 
+			resources->ApplyResources(this->DeleteButton, L"DeleteButton");
+			this->DeleteButton->Name = L"DeleteButton";
+			this->DeleteButton->ReadOnly = true;
+			// 
 			// MyForm
 			// 
 			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			this->Controls->Add(this->Edit_post);
 			this->Controls->Add(this->Panel_New_post);
 			this->Controls->Add(this->button_New_post);
 			this->Controls->Add(this->Table_post);
@@ -393,6 +544,8 @@ namespace Project {
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->Panel_New_post->ResumeLayout(false);
 			this->Panel_New_post->PerformLayout();
+			this->Edit_post->ResumeLayout(false);
+			this->Edit_post->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Table_post))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -404,9 +557,19 @@ namespace Project {
 		Date_post->AutoSizeMode = DataGridViewAutoSizeColumnMode::None;
 		Date_post->Width = 100;
 		ViewMedia_post->AutoSizeMode = DataGridViewAutoSizeColumnMode::None;
-		ViewMedia_post->Width = 100;
+		ViewMedia_post->Width = 150;
+
+		EditButton->AutoSizeMode = DataGridViewAutoSizeColumnMode::None;
+		EditButton->Width = 50;
+		EditButton->UseColumnTextForButtonValue = true;
+		EditButton->Text = L"✎";
+
+		DeleteButton->AutoSizeMode = DataGridViewAutoSizeColumnMode::None;
+		DeleteButton->Width = 50;
+				DeleteButton->UseColumnTextForButtonValue = true;
+		DeleteButton->Text = L"✕";
 		
-		String^ query = "SELECT [Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post] FROM TablePost ORDER BY [Date_post]";
+		String^ query = "SELECT [ID], [Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post] FROM TablePost ORDER BY [Date_post]";
 		OleDbCommand^ command = gcnew OleDbCommand(query, DBconnection);
 		OleDbDataAdapter^ adapter = gcnew OleDbDataAdapter(command);
 		DataTable^ dataTable = gcnew DataTable();
@@ -414,6 +577,7 @@ namespace Project {
 		adapter->Fill(dataTable);
 
 		Table_post->DataSource = dataTable;
+		ID->DataPropertyName = "ID";
 		Date_post->DataPropertyName = "Date_post";
 		name_post->DataPropertyName = "name_post";
 		About_post->DataPropertyName = "About_post";
@@ -445,7 +609,6 @@ namespace Project {
 				"VALUES (?, ?, ?, ?, ?, ?)";
 
 			OleDbCommand^ cmd = gcnew OleDbCommand(insertQuery, DBconnection);
-
 			DateTime selectedDate = Swith_date_new_post->Value;
 			DateTime dateAt9AM = selectedDate.Date + TimeSpan(9, 0, 0);
 			cmd->Parameters->AddWithValue("@Date_post", dateAt9AM);
@@ -472,7 +635,6 @@ namespace Project {
 
 			int rowsAffected = cmd->ExecuteNonQuery();
 
-
 			MyForm_Load(sender, e);
 
 			Panel_New_post->Visible = false;
@@ -482,7 +644,7 @@ namespace Project {
 			Textbox_About_new_post->Clear();
 			textBox_Text_New_post->Clear();
 			textBox_Continuity_new_post->Clear();
-			Swith_view_media->SelectedIndex = -1;
+			Swith_view_media->SelectedIndex = 0;
 
 		}
 		catch (Exception^ ex) {
@@ -499,5 +661,121 @@ namespace Project {
 		catch (System::Exception^) {
 		}
 	}
+	private: System::Void Table_post_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+		if (e->RowIndex < 0) return;
+
+		int editColIndex = Table_post->Columns["EditButton"]->Index;
+		int deleteColIndex = Table_post->Columns["DeleteButton"]->Index;
+
+		if (e->ColumnIndex == editColIndex) {
+			DataGridViewRow^ row = Table_post->Rows[e->RowIndex];
+
+			Object^ idObj = row->Cells["ID"]->Value;
+			if (idObj == nullptr || idObj == DBNull::Value) {
+				MessageBox::Show("Не удалось загрузить ID записи.", "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				return;
+			}
+			currentEditPostID = Convert::ToInt32(idObj);
+
+			Object^ dateObj = row->Cells["Date_post"]->Value;
+			Object^ nameObj = row->Cells["name_post"]->Value;
+			Object^ aboutObj = row->Cells["About_post"]->Value;
+			Object^ textObj = row->Cells["Text_post"]->Value;
+			Object^ scencensObj = row->Cells["Scencens_post"]->Value;
+			Object^ mediaObj = row->Cells["ViewMedia_post"]->Value;
+
+			if (dateObj != nullptr && dateObj != DBNull::Value) {
+				dateTimePicker_Editpost->Value = safe_cast<DateTime>(dateObj);
+			}
+
+			Name_Edit_post->Text = (nameObj != nullptr && nameObj != DBNull::Value) ? safe_cast<String^>(nameObj) : "";
+			About_Edit_post->Text = (aboutObj != nullptr && aboutObj != DBNull::Value) ? safe_cast<String^>(aboutObj) : "";
+			text_Edit_post->Text = (textObj != nullptr && textObj != DBNull::Value) ? safe_cast<String^>(textObj) : "";
+			Continuity_Edit_post->Text = (scencensObj != nullptr && scencensObj != DBNull::Value) ? safe_cast<String^>(scencensObj) : "";
+
+			View_media_Edit->SelectedIndex = -1;
+			if (mediaObj != nullptr && mediaObj != DBNull::Value) {
+				String^ mediaStr = safe_cast<String^>(mediaObj);
+				for (int i = 0; i < View_media_Edit->Items->Count; i++) {
+					if (View_media_Edit->Items[i]->ToString() == mediaStr) {
+						View_media_Edit->SelectedIndex = i;
+						break;
+					}
+				}
+			}
+		}
+		else if (e->ColumnIndex == deleteColIndex) {
+			String^ postName = safe_cast<String^>(Table_post->Rows[e->RowIndex]->Cells["name_post"]->Value);
+			System::Windows::Forms::DialogResult res = MessageBox::Show(
+				"Удалить пост \"" + postName + "\"?",
+				"Подтверждение",
+				MessageBoxButtons::YesNo,
+				MessageBoxIcon::Question
+			);
+			if (res == System::Windows::Forms::DialogResult::Yes) {
+				try {
+					String^ deleteQuery = "DELETE FROM TablePost WHERE [ID] = ?";
+					OleDbCommand^ cmd = gcnew OleDbCommand(deleteQuery, DBconnection);
+					int idToDelete = Convert::ToInt32(Table_post->Rows[e->RowIndex]->Cells["ID"]->Value);
+					cmd->Parameters->AddWithValue("@ID", idToDelete);
+					cmd->ExecuteNonQuery();
+					MyForm_Load(this, gcnew System::EventArgs());
+				}
+				catch (Exception^ ex) {
+					MessageBox::Show("Ошибка удаления:\n" + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				}
+			}
+		}
+		Edit_post->Visible = true;
+	}
+private: System::Void Save_editbutton_Click(System::Object^ sender, System::EventArgs^ e) {
+	try {
+		String^ updateQuery = "UPDATE TablePost SET " +
+			"[Date_post] = ?, " +
+			"[name_post] = ?, " +
+			"[About_post] = ?, " +
+			"[Text_post] = ?, " +
+			"[Scencens_post] = ?, " +
+			"[ViewMedia_post] = ? " +
+			"WHERE [ID] = ?";
+
+		OleDbCommand^ cmd = gcnew OleDbCommand(updateQuery, DBconnection);
+		DateTime selectedDate = dateTimePicker_Editpost->Value;
+		DateTime dateAt9AM = selectedDate.Date + TimeSpan(9, 0, 0);
+		cmd->Parameters->AddWithValue("@Date_post", dateAt9AM);
+		cmd->Parameters->AddWithValue("@name_post", Name_Edit_post->Text);
+		Object^ aboutValue = String::IsNullOrWhiteSpace(About_Edit_post->Text)
+			? static_cast<Object^>(DBNull::Value)
+			: safe_cast<Object^>(About_Edit_post->Text);
+		cmd->Parameters->AddWithValue("@About_post", aboutValue);
+		Object^ textValue = String::IsNullOrWhiteSpace(text_Edit_post->Text)
+			? static_cast<Object^>(DBNull::Value)
+			: safe_cast<Object^>(text_Edit_post->Text);
+		cmd->Parameters->AddWithValue("@Text_post", textValue);
+		Object^ scencensValue = String::IsNullOrWhiteSpace(Continuity_Edit_post->Text)
+			? static_cast<Object^>(DBNull::Value)
+			: safe_cast<Object^>(Continuity_Edit_post->Text);
+		cmd->Parameters->AddWithValue("@Scencens_post", scencensValue);
+		Object^ mediaValue = String::IsNullOrWhiteSpace(View_media_Edit->Text) || View_media_Edit->SelectedIndex == -1
+			? static_cast<Object^>(DBNull::Value)
+			: safe_cast<Object^>(View_media_Edit->Text);
+		cmd->Parameters->AddWithValue("@ViewMedia_post", mediaValue);
+		cmd->Parameters->AddWithValue("@ID", currentEditPostID);
+		int rowsAffected = cmd->ExecuteNonQuery();
+
+		if (rowsAffected <= 0) {
+			MessageBox::Show("Не найден пост для обновления.", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		}
+
+		MyForm_Load(this, gcnew System::EventArgs());
+
+		Edit_post->Visible = false;
+		currentEditPostID = 0;
+
+	}
+	catch (Exception^ ex) {
+		MessageBox::Show("Ошибка обновления:\n" + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
+}
 }
 	;}
