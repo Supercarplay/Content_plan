@@ -47,12 +47,6 @@ def get_db_connection():
 def format_post(row):
     id_post, name, about, text, continuity, media = row
 
-    name = html.escape(name) if name else ""
-    about = html.escape(about) if about else ""
-    text = html.escape(text) if text else ""
-    continuity = html.escape(continuity) if continuity else ""
-    media = html.escape(media) if media else ""
-
     msg = f"{text}\n\n"
 
     return msg
