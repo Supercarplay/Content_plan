@@ -8,7 +8,6 @@ import asyncio
 import html
 from pathlib import Path
 
-# Явно указываем путь к .env
 env_path = Path(__file__).parent / "Data.env"
 if not env_path.exists():
     raise FileNotFoundError(f"Файл Data.env не найден по пути: {env_path}")
@@ -16,18 +15,15 @@ if not env_path.exists():
 load_dotenv(env_path)
 print(f"✅ Загружен Data.env из: {env_path}")
 
-# Получаем настройки
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHANNEL_ID = os.getenv("TELEGRAM_CHANNEL_ID")
 DB_PATH = os.getenv("DB_PATH")
 
-# Для отладки — выведите значения
 print("🔍 Загруженные значения:")
 print(f"  TELEGRAM_BOT_TOKEN = {'[скрыто]' if TELEGRAM_BOT_TOKEN else 'None'}")
 print(f"  TELEGRAM_CHANNEL_ID = {TELEGRAM_CHANNEL_ID}")
 print(f"  DB_PATH = {DB_PATH}")
 
-# Проверяем, что всё загружено
 if not TELEGRAM_BOT_TOKEN:
     raise ValueError("Не задан TELEGRAM_BOT_TOKEN в Data.env файле")
 if not TELEGRAM_CHANNEL_ID:
@@ -35,7 +31,7 @@ if not TELEGRAM_CHANNEL_ID:
 if not DB_PATH:
     raise ValueError("Не задан DB_PATH в Data.env файле")
 
-# Проверяем существование файла базы данных
+
 if not os.path.exists(DB_PATH):
     raise FileNotFoundError(f"База данных не найдена по пути: {DB_PATH}")
 
@@ -50,25 +46,7 @@ def get_db_connection():
 
 def format_post(row):
     id_post, name, about, text, continuity, media = row
-
-    # Экранируем HTML-символы для безопасности
-    name = html.escape(name) if name else ""
-    about = html.escape(about) if about else ""
-    text = html.escape(text) if text else ""
-    continuity = html.escape(continuity) if continuity else ""
-    media = html.escape(media) if media else ""
-
-    # Форматируем сообщение (настройте по своему вкусу)
-    msg = f"📌 <b>{name}</b>\n\n"
-    if about:
-        msg += f"ℹ️ <i>{about}</i>\n\n"
-    if text:
-        msg += f"{text}\n\n"
-    if continuity:
-        msg += f"📖 <i>{continuity}</i>\n\n"
-    if media:
-        msg += f"🎥 <b>{media}</b>\n"
-
+    msg = f"{text}\n\n"
     return msg
 
 
@@ -106,7 +84,6 @@ async def publish_unpublished_posts():
                 )
                 print(f"Опубликован пост: {post[1]}")
 
-                # Помечаем как опубликованный
                 conn2 = get_db_connection()
                 cursor2 = conn2.cursor()
                 cursor2.execute("UPDATE TablePost SET [Published] = ? WHERE [ID] = ?", (True, post[0]))
