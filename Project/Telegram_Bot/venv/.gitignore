@@ -1,0 +1,14 @@
+# Секретные файлы
+.env
+
+# Базы данных
+*.accdb
+*.mdb
+
+# Кэш Python
+__pycache__/
+*.pyc
+
+# IDE
+.vscode/
+.idea/
