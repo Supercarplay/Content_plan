@@ -657,6 +657,66 @@
   <data name="Panel_New_post.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="linkFile.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkFile.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Times New Roman, 12pt</value>
+  </data>
+  <data name="linkFile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>187, 310</value>
+  </data>
+  <data name="linkFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>117, 19</value>
+  </data>
+  <data name="linkFile.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="linkFile.Text" xml:space="preserve">
+    <value>Ссылка на файл</value>
+  </data>
+  <data name="&gt;&gt;linkFile.Name" xml:space="preserve">
+    <value>linkFile</value>
+  </data>
+  <data name="&gt;&gt;linkFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkFile.Parent" xml:space="preserve">
+    <value>Panel_New_post</value>
+  </data>
+  <data name="&gt;&gt;linkFile.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="BtnAddFiles.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Times New Roman, 12pt</value>
+  </data>
+  <data name="BtnAddFiles.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BtnAddFiles.Location" type="System.Drawing.Point, System.Drawing">
+    <value>44, 303</value>
+  </data>
+  <data name="BtnAddFiles.Size" type="System.Drawing.Size, System.Drawing">
+    <value>137, 33</value>
+  </data>
+  <data name="BtnAddFiles.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="BtnAddFiles.Text" xml:space="preserve">
+    <value>Добавить файл</value>
+  </data>
+  <data name="&gt;&gt;BtnAddFiles.Name" xml:space="preserve">
+    <value>BtnAddFiles</value>
+  </data>
+  <data name="&gt;&gt;BtnAddFiles.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtnAddFiles.Parent" xml:space="preserve">
+    <value>Panel_New_post</value>
+  </data>
+  <data name="&gt;&gt;BtnAddFiles.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
   <data name="Panel_New_post.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 67</value>
   </data>
@@ -679,10 +739,73 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Panel_New_post.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>1</value>
   </data>
   <data name="Edit_post.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
+  </data>
+  <data name="linkEditFile.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkEditFile.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Times New Roman, 12pt</value>
+  </data>
+  <data name="linkEditFile.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="linkEditFile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>187, 297</value>
+  </data>
+  <data name="linkEditFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>117, 19</value>
+  </data>
+  <data name="linkEditFile.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="linkEditFile.Text" xml:space="preserve">
+    <value>Ссылка на файл</value>
+  </data>
+  <data name="&gt;&gt;linkEditFile.Name" xml:space="preserve">
+    <value>linkEditFile</value>
+  </data>
+  <data name="&gt;&gt;linkEditFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkEditFile.Parent" xml:space="preserve">
+    <value>Edit_post</value>
+  </data>
+  <data name="&gt;&gt;linkEditFile.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="BtnEditFile.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Times New Roman, 12pt</value>
+  </data>
+  <data name="BtnEditFile.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BtnEditFile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>44, 290</value>
+  </data>
+  <data name="BtnEditFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>137, 33</value>
+  </data>
+  <data name="BtnEditFile.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="BtnEditFile.Text" xml:space="preserve">
+    <value>Добавить файл</value>
+  </data>
+  <data name="&gt;&gt;BtnEditFile.Name" xml:space="preserve">
+    <value>BtnEditFile</value>
+  </data>
+  <data name="&gt;&gt;BtnEditFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtnEditFile.Parent" xml:space="preserve">
+    <value>Edit_post</value>
+  </data>
+  <data name="&gt;&gt;BtnEditFile.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="Save_editbutton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -715,7 +838,7 @@
     <value>Edit_post</value>
   </data>
   <data name="&gt;&gt;Save_editbutton.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="Continuity_Edit_post.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -745,7 +868,7 @@
     <value>Edit_post</value>
   </data>
   <data name="&gt;&gt;Continuity_Edit_post.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="text_Edit_post.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -775,7 +898,7 @@
     <value>Edit_post</value>
   </data>
   <data name="&gt;&gt;text_Edit_post.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -811,7 +934,7 @@
     <value>Edit_post</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -847,7 +970,7 @@
     <value>Edit_post</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="View_media_Edit.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -886,7 +1009,7 @@
     <value>Edit_post</value>
   </data>
   <data name="&gt;&gt;View_media_Edit.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -922,7 +1045,7 @@
     <value>Edit_post</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="dateTimePicker_Editpost.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -949,7 +1072,7 @@
     <value>Edit_post</value>
   </data>
   <data name="&gt;&gt;dateTimePicker_Editpost.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="label4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -985,7 +1108,7 @@
     <value>Edit_post</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="About_Edit_post.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -1015,7 +1138,7 @@
     <value>Edit_post</value>
   </data>
   <data name="&gt;&gt;About_Edit_post.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="label5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -1051,7 +1174,7 @@
     <value>Edit_post</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>12</value>
   </data>
   <data name="Name_Edit_post.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -1081,7 +1204,7 @@
     <value>Edit_post</value>
   </data>
   <data name="&gt;&gt;Name_Edit_post.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
   </data>
   <data name="label6.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -1117,10 +1240,10 @@
     <value>Edit_post</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>14</value>
   </data>
   <data name="Edit_post.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 67</value>
+    <value>22, 63</value>
   </data>
   <data name="Edit_post.Size" type="System.Drawing.Size, System.Drawing">
     <value>982, 410</value>
@@ -1141,7 +1264,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Edit_post.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>0</value>
   </data>
   <data name="Table_post.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -1230,7 +1353,7 @@
   <data name="Btnsettings.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DwAACw8BkvkDpQAAAg5JREFUWEfVmTFywjAQRTkCR8itXJLhAuEG5BSu6SmSxrRwE/c0adxv5geLaNa7
+        DAAACwwBP0AiyAAAAg5JREFUWEfVmTFywjAQRTkCR8itXJLhAuEG5BSu6SmSxrRwE/c0adxv5geLaNa7
         0q6RjXkzO0xkpH0ISSM2q5UCEa2J6IOIvoiopenA2Gci2hDRG/dQ6QX3RPTDR5yJPXcagE808exZgYM8
         uwuSDMiyC5MMwGkdS2JNLpXPIImvfMlgU68h+s6fjKGqKjEKsYMozrCH4YKFRb/dm+hyuVBd17x5IKiJ
         av0ztBA1gyRBgCfjgpJoqn8Os2icRErGn3HRXP8cJlEpSZys67pBe4jD4UBN0wza4/4WTKIYjCcoFdvt
@@ -1261,7 +1384,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Btnsettings.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="pictureBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -1269,7 +1392,7 @@
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAABAQAAAJCCAYAAABXthWkAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EQAACxEBf2RfkQAAartJREFUeF7t3T3IbceZIGqFE3ZoZXMzKTR33LIld9vTbjCy+zC0m2FARjK0wQ3H
+        DAAACwwBP0AiyAAAartJREFUeF7t3T3IbceZIGqFE3ZoZXMzKTR33LIld9vTbjCy+zC0m2FARjK0wQ3H
         IHMxxtg9tITGNKIlcIt7FXRwBOpABicC38RwEytUh3KoCaVQDpWey3uOSlqnav3uvX6q1n6CB1v7fN/+
         aq29d+1636p667HH/s//6z4AAABwY4oHAAAAgPN77L/8tHwQAAAAOLfHvvnr+4999Z/KfwAAAADO67G/
         +r/vPyAxAAAAALfj84RA8o3X7z/21C/KHwQAAADOo0gIJF//5/uPfeVn5S8AAAAA7SsSATmJAQAAADif
@@ -1782,8 +1905,11 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;BtnArchive.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
+  <metadata name="openFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -1852,6 +1978,12 @@
   </data>
   <data name="&gt;&gt;DeleteButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewButtonColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openFileDialog.Name" xml:space="preserve">
+    <value>openFileDialog</value>
+  </data>
+  <data name="&gt;&gt;openFileDialog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MyForm</value>

@@ -59,16 +59,16 @@ namespace Project {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ViewMedia_post;
 	private: System::Windows::Forms::DataGridViewButtonColumn^ EditButton;
 	private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
-
-
-
-
 	private:
 		OleDbConnection^ DBconnection;
 	private: System::Windows::Forms::Button^ Btnsettings;
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
 	private: System::Windows::Forms::Button^ BtnArchive;
-
+	private: System::Windows::Forms::OpenFileDialog^ openFileDialog;
+	private: System::Windows::Forms::Button^ BtnAddFiles;
+	private: System::Windows::Forms::LinkLabel^ linkFile;
+	private: System::Windows::Forms::LinkLabel^ linkEditFile;
+	private: System::Windows::Forms::Button^ BtnEditFile;
 	private:
 		int currentEditPostID;
 	public:
@@ -138,7 +138,11 @@ namespace Project {
 			this->Generation_Continuity_new_post = (gcnew System::Windows::Forms::Button());
 			this->Save_button = (gcnew System::Windows::Forms::Button());
 			this->Panel_New_post = (gcnew System::Windows::Forms::GroupBox());
+			this->linkFile = (gcnew System::Windows::Forms::LinkLabel());
+			this->BtnAddFiles = (gcnew System::Windows::Forms::Button());
 			this->Edit_post = (gcnew System::Windows::Forms::GroupBox());
+			this->linkEditFile = (gcnew System::Windows::Forms::LinkLabel());
+			this->BtnEditFile = (gcnew System::Windows::Forms::Button());
 			this->Save_editbutton = (gcnew System::Windows::Forms::Button());
 			this->Continuity_Edit_post = (gcnew System::Windows::Forms::TextBox());
 			this->text_Edit_post = (gcnew System::Windows::Forms::TextBox());
@@ -165,6 +169,7 @@ namespace Project {
 			this->Btnsettings = (gcnew System::Windows::Forms::Button());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->BtnArchive = (gcnew System::Windows::Forms::Button());
+			this->openFileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->Panel_New_post->SuspendLayout();
 			this->Edit_post->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Table_post))->BeginInit();
@@ -309,14 +314,34 @@ namespace Project {
 			this->Panel_New_post->Controls->Add(this->About_new_post);
 			this->Panel_New_post->Controls->Add(this->Textbox_Name_new_post);
 			this->Panel_New_post->Controls->Add(this->Name_new_post);
+			this->Panel_New_post->Controls->Add(this->linkFile);
+			this->Panel_New_post->Controls->Add(this->BtnAddFiles);
 			this->Panel_New_post->ForeColor = System::Drawing::Color::White;
 			this->Panel_New_post->Name = L"Panel_New_post";
 			this->Panel_New_post->TabStop = false;
 			this->Panel_New_post->Tag = L"New_post";
 			// 
+			// linkFile
+			// 
+			resources->ApplyResources(this->linkFile, L"linkFile");
+			this->linkFile->LinkColor = System::Drawing::Color::White;
+			this->linkFile->Name = L"linkFile";
+			this->linkFile->TabStop = true;
+			// 
+			// BtnAddFiles
+			// 
+			resources->ApplyResources(this->BtnAddFiles, L"BtnAddFiles");
+			this->BtnAddFiles->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)));
+			this->BtnAddFiles->Name = L"BtnAddFiles";
+			this->BtnAddFiles->UseVisualStyleBackColor = true;
+			this->BtnAddFiles->Click += gcnew System::EventHandler(this, &MyForm::BtnAddFiles_Click);
+			// 
 			// Edit_post
 			// 
 			resources->ApplyResources(this->Edit_post, L"Edit_post");
+			this->Edit_post->Controls->Add(this->linkEditFile);
+			this->Edit_post->Controls->Add(this->BtnEditFile);
 			this->Edit_post->Controls->Add(this->Save_editbutton);
 			this->Edit_post->Controls->Add(this->Continuity_Edit_post);
 			this->Edit_post->Controls->Add(this->text_Edit_post);
@@ -334,6 +359,21 @@ namespace Project {
 			this->Edit_post->Name = L"Edit_post";
 			this->Edit_post->TabStop = false;
 			this->Edit_post->Tag = L"Edit_post";
+			// 
+			// linkEditFile
+			// 
+			resources->ApplyResources(this->linkEditFile, L"linkEditFile");
+			this->linkEditFile->LinkColor = System::Drawing::Color::White;
+			this->linkEditFile->Name = L"linkEditFile";
+			this->linkEditFile->TabStop = true;
+			// 
+			// BtnEditFile
+			// 
+			resources->ApplyResources(this->BtnEditFile, L"BtnEditFile");
+			this->BtnEditFile->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)));
+			this->BtnEditFile->Name = L"BtnEditFile";
+			this->BtnEditFile->UseVisualStyleBackColor = true;
 			// 
 			// Save_editbutton
 			// 
@@ -557,16 +597,20 @@ namespace Project {
 			this->BtnArchive->Name = L"BtnArchive";
 			this->BtnArchive->UseVisualStyleBackColor = true;
 			// 
+			// openFileDialog
+			// 
+			this->openFileDialog->FileName = L"openFileDialog";
+			// 
 			// MyForm
 			// 
 			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			this->Controls->Add(this->BtnArchive);
-			this->Controls->Add(this->Btnsettings);
 			this->Controls->Add(this->Edit_post);
 			this->Controls->Add(this->Panel_New_post);
+			this->Controls->Add(this->BtnArchive);
+			this->Controls->Add(this->Btnsettings);
 			this->Controls->Add(this->button_New_post);
 			this->Controls->Add(this->Table_post);
 			this->Controls->Add(this->pictureBox1);
@@ -764,55 +808,65 @@ namespace Project {
 		}
 		
 	}
-private: System::Void Save_editbutton_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void Save_editbutton_Click(System::Object^ sender, System::EventArgs^ e) {
 	
-	try {
-		String^ updateQuery = "UPDATE TablePost SET " +
-			"[Date_post] = ?, " +
-			"[name_post] = ?, " +
-			"[About_post] = ?, " +
-			"[Text_post] = ?, " +
-			"[Scencens_post] = ?, " +
-			"[ViewMedia_post] = ? " +
-			"WHERE [ID] = ?";
+		try {
+			String^ updateQuery = "UPDATE TablePost SET " +
+				"[Date_post] = ?, " +
+				"[name_post] = ?, " +
+				"[About_post] = ?, " +
+				"[Text_post] = ?, " +
+				"[Scencens_post] = ?, " +
+				"[ViewMedia_post] = ? " +
+				"WHERE [ID] = ?";
 
-		OleDbCommand^ cmd = gcnew OleDbCommand(updateQuery, DBconnection);
-		DateTime selectedDate = dateTimePicker_Editpost->Value;
-		DateTime dateAt9AM = selectedDate.Date + TimeSpan(9, 0, 0);
-		cmd->Parameters->AddWithValue("@Date_post", dateAt9AM);
-		cmd->Parameters->AddWithValue("@name_post", Name_Edit_post->Text);
-		Object^ aboutValue = String::IsNullOrWhiteSpace(About_Edit_post->Text)
-			? static_cast<Object^>(DBNull::Value)
-			: safe_cast<Object^>(About_Edit_post->Text);
-		cmd->Parameters->AddWithValue("@About_post", aboutValue);
-		Object^ textValue = String::IsNullOrWhiteSpace(text_Edit_post->Text)
-			? static_cast<Object^>(DBNull::Value)
-			: safe_cast<Object^>(text_Edit_post->Text);
-		cmd->Parameters->AddWithValue("@Text_post", textValue);
-		Object^ scencensValue = String::IsNullOrWhiteSpace(Continuity_Edit_post->Text)
-			? static_cast<Object^>(DBNull::Value)
-			: safe_cast<Object^>(Continuity_Edit_post->Text);
-		cmd->Parameters->AddWithValue("@Scencens_post", scencensValue);
-		Object^ mediaValue = String::IsNullOrWhiteSpace(View_media_Edit->Text) || View_media_Edit->SelectedIndex == -1
-			? static_cast<Object^>(DBNull::Value)
-			: safe_cast<Object^>(View_media_Edit->Text);
-		cmd->Parameters->AddWithValue("@ViewMedia_post", mediaValue);
-		cmd->Parameters->AddWithValue("@ID", currentEditPostID);
-		int rowsAffected = cmd->ExecuteNonQuery();
+			OleDbCommand^ cmd = gcnew OleDbCommand(updateQuery, DBconnection);
+			DateTime selectedDate = dateTimePicker_Editpost->Value;
+			DateTime dateAt9AM = selectedDate.Date + TimeSpan(9, 0, 0);
+			cmd->Parameters->AddWithValue("@Date_post", dateAt9AM);
+			cmd->Parameters->AddWithValue("@name_post", Name_Edit_post->Text);
+			Object^ aboutValue = String::IsNullOrWhiteSpace(About_Edit_post->Text)
+				? static_cast<Object^>(DBNull::Value)
+				: safe_cast<Object^>(About_Edit_post->Text);
+			cmd->Parameters->AddWithValue("@About_post", aboutValue);
+			Object^ textValue = String::IsNullOrWhiteSpace(text_Edit_post->Text)
+				? static_cast<Object^>(DBNull::Value)
+				: safe_cast<Object^>(text_Edit_post->Text);
+			cmd->Parameters->AddWithValue("@Text_post", textValue);
+			Object^ scencensValue = String::IsNullOrWhiteSpace(Continuity_Edit_post->Text)
+				? static_cast<Object^>(DBNull::Value)
+				: safe_cast<Object^>(Continuity_Edit_post->Text);
+			cmd->Parameters->AddWithValue("@Scencens_post", scencensValue);
+			Object^ mediaValue = String::IsNullOrWhiteSpace(View_media_Edit->Text) || View_media_Edit->SelectedIndex == -1
+				? static_cast<Object^>(DBNull::Value)
+				: safe_cast<Object^>(View_media_Edit->Text);
+			cmd->Parameters->AddWithValue("@ViewMedia_post", mediaValue);
+			cmd->Parameters->AddWithValue("@ID", currentEditPostID);
+			int rowsAffected = cmd->ExecuteNonQuery();
 
-		if (rowsAffected <= 0) {
-			MessageBox::Show("Не найден пост для обновления.", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			if (rowsAffected <= 0) {
+				MessageBox::Show("Не найден пост для обновления.", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			}
+
+			MyForm_Load(this, gcnew System::EventArgs());
+
+			Edit_post->Visible = false;
+			currentEditPostID = 0;
+
 		}
-
-		MyForm_Load(this, gcnew System::EventArgs());
-
-		Edit_post->Visible = false;
-		currentEditPostID = 0;
-
+		catch (Exception^ ex) {
+			MessageBox::Show("Ошибка обновления:\n" + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
 	}
-	catch (Exception^ ex) {
-		MessageBox::Show("Ошибка обновления:\n" + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	private: System::Void BtnAddFiles_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+		{
+			String^ fileName = System::IO::Path::GetFileName(openFileDialog->FileName);
+			linkFile->Text = fileName;
+			linkFile->Visible = true;
+			BtnAddFiles->Text = L"Изменить файл";
+		}
 	}
 }
-}
-	;}
+;}
