@@ -47,7 +47,7 @@ def get_db_connection():
 def format_post(row):
     id_post, name, about, text, continuity, media = row
 
-    msg = f"{text}\n\n"
+    msg =f"<b>{name}<b>"+f"{text}\n\n"
 
     return msg
 

@@ -65,6 +65,10 @@ namespace Project {
 
 	private:
 		OleDbConnection^ DBconnection;
+	private: System::Windows::Forms::Button^ Btnsettings;
+	private: System::Windows::Forms::PictureBox^ pictureBox1;
+	private: System::Windows::Forms::Button^ BtnArchive;
+
 	private:
 		int currentEditPostID;
 	public:
@@ -158,9 +162,13 @@ namespace Project {
 			this->ViewMedia_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->EditButton = (gcnew System::Windows::Forms::DataGridViewButtonColumn());
 			this->DeleteButton = (gcnew System::Windows::Forms::DataGridViewButtonColumn());
+			this->Btnsettings = (gcnew System::Windows::Forms::Button());
+			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->BtnArchive = (gcnew System::Windows::Forms::Button());
 			this->Panel_New_post->SuspendLayout();
 			this->Edit_post->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Table_post))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// button_New_post
@@ -432,8 +440,8 @@ namespace Project {
 			this->Table_post->AllowUserToDeleteRows = false;
 			resources->ApplyResources(this->Table_post, L"Table_post");
 			this->Table_post->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::AllCells;
-			this->Table_post->BackgroundColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
-				static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			this->Table_post->BackgroundColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(67)),
+				static_cast<System::Int32>(static_cast<System::Byte>(93)));
 			this->Table_post->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
 			dataGridViewCellStyle1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
@@ -529,16 +537,39 @@ namespace Project {
 			this->DeleteButton->Name = L"DeleteButton";
 			this->DeleteButton->ReadOnly = true;
 			// 
+			// Btnsettings
+			// 
+			resources->ApplyResources(this->Btnsettings, L"Btnsettings");
+			this->Btnsettings->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->Btnsettings->FlatAppearance->BorderSize = 5;
+			this->Btnsettings->Name = L"Btnsettings";
+			this->Btnsettings->UseVisualStyleBackColor = true;
+			// 
+			// pictureBox1
+			// 
+			resources->ApplyResources(this->pictureBox1, L"pictureBox1");
+			this->pictureBox1->Name = L"pictureBox1";
+			this->pictureBox1->TabStop = false;
+			// 
+			// BtnArchive
+			// 
+			resources->ApplyResources(this->BtnArchive, L"BtnArchive");
+			this->BtnArchive->Name = L"BtnArchive";
+			this->BtnArchive->UseVisualStyleBackColor = true;
+			// 
 			// MyForm
 			// 
 			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			this->Controls->Add(this->BtnArchive);
+			this->Controls->Add(this->Btnsettings);
 			this->Controls->Add(this->Edit_post);
 			this->Controls->Add(this->Panel_New_post);
 			this->Controls->Add(this->button_New_post);
 			this->Controls->Add(this->Table_post);
+			this->Controls->Add(this->pictureBox1);
 			this->Name = L"MyForm";
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MyForm::MyForm_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
@@ -547,6 +578,7 @@ namespace Project {
 			this->Edit_post->ResumeLayout(false);
 			this->Edit_post->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Table_post))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -703,7 +735,10 @@ namespace Project {
 					}
 				}
 			}
-			Edit_post->Visible = true;
+			if (Edit_post->Visible == true) {
+				Edit_post->Visible = false;
+			}
+			else { Edit_post->Visible = true; }
 		}
 		else if (e->ColumnIndex == deleteColIndex) {
 			String^ postName = safe_cast<String^>(Table_post->Rows[e->RowIndex]->Cells["name_post"]->Value);
@@ -730,6 +765,7 @@ namespace Project {
 		
 	}
 private: System::Void Save_editbutton_Click(System::Object^ sender, System::EventArgs^ e) {
+	
 	try {
 		String^ updateQuery = "UPDATE TablePost SET " +
 			"[Date_post] = ?, " +
