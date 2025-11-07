@@ -151,7 +151,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button_New_post.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="Name_new_post.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -657,6 +657,54 @@
   <data name="Panel_New_post.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="&gt;&gt;linkFile.Name" xml:space="preserve">
+    <value>linkFile</value>
+  </data>
+  <data name="&gt;&gt;linkFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkFile.Parent" xml:space="preserve">
+    <value>Panel_New_post</value>
+  </data>
+  <data name="&gt;&gt;linkFile.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;BtnAddFiles.Name" xml:space="preserve">
+    <value>BtnAddFiles</value>
+  </data>
+  <data name="&gt;&gt;BtnAddFiles.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtnAddFiles.Parent" xml:space="preserve">
+    <value>Panel_New_post</value>
+  </data>
+  <data name="&gt;&gt;BtnAddFiles.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="Panel_New_post.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 67</value>
+  </data>
+  <data name="Panel_New_post.Size" type="System.Drawing.Size, System.Drawing">
+    <value>982, 415</value>
+  </data>
+  <data name="Panel_New_post.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="Panel_New_post.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;Panel_New_post.Name" xml:space="preserve">
+    <value>Panel_New_post</value>
+  </data>
+  <data name="&gt;&gt;Panel_New_post.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Panel_New_post.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Panel_New_post.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="linkFile.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -717,32 +765,215 @@
   <data name="&gt;&gt;BtnAddFiles.ZOrder" xml:space="preserve">
     <value>16</value>
   </data>
-  <data name="Panel_New_post.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 67</value>
-  </data>
-  <data name="Panel_New_post.Size" type="System.Drawing.Size, System.Drawing">
-    <value>982, 415</value>
-  </data>
-  <data name="Panel_New_post.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="Panel_New_post.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;Panel_New_post.Name" xml:space="preserve">
-    <value>Panel_New_post</value>
-  </data>
-  <data name="&gt;&gt;Panel_New_post.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Panel_New_post.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;Panel_New_post.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
+  <metadata name="Edit_post.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="Edit_post.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
+  </data>
+  <data name="&gt;&gt;linkEditFile.Name" xml:space="preserve">
+    <value>linkEditFile</value>
+  </data>
+  <data name="&gt;&gt;linkEditFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkEditFile.Parent" xml:space="preserve">
+    <value>Edit_post</value>
+  </data>
+  <data name="&gt;&gt;linkEditFile.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;BtnEditFile.Name" xml:space="preserve">
+    <value>BtnEditFile</value>
+  </data>
+  <data name="&gt;&gt;BtnEditFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtnEditFile.Parent" xml:space="preserve">
+    <value>Edit_post</value>
+  </data>
+  <data name="&gt;&gt;BtnEditFile.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;Save_editbutton.Name" xml:space="preserve">
+    <value>Save_editbutton</value>
+  </data>
+  <data name="&gt;&gt;Save_editbutton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Save_editbutton.Parent" xml:space="preserve">
+    <value>Edit_post</value>
+  </data>
+  <data name="&gt;&gt;Save_editbutton.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;Continuity_Edit_post.Name" xml:space="preserve">
+    <value>Continuity_Edit_post</value>
+  </data>
+  <data name="&gt;&gt;Continuity_Edit_post.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Continuity_Edit_post.Parent" xml:space="preserve">
+    <value>Edit_post</value>
+  </data>
+  <data name="&gt;&gt;Continuity_Edit_post.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;text_Edit_post.Name" xml:space="preserve">
+    <value>text_Edit_post</value>
+  </data>
+  <data name="&gt;&gt;text_Edit_post.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;text_Edit_post.Parent" xml:space="preserve">
+    <value>Edit_post</value>
+  </data>
+  <data name="&gt;&gt;text_Edit_post.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>Edit_post</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>Edit_post</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;View_media_Edit.Name" xml:space="preserve">
+    <value>View_media_Edit</value>
+  </data>
+  <data name="&gt;&gt;View_media_Edit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;View_media_Edit.Parent" xml:space="preserve">
+    <value>Edit_post</value>
+  </data>
+  <data name="&gt;&gt;View_media_Edit.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>Edit_post</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;dateTimePicker_Editpost.Name" xml:space="preserve">
+    <value>dateTimePicker_Editpost</value>
+  </data>
+  <data name="&gt;&gt;dateTimePicker_Editpost.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dateTimePicker_Editpost.Parent" xml:space="preserve">
+    <value>Edit_post</value>
+  </data>
+  <data name="&gt;&gt;dateTimePicker_Editpost.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>Edit_post</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;About_Edit_post.Name" xml:space="preserve">
+    <value>About_Edit_post</value>
+  </data>
+  <data name="&gt;&gt;About_Edit_post.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;About_Edit_post.Parent" xml:space="preserve">
+    <value>Edit_post</value>
+  </data>
+  <data name="&gt;&gt;About_Edit_post.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>Edit_post</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;Name_Edit_post.Name" xml:space="preserve">
+    <value>Name_Edit_post</value>
+  </data>
+  <data name="&gt;&gt;Name_Edit_post.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Name_Edit_post.Parent" xml:space="preserve">
+    <value>Edit_post</value>
+  </data>
+  <data name="&gt;&gt;Name_Edit_post.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>Edit_post</value>
+  </data>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="Edit_post.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 63</value>
+  </data>
+  <data name="Edit_post.Size" type="System.Drawing.Size, System.Drawing">
+    <value>982, 410</value>
+  </data>
+  <data name="Edit_post.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="Edit_post.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;Edit_post.Name" xml:space="preserve">
+    <value>Edit_post</value>
+  </data>
+  <data name="&gt;&gt;Edit_post.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Edit_post.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Edit_post.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="linkEditFile.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1242,30 +1473,6 @@
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
     <value>14</value>
   </data>
-  <data name="Edit_post.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 63</value>
-  </data>
-  <data name="Edit_post.Size" type="System.Drawing.Size, System.Drawing">
-    <value>982, 410</value>
-  </data>
-  <data name="Edit_post.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="Edit_post.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;Edit_post.Name" xml:space="preserve">
-    <value>Edit_post</value>
-  </data>
-  <data name="&gt;&gt;Edit_post.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Edit_post.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;Edit_post.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="Table_post.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
@@ -1345,7 +1552,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Table_post.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="Btnsettings.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1384,7 +1591,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Btnsettings.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="pictureBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -1872,7 +2079,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="BtnArchive.Font" type="System.Drawing.Font, System.Drawing">
     <value>Times New Roman, 10pt</value>
@@ -1905,13 +2112,115 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;BtnArchive.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <metadata name="openFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="BtnSaveSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>66, 82</value>
+  </data>
+  <data name="BtnSaveSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 29</value>
+  </data>
+  <data name="BtnSaveSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="BtnSaveSettings.Text" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="&gt;&gt;BtnSaveSettings.Name" xml:space="preserve">
+    <value>BtnSaveSettings</value>
+  </data>
+  <data name="&gt;&gt;BtnSaveSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtnSaveSettings.Parent" xml:space="preserve">
+    <value>SettingsGroup</value>
+  </data>
+  <data name="&gt;&gt;BtnSaveSettings.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="ID_Group_text.Location" type="System.Drawing.Point, System.Drawing">
+    <value>19, 46</value>
+  </data>
+  <data name="ID_Group_text.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 26</value>
+  </data>
+  <data name="ID_Group_text.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;ID_Group_text.Name" xml:space="preserve">
+    <value>ID_Group_text</value>
+  </data>
+  <data name="&gt;&gt;ID_Group_text.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ID_Group_text.Parent" xml:space="preserve">
+    <value>SettingsGroup</value>
+  </data>
+  <data name="&gt;&gt;ID_Group_text.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 24</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 19</value>
+  </data>
+  <data name="label7.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>Введите ID телеграм-канала</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>SettingsGroup</value>
+  </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="SettingsGroup.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Times New Roman, 12pt</value>
+  </data>
+  <data name="SettingsGroup.Location" type="System.Drawing.Point, System.Drawing">
+    <value>734, 35</value>
+  </data>
+  <data name="SettingsGroup.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 127</value>
+  </data>
+  <data name="SettingsGroup.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="SettingsGroup.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;SettingsGroup.Name" xml:space="preserve">
+    <value>SettingsGroup</value>
+  </data>
+  <data name="&gt;&gt;SettingsGroup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SettingsGroup.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;SettingsGroup.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>54</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>7, 15</value>

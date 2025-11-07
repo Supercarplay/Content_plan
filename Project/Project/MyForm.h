@@ -69,6 +69,12 @@ namespace Project {
 	private: System::Windows::Forms::LinkLabel^ linkFile;
 	private: System::Windows::Forms::LinkLabel^ linkEditFile;
 	private: System::Windows::Forms::Button^ BtnEditFile;
+	private: System::Windows::Forms::GroupBox^ SettingsGroup;
+	private: System::Windows::Forms::Label^ label7;
+	private: System::Windows::Forms::TextBox^ ID_Group_text;
+
+	private: System::Windows::Forms::Button^ BtnSaveSettings;
+
 	private:
 		int currentEditPostID;
 	public:
@@ -118,9 +124,9 @@ namespace Project {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle4 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle5 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle6 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->button_New_post = (gcnew System::Windows::Forms::Button());
 			this->Name_new_post = (gcnew System::Windows::Forms::Label());
 			this->Textbox_Name_new_post = (gcnew System::Windows::Forms::TextBox());
@@ -170,10 +176,15 @@ namespace Project {
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->BtnArchive = (gcnew System::Windows::Forms::Button());
 			this->openFileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->SettingsGroup = (gcnew System::Windows::Forms::GroupBox());
+			this->BtnSaveSettings = (gcnew System::Windows::Forms::Button());
+			this->ID_Group_text = (gcnew System::Windows::Forms::TextBox());
+			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->Panel_New_post->SuspendLayout();
 			this->Edit_post->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Table_post))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
+			this->SettingsGroup->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// button_New_post
@@ -483,38 +494,38 @@ namespace Project {
 			this->Table_post->BackgroundColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(67)),
 				static_cast<System::Int32>(static_cast<System::Byte>(93)));
 			this->Table_post->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			dataGridViewCellStyle1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
+			dataGridViewCellStyle4->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			dataGridViewCellStyle4->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
-			dataGridViewCellStyle1->ForeColor = System::Drawing::Color::White;
-			dataGridViewCellStyle1->Padding = System::Windows::Forms::Padding(5);
-			dataGridViewCellStyle1->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+			dataGridViewCellStyle4->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
+			dataGridViewCellStyle4->ForeColor = System::Drawing::Color::White;
+			dataGridViewCellStyle4->Padding = System::Windows::Forms::Padding(5);
+			dataGridViewCellStyle4->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->Table_post->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle4->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle4->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->Table_post->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
 			this->Table_post->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::DisableResizing;
 			this->Table_post->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(9) {
 				this->ID, this->Date_post,
 					this->name_post, this->About_post, this->Text_post, this->Scencens_post, this->ViewMedia_post, this->EditButton, this->DeleteButton
 			});
-			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle2->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
+			dataGridViewCellStyle5->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle5->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
-			dataGridViewCellStyle2->ForeColor = System::Drawing::Color::White;
-			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+			dataGridViewCellStyle5->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
+			dataGridViewCellStyle5->ForeColor = System::Drawing::Color::White;
+			dataGridViewCellStyle5->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
-			this->Table_post->DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle5->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle5->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->Table_post->DefaultCellStyle = dataGridViewCellStyle5;
 			this->Table_post->GridColor = System::Drawing::Color::Black;
 			this->Table_post->Name = L"Table_post";
 			this->Table_post->ReadOnly = true;
-			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			dataGridViewCellStyle6->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->Table_post->RowsDefaultCellStyle = dataGridViewCellStyle3;
+			this->Table_post->RowsDefaultCellStyle = dataGridViewCellStyle6;
 			this->Table_post->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::Table_post_CellContentClick);
 			// 
 			// ID
@@ -584,6 +595,7 @@ namespace Project {
 			this->Btnsettings->FlatAppearance->BorderSize = 5;
 			this->Btnsettings->Name = L"Btnsettings";
 			this->Btnsettings->UseVisualStyleBackColor = true;
+			this->Btnsettings->Click += gcnew System::EventHandler(this, &MyForm::Btnsettings_Click);
 			// 
 			// pictureBox1
 			// 
@@ -601,12 +613,43 @@ namespace Project {
 			// 
 			this->openFileDialog->FileName = L"openFileDialog";
 			// 
+			// SettingsGroup
+			// 
+			this->SettingsGroup->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(67)),
+				static_cast<System::Int32>(static_cast<System::Byte>(93)));
+			this->SettingsGroup->Controls->Add(this->BtnSaveSettings);
+			this->SettingsGroup->Controls->Add(this->ID_Group_text);
+			this->SettingsGroup->Controls->Add(this->label7);
+			resources->ApplyResources(this->SettingsGroup, L"SettingsGroup");
+			this->SettingsGroup->ForeColor = System::Drawing::Color::White;
+			this->SettingsGroup->Name = L"SettingsGroup";
+			this->SettingsGroup->TabStop = false;
+			// 
+			// BtnSaveSettings
+			// 
+			this->BtnSaveSettings->ForeColor = System::Drawing::Color::Black;
+			resources->ApplyResources(this->BtnSaveSettings, L"BtnSaveSettings");
+			this->BtnSaveSettings->Name = L"BtnSaveSettings";
+			this->BtnSaveSettings->UseVisualStyleBackColor = true;
+			this->BtnSaveSettings->Click += gcnew System::EventHandler(this, &MyForm::BtnSaveSettings_Click);
+			// 
+			// ID_Group_text
+			// 
+			resources->ApplyResources(this->ID_Group_text, L"ID_Group_text");
+			this->ID_Group_text->Name = L"ID_Group_text";
+			// 
+			// label7
+			// 
+			resources->ApplyResources(this->label7, L"label7");
+			this->label7->Name = L"label7";
+			// 
 			// MyForm
 			// 
 			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			this->Controls->Add(this->SettingsGroup);
 			this->Controls->Add(this->Edit_post);
 			this->Controls->Add(this->Panel_New_post);
 			this->Controls->Add(this->BtnArchive);
@@ -623,6 +666,8 @@ namespace Project {
 			this->Edit_post->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Table_post))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
+			this->SettingsGroup->ResumeLayout(false);
+			this->SettingsGroup->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -667,7 +712,22 @@ namespace Project {
 			col->SortMode = DataGridViewColumnSortMode::NotSortable;
 		}
 	}
-
+	private: System::Void LoadGroupID() {
+		try {
+			String^ query_Auth = "SELECT TOP 1 [ID_Group] FROM Login ORDER BY [ID]";
+			OleDbCommand^ cmd = gcnew OleDbCommand(query_Auth, DBconnection);
+			Object^ result = cmd->ExecuteScalar();
+			if (result != nullptr && result != DBNull::Value) {
+				ID_Group_text->Text = safe_cast<String^>(result);
+			}else {
+				ID_Group_text->Text = "";
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show("Ошибка загрузки настроек:\n" + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			ID_Group_text->Text = "";
+		}
+	}
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (Panel_New_post->Visible == false) {
 			Panel_New_post->Visible = true;
@@ -859,14 +919,35 @@ namespace Project {
 		}
 	}
 	private: System::Void BtnAddFiles_Click(System::Object^ sender, System::EventArgs^ e) {
-
-		if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK)
-		{
+		if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK){
 			String^ fileName = System::IO::Path::GetFileName(openFileDialog->FileName);
 			linkFile->Text = fileName;
 			linkFile->Visible = true;
 			BtnAddFiles->Text = L"Изменить файл";
 		}
 	}
-}
-;}
+	private: System::Void Btnsettings_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (SettingsGroup->Visible == false) {
+			SettingsGroup->Visible = true;
+			LoadGroupID();
+		}else{
+			SettingsGroup->Visible = false;
+		}
+	}
+	private: System::Void BtnSaveSettings_Click(System::Object^ sender, System::EventArgs^ e) {
+		try {
+			String^ newGroupID = ID_Group_text->Text->Trim();
+			String^ updateQuery = "UPDATE Login SET [ID_Group] = ? WHERE [ID] = 1";
+			OleDbCommand^ cmd = gcnew OleDbCommand(updateQuery, DBconnection);
+			cmd->Parameters->AddWithValue("@ID_Group", newGroupID == "" ? DBNull::Value : safe_cast<Object^>(newGroupID));
+			int rowsAffected = cmd->ExecuteNonQuery();
+			if (rowsAffected <= 0){
+				MessageBox::Show("Не удалось обновить настройки. Проверьте, существует ли запись с ID=1 в таблице Login.", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			}
+			SettingsGroup->Visible = false;
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show("Ошибка сохранения настроек:\n" + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
+};}
