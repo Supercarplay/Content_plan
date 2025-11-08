@@ -17,7 +17,8 @@ namespace Project {
 	{
 
 	public:
-		static String^ connectString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=Database_post.accdb;";
+		static String^ connectString_post = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=Database_post.accdb;";
+		static String^ connectString_Login = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=Database_Login.accdb;";
 	private: System::Windows::Forms::Label^ Name_new_post;
 	public:
 	private: System::Windows::Forms::TextBox^ Textbox_Name_new_post;
@@ -50,17 +51,29 @@ namespace Project {
 	private: System::Windows::Forms::Label^ label5;
 	private: System::Windows::Forms::TextBox^ Name_Edit_post;
 	private: System::Windows::Forms::Label^ label6;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ID;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Date_post;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ name_post;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ About_post;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Text_post;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Scencens_post;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ViewMedia_post;
-	private: System::Windows::Forms::DataGridViewButtonColumn^ EditButton;
-	private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
+
+
+
+
+
+
+
+
+
 	private:
-		OleDbConnection^ DBconnection;
+		OleDbConnection^ DBconnection_post;
+		OleDbConnection^ DBconnection_login;
+
+		String^ selectedFileForNewPost;
+		String^ selectedFileForEditPost;
+	private:
+		static String^ GetRelativePath(String^ fromPath, String^ toPath) {
+			Uri^ fromUri = gcnew Uri(fromPath + "\\");
+			Uri^ toUri = gcnew Uri(toPath);
+			Uri^ relativeUri = fromUri->MakeRelativeUri(toUri);
+			return relativeUri->ToString()->Replace('/', '\\');
+		}
+
 	private: System::Windows::Forms::Button^ Btnsettings;
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
 	private: System::Windows::Forms::Button^ BtnArchive;
@@ -74,6 +87,16 @@ namespace Project {
 	private: System::Windows::Forms::TextBox^ ID_Group_text;
 
 	private: System::Windows::Forms::Button^ BtnSaveSettings;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ID;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Date_post;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ name_post;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ About_post;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Text_post;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Scencens_post;
+	private: System::Windows::Forms::DataGridViewLinkColumn^ ViewMedia_post;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Files_post;
+	private: System::Windows::Forms::DataGridViewButtonColumn^ EditButton;
+	private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 
 	private:
 		int currentEditPostID;
@@ -81,14 +104,27 @@ namespace Project {
 		MyForm(void)
 		{
 			InitializeComponent();
-			String^ dbPath = System::IO::Path::Combine(Application::StartupPath, "Database_post.accdb");
-			connectString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + dbPath + ";Persist Security Info=False;";
-			DBconnection = gcnew OleDbConnection(connectString);
+
+			String^ dbPathPost = System::IO::Path::Combine(Application::StartupPath, "Database_post.accdb");
+			String^ connectString_post = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + dbPathPost + ";Persist Security Info=False;";
+			DBconnection_post = gcnew OleDbConnection(connectString_post);
+
+			String^ dbPathLogin = System::IO::Path::Combine(Application::StartupPath, "Database_Login.accdb");
+			String^ connectString_login = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + dbPathLogin + ";Persist Security Info=False;";
+			DBconnection_login = gcnew OleDbConnection(connectString_login);
+
+			String^ filePostFolder = System::IO::Path::Combine(Application::StartupPath, "FilePost");
+			if (!System::IO::Directory::Exists(filePostFolder)) {
+				System::IO::Directory::CreateDirectory(filePostFolder);
+			}
+
 			this->AutoScroll = true;
 			Table_post->RowHeadersVisible = false;
 			Table_post->GridColor = System::Drawing::Color::White;
 			Table_post->CellBorderStyle = DataGridViewCellBorderStyle::Single;
-			DBconnection->Open();
+			this->Table_post->CellFormatting += gcnew System::Windows::Forms::DataGridViewCellFormattingEventHandler(this, &MyForm::Table_post_CellFormatting);
+			DBconnection_post->Open();
+			DBconnection_login->Open();
 		}
 	protected:
 		/// <summary>
@@ -124,9 +160,9 @@ namespace Project {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle4 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle5 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle6 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->button_New_post = (gcnew System::Windows::Forms::Button());
 			this->Name_new_post = (gcnew System::Windows::Forms::Label());
 			this->Textbox_Name_new_post = (gcnew System::Windows::Forms::TextBox());
@@ -163,15 +199,6 @@ namespace Project {
 			this->Name_Edit_post = (gcnew System::Windows::Forms::TextBox());
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->Table_post = (gcnew System::Windows::Forms::DataGridView());
-			this->ID = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Date_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->name_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->About_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Text_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Scencens_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->ViewMedia_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->EditButton = (gcnew System::Windows::Forms::DataGridViewButtonColumn());
-			this->DeleteButton = (gcnew System::Windows::Forms::DataGridViewButtonColumn());
 			this->Btnsettings = (gcnew System::Windows::Forms::Button());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->BtnArchive = (gcnew System::Windows::Forms::Button());
@@ -180,6 +207,16 @@ namespace Project {
 			this->BtnSaveSettings = (gcnew System::Windows::Forms::Button());
 			this->ID_Group_text = (gcnew System::Windows::Forms::TextBox());
 			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->ID = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Date_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->name_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->About_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Text_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Scencens_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->ViewMedia_post = (gcnew System::Windows::Forms::DataGridViewLinkColumn());
+			this->Files_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->EditButton = (gcnew System::Windows::Forms::DataGridViewButtonColumn());
+			this->DeleteButton = (gcnew System::Windows::Forms::DataGridViewButtonColumn());
 			this->Panel_New_post->SuspendLayout();
 			this->Edit_post->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Table_post))->BeginInit();
@@ -385,6 +422,7 @@ namespace Project {
 				static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)));
 			this->BtnEditFile->Name = L"BtnEditFile";
 			this->BtnEditFile->UseVisualStyleBackColor = true;
+			this->BtnEditFile->Click += gcnew System::EventHandler(this, &MyForm::BtnEditFile_Click);
 			// 
 			// Save_editbutton
 			// 
@@ -494,99 +532,40 @@ namespace Project {
 			this->Table_post->BackgroundColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(67)),
 				static_cast<System::Int32>(static_cast<System::Byte>(93)));
 			this->Table_post->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			dataGridViewCellStyle4->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			dataGridViewCellStyle4->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
+			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			dataGridViewCellStyle1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle4->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
-			dataGridViewCellStyle4->ForeColor = System::Drawing::Color::White;
-			dataGridViewCellStyle4->Padding = System::Windows::Forms::Padding(5);
-			dataGridViewCellStyle4->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
+			dataGridViewCellStyle1->ForeColor = System::Drawing::Color::White;
+			dataGridViewCellStyle1->Padding = System::Windows::Forms::Padding(5);
+			dataGridViewCellStyle1->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle4->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle4->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->Table_post->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+			dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->Table_post->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
 			this->Table_post->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::DisableResizing;
-			this->Table_post->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(9) {
+			this->Table_post->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(10) {
 				this->ID, this->Date_post,
-					this->name_post, this->About_post, this->Text_post, this->Scencens_post, this->ViewMedia_post, this->EditButton, this->DeleteButton
+					this->name_post, this->About_post, this->Text_post, this->Scencens_post, this->ViewMedia_post, this->Files_post, this->EditButton,
+					this->DeleteButton
 			});
-			dataGridViewCellStyle5->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle5->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
+			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle2->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle5->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
-			dataGridViewCellStyle5->ForeColor = System::Drawing::Color::White;
-			dataGridViewCellStyle5->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
+			dataGridViewCellStyle2->ForeColor = System::Drawing::Color::White;
+			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle5->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle5->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
-			this->Table_post->DefaultCellStyle = dataGridViewCellStyle5;
+			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->Table_post->DefaultCellStyle = dataGridViewCellStyle2;
 			this->Table_post->GridColor = System::Drawing::Color::Black;
 			this->Table_post->Name = L"Table_post";
 			this->Table_post->ReadOnly = true;
-			dataGridViewCellStyle6->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->Table_post->RowsDefaultCellStyle = dataGridViewCellStyle6;
+			this->Table_post->RowsDefaultCellStyle = dataGridViewCellStyle3;
 			this->Table_post->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::Table_post_CellContentClick);
-			// 
-			// ID
-			// 
-			resources->ApplyResources(this->ID, L"ID");
-			this->ID->Name = L"ID";
-			this->ID->ReadOnly = true;
-			// 
-			// Date_post
-			// 
-			resources->ApplyResources(this->Date_post, L"Date_post");
-			this->Date_post->Name = L"Date_post";
-			this->Date_post->ReadOnly = true;
-			this->Date_post->Resizable = System::Windows::Forms::DataGridViewTriState::False;
-			// 
-			// name_post
-			// 
-			resources->ApplyResources(this->name_post, L"name_post");
-			this->name_post->Name = L"name_post";
-			this->name_post->ReadOnly = true;
-			this->name_post->Resizable = System::Windows::Forms::DataGridViewTriState::False;
-			// 
-			// About_post
-			// 
-			resources->ApplyResources(this->About_post, L"About_post");
-			this->About_post->Name = L"About_post";
-			this->About_post->ReadOnly = true;
-			this->About_post->Resizable = System::Windows::Forms::DataGridViewTriState::False;
-			// 
-			// Text_post
-			// 
-			resources->ApplyResources(this->Text_post, L"Text_post");
-			this->Text_post->Name = L"Text_post";
-			this->Text_post->ReadOnly = true;
-			this->Text_post->Resizable = System::Windows::Forms::DataGridViewTriState::False;
-			// 
-			// Scencens_post
-			// 
-			resources->ApplyResources(this->Scencens_post, L"Scencens_post");
-			this->Scencens_post->Name = L"Scencens_post";
-			this->Scencens_post->ReadOnly = true;
-			this->Scencens_post->Resizable = System::Windows::Forms::DataGridViewTriState::False;
-			// 
-			// ViewMedia_post
-			// 
-			resources->ApplyResources(this->ViewMedia_post, L"ViewMedia_post");
-			this->ViewMedia_post->Name = L"ViewMedia_post";
-			this->ViewMedia_post->ReadOnly = true;
-			this->ViewMedia_post->Resizable = System::Windows::Forms::DataGridViewTriState::False;
-			// 
-			// EditButton
-			// 
-			resources->ApplyResources(this->EditButton, L"EditButton");
-			this->EditButton->Name = L"EditButton";
-			this->EditButton->ReadOnly = true;
-			// 
-			// DeleteButton
-			// 
-			resources->ApplyResources(this->DeleteButton, L"DeleteButton");
-			this->DeleteButton->Name = L"DeleteButton";
-			this->DeleteButton->ReadOnly = true;
 			// 
 			// Btnsettings
 			// 
@@ -643,6 +622,76 @@ namespace Project {
 			resources->ApplyResources(this->label7, L"label7");
 			this->label7->Name = L"label7";
 			// 
+			// ID
+			// 
+			resources->ApplyResources(this->ID, L"ID");
+			this->ID->Name = L"ID";
+			this->ID->ReadOnly = true;
+			// 
+			// Date_post
+			// 
+			resources->ApplyResources(this->Date_post, L"Date_post");
+			this->Date_post->Name = L"Date_post";
+			this->Date_post->ReadOnly = true;
+			this->Date_post->Resizable = System::Windows::Forms::DataGridViewTriState::False;
+			// 
+			// name_post
+			// 
+			resources->ApplyResources(this->name_post, L"name_post");
+			this->name_post->Name = L"name_post";
+			this->name_post->ReadOnly = true;
+			this->name_post->Resizable = System::Windows::Forms::DataGridViewTriState::False;
+			// 
+			// About_post
+			// 
+			resources->ApplyResources(this->About_post, L"About_post");
+			this->About_post->Name = L"About_post";
+			this->About_post->ReadOnly = true;
+			this->About_post->Resizable = System::Windows::Forms::DataGridViewTriState::False;
+			// 
+			// Text_post
+			// 
+			resources->ApplyResources(this->Text_post, L"Text_post");
+			this->Text_post->Name = L"Text_post";
+			this->Text_post->ReadOnly = true;
+			this->Text_post->Resizable = System::Windows::Forms::DataGridViewTriState::False;
+			// 
+			// Scencens_post
+			// 
+			resources->ApplyResources(this->Scencens_post, L"Scencens_post");
+			this->Scencens_post->Name = L"Scencens_post";
+			this->Scencens_post->ReadOnly = true;
+			this->Scencens_post->Resizable = System::Windows::Forms::DataGridViewTriState::False;
+			// 
+			// ViewMedia_post
+			// 
+			this->ViewMedia_post->ActiveLinkColor = System::Drawing::Color::White;
+			resources->ApplyResources(this->ViewMedia_post, L"ViewMedia_post");
+			this->ViewMedia_post->LinkColor = System::Drawing::Color::White;
+			this->ViewMedia_post->Name = L"ViewMedia_post";
+			this->ViewMedia_post->ReadOnly = true;
+			this->ViewMedia_post->Resizable = System::Windows::Forms::DataGridViewTriState::False;
+			this->ViewMedia_post->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::Automatic;
+			this->ViewMedia_post->VisitedLinkColor = System::Drawing::Color::White;
+			// 
+			// Files_post
+			// 
+			resources->ApplyResources(this->Files_post, L"Files_post");
+			this->Files_post->Name = L"Files_post";
+			this->Files_post->ReadOnly = true;
+			// 
+			// EditButton
+			// 
+			resources->ApplyResources(this->EditButton, L"EditButton");
+			this->EditButton->Name = L"EditButton";
+			this->EditButton->ReadOnly = true;
+			// 
+			// DeleteButton
+			// 
+			resources->ApplyResources(this->DeleteButton, L"DeleteButton");
+			this->DeleteButton->Name = L"DeleteButton";
+			this->DeleteButton->ReadOnly = true;
+			// 
 			// MyForm
 			// 
 			resources->ApplyResources(this, L"$this");
@@ -690,8 +739,8 @@ namespace Project {
 				DeleteButton->UseColumnTextForButtonValue = true;
 		DeleteButton->Text = L"✕";
 		
-		String^ query = "SELECT [ID], [Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post] FROM TablePost ORDER BY [Date_post]";
-		OleDbCommand^ command = gcnew OleDbCommand(query, DBconnection);
+		String^ query = "SELECT [ID], [Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post], [Files] FROM TablePost ORDER BY [Date_post]";
+		OleDbCommand^ command = gcnew OleDbCommand(query, DBconnection_post);
 		OleDbDataAdapter^ adapter = gcnew OleDbDataAdapter(command);
 		DataTable^ dataTable = gcnew DataTable();
 
@@ -705,6 +754,7 @@ namespace Project {
 		Text_post->DataPropertyName = "Text_post";
 		Scencens_post->DataPropertyName = "Scencens_post";
 		ViewMedia_post->DataPropertyName = "ViewMedia_post";
+		Files_post->DataPropertyName = "Files";
 		Table_post->AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode::Fill;
 		Table_post->DefaultCellStyle->WrapMode = DataGridViewTriState::True;
 		Table_post->AutoSizeRowsMode = DataGridViewAutoSizeRowsMode::AllCells;
@@ -715,11 +765,12 @@ namespace Project {
 	private: System::Void LoadGroupID() {
 		try {
 			String^ query_Auth = "SELECT TOP 1 [ID_Group] FROM Login ORDER BY [ID]";
-			OleDbCommand^ cmd = gcnew OleDbCommand(query_Auth, DBconnection);
+			OleDbCommand^ cmd = gcnew OleDbCommand(query_Auth, DBconnection_login);
 			Object^ result = cmd->ExecuteScalar();
 			if (result != nullptr && result != DBNull::Value) {
 				ID_Group_text->Text = safe_cast<String^>(result);
-			}else {
+			}
+			else {
 				ID_Group_text->Text = "";
 			}
 		}
@@ -741,10 +792,10 @@ namespace Project {
 	private: System::Void Save_button_Click(System::Object^ sender, System::EventArgs^ e) {
 		try {
 			
-			String^ insertQuery = "INSERT INTO TablePost ([Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post]) "
-				"VALUES (?, ?, ?, ?, ?, ?)";
+			String^ insertQuery = "INSERT INTO TablePost ([Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post], [Files]) "
+				"VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-			OleDbCommand^ cmd = gcnew OleDbCommand(insertQuery, DBconnection);
+			OleDbCommand^ cmd = gcnew OleDbCommand(insertQuery, DBconnection_post);
 			DateTime selectedDate = Swith_date_new_post->Value;
 			DateTime dateAt9AM = selectedDate.Date + TimeSpan(9, 0, 0);
 			cmd->Parameters->AddWithValue("@Date_post", dateAt9AM);
@@ -769,6 +820,11 @@ namespace Project {
 				: safe_cast<Object^>(Swith_view_media->Text);
 			cmd->Parameters->AddWithValue("@ViewMedia_post", mediaValue);
 
+			Object^ filesValue = selectedFileForNewPost
+				? safe_cast<Object^>(selectedFileForNewPost)
+				: static_cast<Object^>(DBNull::Value);
+			cmd->Parameters->AddWithValue("@Files", filesValue);
+
 			int rowsAffected = cmd->ExecuteNonQuery();
 
 			MyForm_Load(sender, e);
@@ -782,19 +838,26 @@ namespace Project {
 			textBox_Continuity_new_post->Clear();
 			Swith_view_media->SelectedIndex = 0;
 
-		}
-		catch (Exception^ ex) {
+		}catch(Exception^ ex){
 			MessageBox::Show("Ошибка сохранения:\n" + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
+		selectedFileForNewPost = nullptr;
+		linkFile->Visible = false;
+		BtnAddFiles->Text = L"Добавить файл";
 	}
 
-	private: System::Void MyForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
-		try {
-			if (DBconnection != nullptr && DBconnection->State == ConnectionState::Open) {
-				DBconnection->Close();
+	private: System::Void Table_post_CellFormatting(System::Object^ sender, System::Windows::Forms::DataGridViewCellFormattingEventArgs^ e) {
+		if (e->ColumnIndex == Table_post->Columns["ViewMedia_post"]->Index && e->RowIndex >= 0) {
+			DataGridViewRow^ row = Table_post->Rows[e->RowIndex];
+			Object^ filesValue = row->Cells["Files_post"]->Value;
+
+			if (filesValue != nullptr && filesValue != DBNull::Value) {
+				Object^ mediaValue = row->Cells["ViewMedia_post"]->Value;
+				e->Value = (mediaValue != nullptr && mediaValue != DBNull::Value)
+					? safe_cast<String^>(mediaValue)
+					: "Ничего";
+				e->FormattingApplied = true;
 			}
-		}
-		catch (System::Exception^) {
 		}
 	}
 	private: System::Void Table_post_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
@@ -802,7 +865,29 @@ namespace Project {
 
 		int editColIndex = Table_post->Columns["EditButton"]->Index;
 		int deleteColIndex = Table_post->Columns["DeleteButton"]->Index;
-
+		int mediaColIndex = Table_post->Columns["ViewMedia_post"]->Index;
+		if (e->ColumnIndex == mediaColIndex) {
+			DataGridViewRow^ row = Table_post->Rows[e->RowIndex];
+			Object^ filesValue = row->Cells["Files_post"]->Value;
+			if (filesValue != nullptr && filesValue != DBNull::Value) {
+				String^ hyperlink = safe_cast<String^>(filesValue);
+				String^ cleanPath;
+				if (hyperlink->StartsWith("#") && hyperlink->EndsWith("#") && hyperlink->Length > 2) {
+					cleanPath = hyperlink->Substring(1, hyperlink->Length - 2);
+				}
+				else {
+					cleanPath = hyperlink;
+				}
+				String^ fullPath = System::IO::Path::Combine(Application::StartupPath, cleanPath);
+				if (System::IO::File::Exists(fullPath)) {
+					System::Diagnostics::Process::Start(fullPath);
+				}
+				else {
+					MessageBox::Show("Файл не найден:\n" + fullPath, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				}
+			}
+			return;
+		}
 		if (e->ColumnIndex == editColIndex) {
 			
 			DataGridViewRow^ row = Table_post->Rows[e->RowIndex];
@@ -841,10 +926,20 @@ namespace Project {
 			}
 			if (Edit_post->Visible == true) {
 				Edit_post->Visible = false;
+			}else { Edit_post->Visible = true; }
+			Object^ filesObj = row->Cells["Files_post"]->Value;
+			if (filesObj != nullptr && filesObj != DBNull::Value) {
+				String^ fileName = System::IO::Path::GetFileName(safe_cast<String^>(filesObj));
+				linkEditFile->Text = fileName;
+				linkEditFile->Visible = true;
+				BtnEditFile->Text = L"Изменить файл";
+				selectedFileForEditPost = safe_cast<String^>(filesObj);
+			}else {
+				linkEditFile->Visible = false;
+				BtnEditFile->Text = L"Добавить файл";
+				selectedFileForEditPost = nullptr;
 			}
-			else { Edit_post->Visible = true; }
-		}
-		else if (e->ColumnIndex == deleteColIndex) {
+		}else if (e->ColumnIndex == deleteColIndex) {
 			String^ postName = safe_cast<String^>(Table_post->Rows[e->RowIndex]->Cells["name_post"]->Value);
 			System::Windows::Forms::DialogResult res = MessageBox::Show(
 				"Удалить пост \"" + postName + "\"?",
@@ -855,7 +950,7 @@ namespace Project {
 			if (res == System::Windows::Forms::DialogResult::Yes) {
 				try {
 					String^ deleteQuery = "DELETE FROM TablePost WHERE [ID] = ?";
-					OleDbCommand^ cmd = gcnew OleDbCommand(deleteQuery, DBconnection);
+					OleDbCommand^ cmd = gcnew OleDbCommand(deleteQuery, DBconnection_post);
 					int idToDelete = Convert::ToInt32(Table_post->Rows[e->RowIndex]->Cells["ID"]->Value);
 					cmd->Parameters->AddWithValue("@ID", idToDelete);
 					cmd->ExecuteNonQuery();
@@ -869,7 +964,6 @@ namespace Project {
 		
 	}
 	private: System::Void Save_editbutton_Click(System::Object^ sender, System::EventArgs^ e) {
-	
 		try {
 			String^ updateQuery = "UPDATE TablePost SET " +
 				"[Date_post] = ?, " +
@@ -877,10 +971,11 @@ namespace Project {
 				"[About_post] = ?, " +
 				"[Text_post] = ?, " +
 				"[Scencens_post] = ?, " +
-				"[ViewMedia_post] = ? " +
+				"[ViewMedia_post] = ?, " +
+				"[Files] = ? " +
 				"WHERE [ID] = ?";
 
-			OleDbCommand^ cmd = gcnew OleDbCommand(updateQuery, DBconnection);
+			OleDbCommand^ cmd = gcnew OleDbCommand(updateQuery, DBconnection_post);
 			DateTime selectedDate = dateTimePicker_Editpost->Value;
 			DateTime dateAt9AM = selectedDate.Date + TimeSpan(9, 0, 0);
 			cmd->Parameters->AddWithValue("@Date_post", dateAt9AM);
@@ -902,28 +997,60 @@ namespace Project {
 				: safe_cast<Object^>(View_media_Edit->Text);
 			cmd->Parameters->AddWithValue("@ViewMedia_post", mediaValue);
 			cmd->Parameters->AddWithValue("@ID", currentEditPostID);
+			Object^ filesValue = selectedFileForEditPost
+				? safe_cast<Object^>(selectedFileForEditPost)
+				: static_cast<Object^>(DBNull::Value);
+			cmd->Parameters->AddWithValue("@Files", filesValue);
 			int rowsAffected = cmd->ExecuteNonQuery();
 
 			if (rowsAffected <= 0) {
 				MessageBox::Show("Не найден пост для обновления.", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			}
-
 			MyForm_Load(this, gcnew System::EventArgs());
-
 			Edit_post->Visible = false;
 			currentEditPostID = 0;
 
-		}
-		catch (Exception^ ex) {
+		}catch (Exception^ ex) {
 			MessageBox::Show("Ошибка обновления:\n" + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
+		selectedFileForEditPost = nullptr;
+		linkEditFile->Visible = false;
+		BtnEditFile->Text = L"Добавить файл";
 	}
 	private: System::Void BtnAddFiles_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK){
-			String^ fileName = System::IO::Path::GetFileName(openFileDialog->FileName);
-			linkFile->Text = fileName;
-			linkFile->Visible = true;
-			BtnAddFiles->Text = L"Изменить файл";
+		if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+			try {
+				String^ src = openFileDialog->FileName;
+				String^ fileName = System::IO::Path::GetFileName(src);
+				String^ filePostDir = System::IO::Path::Combine(Application::StartupPath, "FilePost");
+				String^ dest = System::IO::Path::Combine(filePostDir, fileName);
+				System::IO::File::Copy(src, dest, true);
+				selectedFileForNewPost = "#" + MyForm::GetRelativePath(Application::StartupPath, dest) + "#";
+				linkFile->Text = fileName;
+				linkFile->Visible = true;
+				BtnAddFiles->Text = L"Изменить файл";
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show("Ошибка: " + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
+		}
+	}
+	private: System::Void BtnEditFile_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+			try {
+				String^ src = openFileDialog->FileName;
+				String^ fileName = System::IO::Path::GetFileName(src);
+				String^ filePostDir = System::IO::Path::Combine(Application::StartupPath, "FilePost");
+				String^ dest = System::IO::Path::Combine(filePostDir, fileName);
+				System::IO::File::Copy(src, dest, true);
+				selectedFileForEditPost = "#" + MyForm::GetRelativePath(Application::StartupPath, dest) + "#";
+				linkEditFile->Text = fileName;
+				linkEditFile->Visible = true;
+				BtnEditFile->Text = L"Изменить файл";
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show("Ошибка: " + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
 		}
 	}
 	private: System::Void Btnsettings_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -938,16 +1065,26 @@ namespace Project {
 		try {
 			String^ newGroupID = ID_Group_text->Text->Trim();
 			String^ updateQuery = "UPDATE Login SET [ID_Group] = ? WHERE [ID] = 1";
-			OleDbCommand^ cmd = gcnew OleDbCommand(updateQuery, DBconnection);
+			OleDbCommand^ cmd = gcnew OleDbCommand(updateQuery, DBconnection_login);
 			cmd->Parameters->AddWithValue("@ID_Group", newGroupID == "" ? DBNull::Value : safe_cast<Object^>(newGroupID));
 			int rowsAffected = cmd->ExecuteNonQuery();
-			if (rowsAffected <= 0){
+			if (rowsAffected <= 0) {
 				MessageBox::Show("Не удалось обновить настройки. Проверьте, существует ли запись с ID=1 в таблице Login.", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			}
 			SettingsGroup->Visible = false;
-		}
-		catch (Exception^ ex) {
+		}catch (Exception^ ex) {
 			MessageBox::Show("Ошибка сохранения настроек:\n" + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
+	}
+	private: System::Void MyForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+		try {
+			if (DBconnection_post != nullptr && DBconnection_post->State == ConnectionState::Open) {
+				DBconnection_post->Close();
+			}
+			if (DBconnection_login != nullptr && DBconnection_login->State == ConnectionState::Open) {
+				DBconnection_login->Close();
+			}
+		}
+		catch (Exception^) {}
 	}
 };}

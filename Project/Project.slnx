@@ -4,6 +4,7 @@
     <Platform Name="x86" />
   </Configurations>
   <Folder Name="/Элементы решения/">
+    <File Path="x64/Debug/Database_Login.accdb" />
     <File Path="x64/Debug/Database_post.accdb" />
   </Folder>
   <Project Path="Project/Project.vcxproj" />
