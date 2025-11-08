@@ -900,7 +900,7 @@ namespace Project {
 			else {
 				MessageBox::Show("К этому посту не прикреплён файл.", "Информация", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
-			return; // Важно: не продолжать обработку как Edit/Delete
+			return;
 		}
 		if (e->ColumnIndex == editColIndex) {
 			
