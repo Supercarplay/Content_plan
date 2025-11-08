@@ -51,6 +51,7 @@ namespace Project {
 	private: System::Windows::Forms::Label^ label5;
 	private: System::Windows::Forms::TextBox^ Name_Edit_post;
 	private: System::Windows::Forms::Label^ label6;
+	
 
 
 
@@ -60,19 +61,9 @@ namespace Project {
 
 
 
-	private:
-		OleDbConnection^ DBconnection_post;
-		OleDbConnection^ DBconnection_login;
 
-		String^ selectedFileForNewPost;
-		String^ selectedFileForEditPost;
-	private:
-		static String^ GetRelativePath(String^ fromPath, String^ toPath) {
-			Uri^ fromUri = gcnew Uri(fromPath + "\\");
-			Uri^ toUri = gcnew Uri(toPath);
-			Uri^ relativeUri = fromUri->MakeRelativeUri(toUri);
-			return relativeUri->ToString()->Replace('/', '\\');
-		}
+		   
+	
 
 	private: System::Windows::Forms::Button^ Btnsettings;
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
@@ -87,6 +78,24 @@ namespace Project {
 	private: System::Windows::Forms::TextBox^ ID_Group_text;
 
 	private: System::Windows::Forms::Button^ BtnSaveSettings;
+
+
+
+
+
+
+
+
+
+
+
+	private:
+		int currentEditPostID;
+	private:
+		OleDbConnection^ DBconnection_post;
+		OleDbConnection^ DBconnection_login;
+
+		String^ selectedFileForNewPost;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ID;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Date_post;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ name_post;
@@ -98,8 +107,23 @@ namespace Project {
 	private: System::Windows::Forms::DataGridViewButtonColumn^ EditButton;
 	private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 
+
+
+
+
+
+
+
+
+
+		   String^ selectedFileForEditPost;
 	private:
-		int currentEditPostID;
+		static String^ GetRelativePath(String^ fromPath, String^ toPath) {
+			Uri^ fromUri = gcnew Uri(fromPath + "\\");
+			Uri^ toUri = gcnew Uri(toPath);
+			Uri^ relativeUri = fromUri->MakeRelativeUri(toUri);
+			return relativeUri->ToString()->Replace('/', '\\');
+		}
 	public:
 		MyForm(void)
 		{
@@ -122,7 +146,7 @@ namespace Project {
 			Table_post->RowHeadersVisible = false;
 			Table_post->GridColor = System::Drawing::Color::White;
 			Table_post->CellBorderStyle = DataGridViewCellBorderStyle::Single;
-			this->Table_post->CellFormatting += gcnew System::Windows::Forms::DataGridViewCellFormattingEventHandler(this, &MyForm::Table_post_CellFormatting);
+			
 			DBconnection_post->Open();
 			DBconnection_login->Open();
 		}
@@ -665,7 +689,7 @@ namespace Project {
 			// 
 			// ViewMedia_post
 			// 
-			this->ViewMedia_post->ActiveLinkColor = System::Drawing::Color::White;
+			this->ViewMedia_post->ActiveLinkColor = System::Drawing::Color::RosyBrown;
 			resources->ApplyResources(this->ViewMedia_post, L"ViewMedia_post");
 			this->ViewMedia_post->LinkColor = System::Drawing::Color::White;
 			this->ViewMedia_post->Name = L"ViewMedia_post";
@@ -846,48 +870,12 @@ namespace Project {
 		BtnAddFiles->Text = L"Добавить файл";
 	}
 
-	private: System::Void Table_post_CellFormatting(System::Object^ sender, System::Windows::Forms::DataGridViewCellFormattingEventArgs^ e) {
-		if (e->ColumnIndex == Table_post->Columns["ViewMedia_post"]->Index && e->RowIndex >= 0) {
-			DataGridViewRow^ row = Table_post->Rows[e->RowIndex];
-			Object^ filesValue = row->Cells["Files_post"]->Value;
-
-			if (filesValue != nullptr && filesValue != DBNull::Value) {
-				Object^ mediaValue = row->Cells["ViewMedia_post"]->Value;
-				e->Value = (mediaValue != nullptr && mediaValue != DBNull::Value)
-					? safe_cast<String^>(mediaValue)
-					: "Ничего";
-				e->FormattingApplied = true;
-			}
-		}
-	}
+	
 	private: System::Void Table_post_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 		if (e->RowIndex < 0) return;
 
 		int editColIndex = Table_post->Columns["EditButton"]->Index;
 		int deleteColIndex = Table_post->Columns["DeleteButton"]->Index;
-		int mediaColIndex = Table_post->Columns["ViewMedia_post"]->Index;
-		if (e->ColumnIndex == mediaColIndex) {
-			DataGridViewRow^ row = Table_post->Rows[e->RowIndex];
-			Object^ filesValue = row->Cells["Files_post"]->Value;
-			if (filesValue != nullptr && filesValue != DBNull::Value) {
-				String^ hyperlink = safe_cast<String^>(filesValue);
-				String^ cleanPath;
-				if (hyperlink->StartsWith("#") && hyperlink->EndsWith("#") && hyperlink->Length > 2) {
-					cleanPath = hyperlink->Substring(1, hyperlink->Length - 2);
-				}
-				else {
-					cleanPath = hyperlink;
-				}
-				String^ fullPath = System::IO::Path::Combine(Application::StartupPath, cleanPath);
-				if (System::IO::File::Exists(fullPath)) {
-					System::Diagnostics::Process::Start(fullPath);
-				}
-				else {
-					MessageBox::Show("Файл не найден:\n" + fullPath, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
-				}
-			}
-			return;
-		}
 		if (e->ColumnIndex == editColIndex) {
 			
 			DataGridViewRow^ row = Table_post->Rows[e->RowIndex];
@@ -904,6 +892,7 @@ namespace Project {
 			Object^ textObj = row->Cells["Text_post"]->Value;
 			Object^ scencensObj = row->Cells["Scencens_post"]->Value;
 			Object^ mediaObj = row->Cells["ViewMedia_post"]->Value;
+			Object^ FileObj = row->Cells["Files_post"]->Value;
 
 			if (dateObj != nullptr && dateObj != DBNull::Value) {
 				dateTimePicker_Editpost->Value = safe_cast<DateTime>(dateObj);
@@ -913,6 +902,7 @@ namespace Project {
 			About_Edit_post->Text = (aboutObj != nullptr && aboutObj != DBNull::Value) ? safe_cast<String^>(aboutObj) : "";
 			text_Edit_post->Text = (textObj != nullptr && textObj != DBNull::Value) ? safe_cast<String^>(textObj) : "";
 			Continuity_Edit_post->Text = (scencensObj != nullptr && scencensObj != DBNull::Value) ? safe_cast<String^>(scencensObj) : "";
+			linkEditFile->Text = (FileObj != nullptr && FileObj != DBNull::Value) ? safe_cast<String^>(FileObj) : "";
 
 			View_media_Edit->SelectedIndex = -1;
 			if (mediaObj != nullptr && mediaObj != DBNull::Value) {
@@ -924,21 +914,23 @@ namespace Project {
 					}
 				}
 			}
+			if (FileObj != nullptr && FileObj != DBNull::Value) {
+				String^ fileName = safe_cast<String^>(FileObj);
+				linkEditFile->Text = fileName;
+				linkEditFile->Visible = true;
+
+				// Восстанавливаем относительный путь (как он хранится в БД)
+				selectedFileForEditPost = fileName; // ← ВАЖНО: именно это значение хранится в [Files]
+			}
+			else {
+				linkEditFile->Text = "";
+				linkEditFile->Visible = false;
+				selectedFileForEditPost = nullptr;
+			}
 			if (Edit_post->Visible == true) {
 				Edit_post->Visible = false;
 			}else { Edit_post->Visible = true; }
-			Object^ filesObj = row->Cells["Files_post"]->Value;
-			if (filesObj != nullptr && filesObj != DBNull::Value) {
-				String^ fileName = System::IO::Path::GetFileName(safe_cast<String^>(filesObj));
-				linkEditFile->Text = fileName;
-				linkEditFile->Visible = true;
-				BtnEditFile->Text = L"Изменить файл";
-				selectedFileForEditPost = safe_cast<String^>(filesObj);
-			}else {
-				linkEditFile->Visible = false;
-				BtnEditFile->Text = L"Добавить файл";
-				selectedFileForEditPost = nullptr;
-			}
+			
 		}else if (e->ColumnIndex == deleteColIndex) {
 			String^ postName = safe_cast<String^>(Table_post->Rows[e->RowIndex]->Cells["name_post"]->Value);
 			System::Windows::Forms::DialogResult res = MessageBox::Show(
@@ -992,15 +984,16 @@ namespace Project {
 				? static_cast<Object^>(DBNull::Value)
 				: safe_cast<Object^>(Continuity_Edit_post->Text);
 			cmd->Parameters->AddWithValue("@Scencens_post", scencensValue);
-			Object^ mediaValue = String::IsNullOrWhiteSpace(View_media_Edit->Text) || View_media_Edit->SelectedIndex == -1
+			Object^ mediaValue = String::IsNullOrWhiteSpace(View_media_Edit->Text) || View_media_Edit->SelectedIndex == 0
 				? static_cast<Object^>(DBNull::Value)
 				: safe_cast<Object^>(View_media_Edit->Text);
 			cmd->Parameters->AddWithValue("@ViewMedia_post", mediaValue);
-			cmd->Parameters->AddWithValue("@ID", currentEditPostID);
 			Object^ filesValue = selectedFileForEditPost
 				? safe_cast<Object^>(selectedFileForEditPost)
 				: static_cast<Object^>(DBNull::Value);
 			cmd->Parameters->AddWithValue("@Files", filesValue);
+			cmd->Parameters->AddWithValue("@ID", currentEditPostID);
+			
 			int rowsAffected = cmd->ExecuteNonQuery();
 
 			if (rowsAffected <= 0) {
@@ -1025,7 +1018,7 @@ namespace Project {
 				String^ filePostDir = System::IO::Path::Combine(Application::StartupPath, "FilePost");
 				String^ dest = System::IO::Path::Combine(filePostDir, fileName);
 				System::IO::File::Copy(src, dest, true);
-				selectedFileForNewPost = "#" + MyForm::GetRelativePath(Application::StartupPath, dest) + "#";
+				selectedFileForNewPost = MyForm::GetRelativePath(Application::StartupPath, dest);
 				linkFile->Text = fileName;
 				linkFile->Visible = true;
 				BtnAddFiles->Text = L"Изменить файл";
@@ -1043,7 +1036,7 @@ namespace Project {
 				String^ filePostDir = System::IO::Path::Combine(Application::StartupPath, "FilePost");
 				String^ dest = System::IO::Path::Combine(filePostDir, fileName);
 				System::IO::File::Copy(src, dest, true);
-				selectedFileForEditPost = "#" + MyForm::GetRelativePath(Application::StartupPath, dest) + "#";
+				selectedFileForEditPost = MyForm::GetRelativePath(Application::StartupPath, dest);
 				linkEditFile->Text = fileName;
 				linkEditFile->Visible = true;
 				BtnEditFile->Text = L"Изменить файл";
