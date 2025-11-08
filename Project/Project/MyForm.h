@@ -876,6 +876,32 @@ namespace Project {
 
 		int editColIndex = Table_post->Columns["EditButton"]->Index;
 		int deleteColIndex = Table_post->Columns["DeleteButton"]->Index;
+
+		if (e->ColumnIndex == Table_post->Columns["ViewMedia_post"]->Index) {
+			DataGridViewRow^ row = Table_post->Rows[e->RowIndex];
+			Object^ fileObj = row->Cells["Files_post"]->Value;
+
+			if (fileObj != nullptr && fileObj != DBNull::Value) {
+				String^ relativePath = safe_cast<String^>(fileObj);
+				String^ fullPath = System::IO::Path::Combine(Application::StartupPath, relativePath);
+
+				if (System::IO::File::Exists(fullPath)) {
+					try {
+						System::Diagnostics::Process::Start(fullPath);
+					}
+					catch (Exception^ ex) {
+						MessageBox::Show("Не удалось открыть файл:\n" + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+					}
+				}
+				else {
+					MessageBox::Show("Файл не найден:\n" + fullPath, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				}
+			}
+			else {
+				MessageBox::Show("К этому посту не прикреплён файл.", "Информация", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			}
+			return; // Важно: не продолжать обработку как Edit/Delete
+		}
 		if (e->ColumnIndex == editColIndex) {
 			
 			DataGridViewRow^ row = Table_post->Rows[e->RowIndex];
@@ -918,9 +944,7 @@ namespace Project {
 				String^ fileName = safe_cast<String^>(FileObj);
 				linkEditFile->Text = fileName;
 				linkEditFile->Visible = true;
-
-				// Восстанавливаем относительный путь (как он хранится в БД)
-				selectedFileForEditPost = fileName; // ← ВАЖНО: именно это значение хранится в [Files]
+				selectedFileForEditPost = fileName;
 			}
 			else {
 				linkEditFile->Text = "";
