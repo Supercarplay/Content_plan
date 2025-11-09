@@ -1269,6 +1269,93 @@
   <data name="&gt;&gt;Edit_post.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="Archive_Table.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="Archive_Table.ColumnHeadersHeight" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <metadata name="Archive_ID.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Archive_ID.HeaderText" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Archive_ID.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="Archive_Data.HeaderText" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <metadata name="Archive_Name.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Archive_Name.HeaderText" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <metadata name="Archive_About.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Archive_About.HeaderText" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <metadata name="Archive_Text.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Archive_Text.HeaderText" xml:space="preserve">
+    <value>Текст</value>
+  </data>
+  <metadata name="Archive_Scencens.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Archive_Scencens.HeaderText" xml:space="preserve">
+    <value>Сценарий</value>
+  </data>
+  <metadata name="Archive_ViewMedia.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Archive_ViewMedia.HeaderText" xml:space="preserve">
+    <value>Медиа</value>
+  </data>
+  <metadata name="Archive_post.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Archive_post.HeaderText" xml:space="preserve">
+    <value>Files_post</value>
+  </data>
+  <data name="Archive_post.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <metadata name="BtnReturn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="BtnReturn.HeaderText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Archive_Table.Location" type="System.Drawing.Point, System.Drawing">
+    <value>39, 67</value>
+  </data>
+  <data name="Archive_Table.Size" type="System.Drawing.Size, System.Drawing">
+    <value>944, 438</value>
+  </data>
+  <data name="Archive_Table.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="Archive_Table.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;Archive_Table.Name" xml:space="preserve">
+    <value>Archive_Table</value>
+  </data>
+  <data name="&gt;&gt;Archive_Table.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Archive_Table.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Archive_Table.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
   <data name="Table_post.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
@@ -1357,7 +1444,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Table_post.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="Btnsettings.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1884,7 +1971,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="BtnArchive.Font" type="System.Drawing.Font, System.Drawing">
     <value>Times New Roman, 10pt</value>
@@ -2039,11 +2126,59 @@
   <data name="$this.Text" xml:space="preserve">
     <value>Создание и отслеживание контент плана</value>
   </data>
-  <data name="&gt;&gt;openFileDialog.Name" xml:space="preserve">
-    <value>openFileDialog</value>
+  <data name="&gt;&gt;Archive_ID.Name" xml:space="preserve">
+    <value>Archive_ID</value>
   </data>
-  <data name="&gt;&gt;openFileDialog.Type" xml:space="preserve">
-    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;Archive_ID.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Archive_Data.Name" xml:space="preserve">
+    <value>Archive_Data</value>
+  </data>
+  <data name="&gt;&gt;Archive_Data.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Archive_Name.Name" xml:space="preserve">
+    <value>Archive_Name</value>
+  </data>
+  <data name="&gt;&gt;Archive_Name.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Archive_About.Name" xml:space="preserve">
+    <value>Archive_About</value>
+  </data>
+  <data name="&gt;&gt;Archive_About.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Archive_Text.Name" xml:space="preserve">
+    <value>Archive_Text</value>
+  </data>
+  <data name="&gt;&gt;Archive_Text.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Archive_Scencens.Name" xml:space="preserve">
+    <value>Archive_Scencens</value>
+  </data>
+  <data name="&gt;&gt;Archive_Scencens.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Archive_ViewMedia.Name" xml:space="preserve">
+    <value>Archive_ViewMedia</value>
+  </data>
+  <data name="&gt;&gt;Archive_ViewMedia.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewLinkColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Archive_post.Name" xml:space="preserve">
+    <value>Archive_post</value>
+  </data>
+  <data name="&gt;&gt;Archive_post.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtnReturn.Name" xml:space="preserve">
+    <value>BtnReturn</value>
+  </data>
+  <data name="&gt;&gt;BtnReturn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewButtonColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ID.Name" xml:space="preserve">
     <value>ID</value>
@@ -2104,6 +2239,12 @@
   </data>
   <data name="&gt;&gt;DeleteButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewButtonColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openFileDialog.Name" xml:space="preserve">
+    <value>openFileDialog</value>
+  </data>
+  <data name="&gt;&gt;openFileDialog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MyForm</value>

@@ -96,16 +96,66 @@ namespace Project {
 		OleDbConnection^ DBconnection_login;
 
 		String^ selectedFileForNewPost;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ID;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Date_post;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ name_post;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ About_post;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Text_post;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Scencens_post;
-	private: System::Windows::Forms::DataGridViewLinkColumn^ ViewMedia_post;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Files_post;
-	private: System::Windows::Forms::DataGridViewButtonColumn^ EditButton;
-	private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
+
+
+
+
+
+
+
+
+
+
+	private: System::Windows::Forms::DataGridView^ Archive_Table;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Archive_ID;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Archive_Data;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Archive_Name;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Archive_About;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Archive_Text;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Archive_Scencens;
+	private: System::Windows::Forms::DataGridViewLinkColumn^ Archive_ViewMedia;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Archive_post;
+	private: System::Windows::Forms::DataGridViewButtonColumn^ BtnReturn;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ ID;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ Date_post;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ name_post;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ About_post;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ Text_post;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ Scencens_post;
+private: System::Windows::Forms::DataGridViewLinkColumn^ ViewMedia_post;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ Files_post;
+private: System::Windows::Forms::DataGridViewButtonColumn^ EditButton;
+private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -124,6 +174,8 @@ namespace Project {
 			Uri^ relativeUri = fromUri->MakeRelativeUri(toUri);
 			return relativeUri->ToString()->Replace('/', '\\');
 		}
+	private:
+		bool isEditingFromArchive = false;
 	public:
 		MyForm(void)
 		{
@@ -146,6 +198,9 @@ namespace Project {
 			Table_post->RowHeadersVisible = false;
 			Table_post->GridColor = System::Drawing::Color::White;
 			Table_post->CellBorderStyle = DataGridViewCellBorderStyle::Single;
+			Archive_Table->RowHeadersVisible = false;
+			Archive_Table->GridColor = System::Drawing::Color::White;
+			Archive_Table->CellBorderStyle = DataGridViewCellBorderStyle::Single;
 			
 			DBconnection_post->Open();
 			DBconnection_login->Open();
@@ -187,6 +242,9 @@ namespace Project {
 			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle4 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle5 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle6 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->button_New_post = (gcnew System::Windows::Forms::Button());
 			this->Name_new_post = (gcnew System::Windows::Forms::Label());
 			this->Textbox_Name_new_post = (gcnew System::Windows::Forms::TextBox());
@@ -222,15 +280,17 @@ namespace Project {
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->Name_Edit_post = (gcnew System::Windows::Forms::TextBox());
 			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->Archive_Table = (gcnew System::Windows::Forms::DataGridView());
+			this->Archive_ID = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Archive_Data = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Archive_Name = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Archive_About = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Archive_Text = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Archive_Scencens = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Archive_ViewMedia = (gcnew System::Windows::Forms::DataGridViewLinkColumn());
+			this->Archive_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->BtnReturn = (gcnew System::Windows::Forms::DataGridViewButtonColumn());
 			this->Table_post = (gcnew System::Windows::Forms::DataGridView());
-			this->Btnsettings = (gcnew System::Windows::Forms::Button());
-			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
-			this->BtnArchive = (gcnew System::Windows::Forms::Button());
-			this->openFileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
-			this->SettingsGroup = (gcnew System::Windows::Forms::GroupBox());
-			this->BtnSaveSettings = (gcnew System::Windows::Forms::Button());
-			this->ID_Group_text = (gcnew System::Windows::Forms::TextBox());
-			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->ID = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Date_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->name_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
@@ -241,8 +301,17 @@ namespace Project {
 			this->Files_post = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->EditButton = (gcnew System::Windows::Forms::DataGridViewButtonColumn());
 			this->DeleteButton = (gcnew System::Windows::Forms::DataGridViewButtonColumn());
+			this->Btnsettings = (gcnew System::Windows::Forms::Button());
+			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->BtnArchive = (gcnew System::Windows::Forms::Button());
+			this->openFileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->SettingsGroup = (gcnew System::Windows::Forms::GroupBox());
+			this->BtnSaveSettings = (gcnew System::Windows::Forms::Button());
+			this->ID_Group_text = (gcnew System::Windows::Forms::TextBox());
+			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->Panel_New_post->SuspendLayout();
 			this->Edit_post->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Archive_Table))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Table_post))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SettingsGroup->SuspendLayout();
@@ -547,15 +616,15 @@ namespace Project {
 			this->label6->ForeColor = System::Drawing::Color::White;
 			this->label6->Name = L"label6";
 			// 
-			// Table_post
+			// Archive_Table
 			// 
-			this->Table_post->AllowUserToAddRows = false;
-			this->Table_post->AllowUserToDeleteRows = false;
-			resources->ApplyResources(this->Table_post, L"Table_post");
-			this->Table_post->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::AllCells;
-			this->Table_post->BackgroundColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(67)),
-				static_cast<System::Int32>(static_cast<System::Byte>(93)));
-			this->Table_post->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->Archive_Table->AllowUserToAddRows = false;
+			this->Archive_Table->AllowUserToDeleteRows = false;
+			resources->ApplyResources(this->Archive_Table, L"Archive_Table");
+			this->Archive_Table->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::AllCells;
+			this->Archive_Table->BackgroundColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(67)), static_cast<System::Int32>(static_cast<System::Byte>(93)));
+			this->Archive_Table->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
 			dataGridViewCellStyle1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
@@ -566,12 +635,12 @@ namespace Project {
 				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
 			dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
 			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->Table_post->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-			this->Table_post->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::DisableResizing;
-			this->Table_post->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(10) {
-				this->ID, this->Date_post,
-					this->name_post, this->About_post, this->Text_post, this->Scencens_post, this->ViewMedia_post, this->Files_post, this->EditButton,
-					this->DeleteButton
+			this->Archive_Table->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			this->Archive_Table->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::DisableResizing;
+			this->Archive_Table->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(9) {
+				this->Archive_ID,
+					this->Archive_Data, this->Archive_Name, this->Archive_About, this->Archive_Text, this->Archive_Scencens, this->Archive_ViewMedia,
+					this->Archive_post, this->BtnReturn
 			});
 			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
 			dataGridViewCellStyle2->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
@@ -582,69 +651,124 @@ namespace Project {
 				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
 			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
 			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
-			this->Table_post->DefaultCellStyle = dataGridViewCellStyle2;
+			this->Archive_Table->DefaultCellStyle = dataGridViewCellStyle2;
+			this->Archive_Table->GridColor = System::Drawing::Color::Black;
+			this->Archive_Table->Name = L"Archive_Table";
+			this->Archive_Table->ReadOnly = true;
+			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->Archive_Table->RowsDefaultCellStyle = dataGridViewCellStyle3;
+			this->Archive_Table->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::Archive_Table_CellContentClick);
+			// 
+			// Archive_ID
+			// 
+			resources->ApplyResources(this->Archive_ID, L"Archive_ID");
+			this->Archive_ID->Name = L"Archive_ID";
+			this->Archive_ID->ReadOnly = true;
+			this->Archive_ID->Resizable = System::Windows::Forms::DataGridViewTriState::False;
+			// 
+			// Archive_Data
+			// 
+			resources->ApplyResources(this->Archive_Data, L"Archive_Data");
+			this->Archive_Data->Name = L"Archive_Data";
+			this->Archive_Data->ReadOnly = true;
+			this->Archive_Data->Resizable = System::Windows::Forms::DataGridViewTriState::False;
+			// 
+			// Archive_Name
+			// 
+			resources->ApplyResources(this->Archive_Name, L"Archive_Name");
+			this->Archive_Name->Name = L"Archive_Name";
+			this->Archive_Name->ReadOnly = true;
+			this->Archive_Name->Resizable = System::Windows::Forms::DataGridViewTriState::False;
+			// 
+			// Archive_About
+			// 
+			resources->ApplyResources(this->Archive_About, L"Archive_About");
+			this->Archive_About->Name = L"Archive_About";
+			this->Archive_About->ReadOnly = true;
+			this->Archive_About->Resizable = System::Windows::Forms::DataGridViewTriState::False;
+			// 
+			// Archive_Text
+			// 
+			resources->ApplyResources(this->Archive_Text, L"Archive_Text");
+			this->Archive_Text->Name = L"Archive_Text";
+			this->Archive_Text->ReadOnly = true;
+			this->Archive_Text->Resizable = System::Windows::Forms::DataGridViewTriState::False;
+			// 
+			// Archive_Scencens
+			// 
+			resources->ApplyResources(this->Archive_Scencens, L"Archive_Scencens");
+			this->Archive_Scencens->Name = L"Archive_Scencens";
+			this->Archive_Scencens->ReadOnly = true;
+			this->Archive_Scencens->Resizable = System::Windows::Forms::DataGridViewTriState::False;
+			// 
+			// Archive_ViewMedia
+			// 
+			this->Archive_ViewMedia->ActiveLinkColor = System::Drawing::Color::RosyBrown;
+			resources->ApplyResources(this->Archive_ViewMedia, L"Archive_ViewMedia");
+			this->Archive_ViewMedia->LinkColor = System::Drawing::Color::White;
+			this->Archive_ViewMedia->Name = L"Archive_ViewMedia";
+			this->Archive_ViewMedia->ReadOnly = true;
+			this->Archive_ViewMedia->Resizable = System::Windows::Forms::DataGridViewTriState::False;
+			this->Archive_ViewMedia->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::Automatic;
+			this->Archive_ViewMedia->VisitedLinkColor = System::Drawing::Color::White;
+			// 
+			// Archive_post
+			// 
+			resources->ApplyResources(this->Archive_post, L"Archive_post");
+			this->Archive_post->Name = L"Archive_post";
+			this->Archive_post->ReadOnly = true;
+			// 
+			// BtnReturn
+			// 
+			resources->ApplyResources(this->BtnReturn, L"BtnReturn");
+			this->BtnReturn->Name = L"BtnReturn";
+			this->BtnReturn->ReadOnly = true;
+			this->BtnReturn->Resizable = System::Windows::Forms::DataGridViewTriState::False;
+			// 
+			// Table_post
+			// 
+			this->Table_post->AllowUserToAddRows = false;
+			this->Table_post->AllowUserToDeleteRows = false;
+			resources->ApplyResources(this->Table_post, L"Table_post");
+			this->Table_post->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::AllCells;
+			this->Table_post->BackgroundColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(67)),
+				static_cast<System::Int32>(static_cast<System::Byte>(93)));
+			this->Table_post->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			dataGridViewCellStyle4->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			dataGridViewCellStyle4->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
+				static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			dataGridViewCellStyle4->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
+			dataGridViewCellStyle4->ForeColor = System::Drawing::Color::White;
+			dataGridViewCellStyle4->Padding = System::Windows::Forms::Padding(5);
+			dataGridViewCellStyle4->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			dataGridViewCellStyle4->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle4->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->Table_post->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+			this->Table_post->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::DisableResizing;
+			this->Table_post->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(10) {
+				this->ID, this->Date_post,
+					this->name_post, this->About_post, this->Text_post, this->Scencens_post, this->ViewMedia_post, this->Files_post, this->EditButton,
+					this->DeleteButton
+			});
+			dataGridViewCellStyle5->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle5->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
+				static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			dataGridViewCellStyle5->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
+			dataGridViewCellStyle5->ForeColor = System::Drawing::Color::White;
+			dataGridViewCellStyle5->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			dataGridViewCellStyle5->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle5->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->Table_post->DefaultCellStyle = dataGridViewCellStyle5;
 			this->Table_post->GridColor = System::Drawing::Color::Black;
 			this->Table_post->Name = L"Table_post";
 			this->Table_post->ReadOnly = true;
-			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			dataGridViewCellStyle6->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->Table_post->RowsDefaultCellStyle = dataGridViewCellStyle3;
+			this->Table_post->RowsDefaultCellStyle = dataGridViewCellStyle6;
 			this->Table_post->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::Table_post_CellContentClick);
-			// 
-			// Btnsettings
-			// 
-			resources->ApplyResources(this->Btnsettings, L"Btnsettings");
-			this->Btnsettings->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->Btnsettings->FlatAppearance->BorderSize = 5;
-			this->Btnsettings->Name = L"Btnsettings";
-			this->Btnsettings->UseVisualStyleBackColor = true;
-			this->Btnsettings->Click += gcnew System::EventHandler(this, &MyForm::Btnsettings_Click);
-			// 
-			// pictureBox1
-			// 
-			resources->ApplyResources(this->pictureBox1, L"pictureBox1");
-			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->TabStop = false;
-			// 
-			// BtnArchive
-			// 
-			resources->ApplyResources(this->BtnArchive, L"BtnArchive");
-			this->BtnArchive->Name = L"BtnArchive";
-			this->BtnArchive->UseVisualStyleBackColor = true;
-			// 
-			// openFileDialog
-			// 
-			this->openFileDialog->FileName = L"openFileDialog";
-			// 
-			// SettingsGroup
-			// 
-			this->SettingsGroup->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(67)),
-				static_cast<System::Int32>(static_cast<System::Byte>(93)));
-			this->SettingsGroup->Controls->Add(this->BtnSaveSettings);
-			this->SettingsGroup->Controls->Add(this->ID_Group_text);
-			this->SettingsGroup->Controls->Add(this->label7);
-			resources->ApplyResources(this->SettingsGroup, L"SettingsGroup");
-			this->SettingsGroup->ForeColor = System::Drawing::Color::White;
-			this->SettingsGroup->Name = L"SettingsGroup";
-			this->SettingsGroup->TabStop = false;
-			// 
-			// BtnSaveSettings
-			// 
-			this->BtnSaveSettings->ForeColor = System::Drawing::Color::Black;
-			resources->ApplyResources(this->BtnSaveSettings, L"BtnSaveSettings");
-			this->BtnSaveSettings->Name = L"BtnSaveSettings";
-			this->BtnSaveSettings->UseVisualStyleBackColor = true;
-			this->BtnSaveSettings->Click += gcnew System::EventHandler(this, &MyForm::BtnSaveSettings_Click);
-			// 
-			// ID_Group_text
-			// 
-			resources->ApplyResources(this->ID_Group_text, L"ID_Group_text");
-			this->ID_Group_text->Name = L"ID_Group_text";
-			// 
-			// label7
-			// 
-			resources->ApplyResources(this->label7, L"label7");
-			this->label7->Name = L"label7";
 			// 
 			// ID
 			// 
@@ -709,12 +833,70 @@ namespace Project {
 			resources->ApplyResources(this->EditButton, L"EditButton");
 			this->EditButton->Name = L"EditButton";
 			this->EditButton->ReadOnly = true;
+			this->EditButton->Resizable = System::Windows::Forms::DataGridViewTriState::False;
 			// 
 			// DeleteButton
 			// 
 			resources->ApplyResources(this->DeleteButton, L"DeleteButton");
 			this->DeleteButton->Name = L"DeleteButton";
 			this->DeleteButton->ReadOnly = true;
+			this->DeleteButton->Resizable = System::Windows::Forms::DataGridViewTriState::False;
+			// 
+			// Btnsettings
+			// 
+			resources->ApplyResources(this->Btnsettings, L"Btnsettings");
+			this->Btnsettings->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->Btnsettings->FlatAppearance->BorderSize = 5;
+			this->Btnsettings->Name = L"Btnsettings";
+			this->Btnsettings->UseVisualStyleBackColor = true;
+			this->Btnsettings->Click += gcnew System::EventHandler(this, &MyForm::Btnsettings_Click);
+			// 
+			// pictureBox1
+			// 
+			resources->ApplyResources(this->pictureBox1, L"pictureBox1");
+			this->pictureBox1->Name = L"pictureBox1";
+			this->pictureBox1->TabStop = false;
+			// 
+			// BtnArchive
+			// 
+			resources->ApplyResources(this->BtnArchive, L"BtnArchive");
+			this->BtnArchive->Name = L"BtnArchive";
+			this->BtnArchive->UseVisualStyleBackColor = true;
+			this->BtnArchive->Click += gcnew System::EventHandler(this, &MyForm::BtnArchive_Click);
+			// 
+			// openFileDialog
+			// 
+			this->openFileDialog->FileName = L"openFileDialog";
+			// 
+			// SettingsGroup
+			// 
+			this->SettingsGroup->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(67)),
+				static_cast<System::Int32>(static_cast<System::Byte>(93)));
+			this->SettingsGroup->Controls->Add(this->BtnSaveSettings);
+			this->SettingsGroup->Controls->Add(this->ID_Group_text);
+			this->SettingsGroup->Controls->Add(this->label7);
+			resources->ApplyResources(this->SettingsGroup, L"SettingsGroup");
+			this->SettingsGroup->ForeColor = System::Drawing::Color::White;
+			this->SettingsGroup->Name = L"SettingsGroup";
+			this->SettingsGroup->TabStop = false;
+			// 
+			// BtnSaveSettings
+			// 
+			this->BtnSaveSettings->ForeColor = System::Drawing::Color::Black;
+			resources->ApplyResources(this->BtnSaveSettings, L"BtnSaveSettings");
+			this->BtnSaveSettings->Name = L"BtnSaveSettings";
+			this->BtnSaveSettings->UseVisualStyleBackColor = true;
+			this->BtnSaveSettings->Click += gcnew System::EventHandler(this, &MyForm::BtnSaveSettings_Click);
+			// 
+			// ID_Group_text
+			// 
+			resources->ApplyResources(this->ID_Group_text, L"ID_Group_text");
+			this->ID_Group_text->Name = L"ID_Group_text";
+			// 
+			// label7
+			// 
+			resources->ApplyResources(this->label7, L"label7");
+			this->label7->Name = L"label7";
 			// 
 			// MyForm
 			// 
@@ -728,6 +910,7 @@ namespace Project {
 			this->Controls->Add(this->BtnArchive);
 			this->Controls->Add(this->Btnsettings);
 			this->Controls->Add(this->button_New_post);
+			this->Controls->Add(this->Archive_Table);
 			this->Controls->Add(this->Table_post);
 			this->Controls->Add(this->pictureBox1);
 			this->Name = L"MyForm";
@@ -737,6 +920,7 @@ namespace Project {
 			this->Panel_New_post->PerformLayout();
 			this->Edit_post->ResumeLayout(false);
 			this->Edit_post->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Archive_Table))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Table_post))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->SettingsGroup->ResumeLayout(false);
@@ -751,7 +935,7 @@ namespace Project {
 		Date_post->AutoSizeMode = DataGridViewAutoSizeColumnMode::None;
 		Date_post->Width = 100;
 		ViewMedia_post->AutoSizeMode = DataGridViewAutoSizeColumnMode::None;
-		ViewMedia_post->Width = 150;
+		ViewMedia_post->Width = 100;
 
 		EditButton->AutoSizeMode = DataGridViewAutoSizeColumnMode::None;
 		EditButton->Width = 50;
@@ -763,7 +947,7 @@ namespace Project {
 				DeleteButton->UseColumnTextForButtonValue = true;
 		DeleteButton->Text = L"✕";
 		
-		String^ query = "SELECT [ID], [Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post], [Files] FROM TablePost ORDER BY [Date_post]";
+		String^ query = "SELECT [ID], [Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post], [Files] FROM TablePost WHERE [Published] = False ORDER BY [Date_post]";
 		OleDbCommand^ command = gcnew OleDbCommand(query, DBconnection_post);
 		OleDbDataAdapter^ adapter = gcnew OleDbDataAdapter(command);
 		DataTable^ dataTable = gcnew DataTable();
@@ -785,7 +969,63 @@ namespace Project {
 		for each (DataGridViewColumn ^ col in Table_post->Columns) {
 			col->SortMode = DataGridViewColumnSortMode::NotSortable;
 		}
+		LoadArchiveData();
 	}
+
+	private: System::Void LoadArchiveData() {
+		Archive_Table->AutoGenerateColumns = false;
+		Archive_Data->AutoSizeMode = DataGridViewAutoSizeColumnMode::None;
+		Archive_Data->Width = 100;
+		Archive_ViewMedia->AutoSizeMode = DataGridViewAutoSizeColumnMode::None;
+		Archive_ViewMedia->Width = 100;
+		BtnReturn->AutoSizeMode = DataGridViewAutoSizeColumnMode::None;
+		BtnReturn->Width = 50;
+		BtnReturn->UseColumnTextForButtonValue = true;
+		BtnReturn->Text = L"↩";
+
+		String^ query = "SELECT [ID], [Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post], [Files] "
+			"FROM TablePost WHERE [Published] = True "
+			"ORDER BY [Date_post]";
+		OleDbCommand^ command = gcnew OleDbCommand(query, DBconnection_post);
+		OleDbDataAdapter^ adapter = gcnew OleDbDataAdapter(command);
+		DataTable^ dataTable = gcnew DataTable();
+		adapter->Fill(dataTable);
+		Archive_Table->DataSource = dataTable;
+
+		Archive_ID->DataPropertyName = "ID";
+		Archive_Data->DataPropertyName = "Date_post";
+		Archive_Name->DataPropertyName = "name_post";
+		Archive_About->DataPropertyName = "About_post";
+		Archive_Text->DataPropertyName = "Text_post";
+		Archive_Scencens->DataPropertyName = "Scencens_post";
+		Archive_ViewMedia->DataPropertyName = "ViewMedia_post";
+		Archive_post->DataPropertyName = "Files";
+
+		Archive_Table->AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode::Fill;
+		Archive_Table->DefaultCellStyle->WrapMode = DataGridViewTriState::True;
+		Archive_Table->AutoSizeRowsMode = DataGridViewAutoSizeRowsMode::AllCells;
+		for each (DataGridViewColumn ^ col in Archive_Table->Columns) {
+			col->SortMode = DataGridViewColumnSortMode::NotSortable;
+		}
+	}
+	private: System::Void CopyStyleToArchiveTable() {
+		Archive_Table->BackgroundColor = Table_post->BackgroundColor;
+		Archive_Table->BorderStyle = Table_post->BorderStyle;
+		Archive_Table->GridColor = Table_post->GridColor;
+		Archive_Table->CellBorderStyle = Table_post->CellBorderStyle;
+		Archive_Table->RowHeadersVisible = Table_post->RowHeadersVisible;
+		Archive_Table->ReadOnly = Table_post->ReadOnly;
+		Archive_Table->AllowUserToAddRows = Table_post->AllowUserToAddRows;
+		Archive_Table->AllowUserToDeleteRows = Table_post->AllowUserToDeleteRows;
+
+		Archive_Table->ColumnHeadersDefaultCellStyle = Table_post->ColumnHeadersDefaultCellStyle;
+		Archive_Table->DefaultCellStyle = Table_post->DefaultCellStyle;
+		Archive_Table->RowsDefaultCellStyle = Table_post->RowsDefaultCellStyle;
+
+		Archive_Table->BackColor = Table_post->BackColor;
+		Archive_Table->ForeColor = Table_post->ForeColor;
+	}
+	
 	private: System::Void LoadGroupID() {
 		try {
 			String^ query_Auth = "SELECT TOP 1 [ID_Group] FROM Login ORDER BY [ID]";
@@ -977,19 +1217,114 @@ namespace Project {
 				}
 			}
 		}
-		
+	}
+
+	private: System::Void Archive_Table_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+		if (e->RowIndex < 0) return;
+		int returnColIndex = Archive_Table->Columns["BtnReturn"]->Index;
+
+		if (e->ColumnIndex == Archive_Table->Columns["Archive_ViewMedia"]->Index) {
+			DataGridViewRow^ row = Archive_Table->Rows[e->RowIndex];
+			Object^ fileObj = row->Cells["Archive_post"]->Value;
+			if (fileObj != nullptr && fileObj != DBNull::Value) {
+				String^ relativePath = safe_cast<String^>(fileObj);
+				String^ fullPath = System::IO::Path::Combine(Application::StartupPath, relativePath);
+				if (System::IO::File::Exists(fullPath)) {
+					try {
+						System::Diagnostics::Process::Start(fullPath);
+					}
+					catch (Exception^ ex) {
+						MessageBox::Show("Не удалось открыть файл:" + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+					}
+				}
+				else {
+					MessageBox::Show("Файл не найден:" + fullPath, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				}
+			}
+			else {
+				MessageBox::Show("К этому посту не прикреплён файл.", "Информация", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			}
+			return;
+		}
+
+		if (e->ColumnIndex == returnColIndex) {
+			DataGridViewRow^ row = Archive_Table->Rows[e->RowIndex];
+			Object^ idObj = row->Cells["Archive_ID"]->Value;
+			if (idObj == nullptr || idObj == DBNull::Value) {
+				MessageBox::Show("Не удалось загрузить ID записи.", "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				return;
+			}
+			currentEditPostID = Convert::ToInt32(idObj);
+			isEditingFromArchive = true;
+
+			Object^ dateObj = row->Cells["Archive_Data"]->Value;
+			Object^ nameObj = row->Cells["Archive_Name"]->Value;
+			Object^ aboutObj = row->Cells["Archive_About"]->Value;
+			Object^ textObj = row->Cells["Archive_Text"]->Value;
+			Object^ scencensObj = row->Cells["Archive_Scencens"]->Value;
+			Object^ mediaObj = row->Cells["Archive_ViewMedia"]->Value;
+			Object^ fileObj = row->Cells["Archive_post"]->Value;
+
+			if (dateObj != nullptr && dateObj != DBNull::Value) {
+				dateTimePicker_Editpost->Value = safe_cast<DateTime>(dateObj);
+			}
+			Name_Edit_post->Text = (nameObj != nullptr && nameObj != DBNull::Value) ? safe_cast<String^>(nameObj) : "";
+			About_Edit_post->Text = (aboutObj != nullptr && aboutObj != DBNull::Value) ? safe_cast<String^>(aboutObj) : "";
+			text_Edit_post->Text = (textObj != nullptr && textObj != DBNull::Value) ? safe_cast<String^>(textObj) : "";
+			Continuity_Edit_post->Text = (scencensObj != nullptr && scencensObj != DBNull::Value) ? safe_cast<String^>(scencensObj) : "";
+			linkEditFile->Text = (fileObj != nullptr && fileObj != DBNull::Value) ? safe_cast<String^>(fileObj) : "";
+
+			View_media_Edit->SelectedIndex = -1;
+			if (mediaObj != nullptr && mediaObj != DBNull::Value) {
+				String^ mediaStr = safe_cast<String^>(mediaObj);
+				for (int i = 0; i < View_media_Edit->Items->Count; i++) {
+					if (View_media_Edit->Items[i]->ToString() == mediaStr) {
+						View_media_Edit->SelectedIndex = i;
+						break;
+					}
+				}
+			}
+
+			if (fileObj != nullptr && fileObj != DBNull::Value) {
+				String^ fileName = safe_cast<String^>(fileObj);
+				linkEditFile->Text = fileName;
+				linkEditFile->Visible = true;
+				selectedFileForEditPost = fileName;
+			}
+			else {
+				linkEditFile->Visible = false;
+				selectedFileForEditPost = nullptr;
+			}
+
+			Edit_post->Visible = true;
+		}
 	}
 	private: System::Void Save_editbutton_Click(System::Object^ sender, System::EventArgs^ e) {
 		try {
-			String^ updateQuery = "UPDATE TablePost SET " +
-				"[Date_post] = ?, " +
-				"[name_post] = ?, " +
-				"[About_post] = ?, " +
-				"[Text_post] = ?, " +
-				"[Scencens_post] = ?, " +
-				"[ViewMedia_post] = ?, " +
-				"[Files] = ? " +
-				"WHERE [ID] = ?";
+			String^ updateQuery;
+			if (isEditingFromArchive) {
+				updateQuery = "UPDATE TablePost SET " +
+					"[Date_post] = ?, " +
+					"[name_post] = ?, " +
+					"[About_post] = ?, " +
+					"[Text_post] = ?, " +
+					"[Scencens_post] = ?, " +
+					"[ViewMedia_post] = ?, " +
+					"[Files] = ?, " +
+					"[Published] = False " + 
+					"WHERE [ID] = ?";
+			}
+			else {
+				updateQuery = "UPDATE TablePost SET " +
+					"[Date_post] = ?, " +
+					"[name_post] = ?, " +
+					"[About_post] = ?, " +
+					"[Text_post] = ?, " +
+					"[Scencens_post] = ?, " +
+					"[ViewMedia_post] = ?, " +
+					"[Files] = ? " +
+					"WHERE [ID] = ?";
+			}
 
 			OleDbCommand^ cmd = gcnew OleDbCommand(updateQuery, DBconnection_post);
 			DateTime selectedDate = dateTimePicker_Editpost->Value;
@@ -1017,17 +1352,18 @@ namespace Project {
 				: static_cast<Object^>(DBNull::Value);
 			cmd->Parameters->AddWithValue("@Files", filesValue);
 			cmd->Parameters->AddWithValue("@ID", currentEditPostID);
-			
-			int rowsAffected = cmd->ExecuteNonQuery();
 
+			int rowsAffected = cmd->ExecuteNonQuery();
 			if (rowsAffected <= 0) {
 				MessageBox::Show("Не найден пост для обновления.", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			}
+
+			isEditingFromArchive = false;
 			MyForm_Load(this, gcnew System::EventArgs());
 			Edit_post->Visible = false;
 			currentEditPostID = 0;
-
-		}catch (Exception^ ex) {
+		}
+		catch (Exception^ ex) {
 			MessageBox::Show("Ошибка обновления:\n" + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 		selectedFileForEditPost = nullptr;
@@ -1104,4 +1440,14 @@ namespace Project {
 		}
 		catch (Exception^) {}
 	}
-};}
+	private: System::Void BtnArchive_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (Archive_Table->Visible == false) {
+			Archive_Table->Visible = true;
+			BtnArchive->Text = "Закрыть";
+		}
+		else {
+			Archive_Table->Visible = false;
+			BtnArchive->Text = "Архив";
+		}
+	}
+}; }
