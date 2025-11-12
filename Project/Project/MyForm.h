@@ -17,8 +17,7 @@ namespace Project {
 	{
 
 	public:
-		static String^ connectString_post = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=Database_post.accdb;";
-		static String^ connectString_Login = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=Database_Login.accdb;";
+		static String^ connectString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=Database_Login.accdb;";
 	private: System::Windows::Forms::Label^ Name_new_post;
 	public:
 	private: System::Windows::Forms::TextBox^ Textbox_Name_new_post;
@@ -51,20 +50,6 @@ namespace Project {
 	private: System::Windows::Forms::Label^ label5;
 	private: System::Windows::Forms::TextBox^ Name_Edit_post;
 	private: System::Windows::Forms::Label^ label6;
-	
-
-
-
-
-
-
-
-
-
-
-		   
-	
-
 	private: System::Windows::Forms::Button^ Btnsettings;
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
 	private: System::Windows::Forms::Button^ BtnArchive;
@@ -76,36 +61,7 @@ namespace Project {
 	private: System::Windows::Forms::GroupBox^ SettingsGroup;
 	private: System::Windows::Forms::Label^ label7;
 	private: System::Windows::Forms::TextBox^ ID_Group_text;
-
 	private: System::Windows::Forms::Button^ BtnSaveSettings;
-
-
-
-
-
-
-
-
-
-
-
-	private:
-		int currentEditPostID;
-	private:
-		OleDbConnection^ DBconnection_post;
-		OleDbConnection^ DBconnection_login;
-
-		String^ selectedFileForNewPost;
-
-
-
-
-
-
-
-
-
-
 	private: System::Windows::Forms::DataGridView^ Archive_Table;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Archive_ID;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Archive_Data;
@@ -116,57 +72,24 @@ namespace Project {
 	private: System::Windows::Forms::DataGridViewLinkColumn^ Archive_ViewMedia;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Archive_post;
 	private: System::Windows::Forms::DataGridViewButtonColumn^ BtnReturn;
-private: System::Windows::Forms::DataGridViewTextBoxColumn^ ID;
-private: System::Windows::Forms::DataGridViewTextBoxColumn^ Date_post;
-private: System::Windows::Forms::DataGridViewTextBoxColumn^ name_post;
-private: System::Windows::Forms::DataGridViewTextBoxColumn^ About_post;
-private: System::Windows::Forms::DataGridViewTextBoxColumn^ Text_post;
-private: System::Windows::Forms::DataGridViewTextBoxColumn^ Scencens_post;
-private: System::Windows::Forms::DataGridViewLinkColumn^ ViewMedia_post;
-private: System::Windows::Forms::DataGridViewTextBoxColumn^ Files_post;
-private: System::Windows::Forms::DataGridViewButtonColumn^ EditButton;
-private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ID;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Date_post;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ name_post;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ About_post;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Text_post;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Scencens_post;
+	private: System::Windows::Forms::DataGridViewLinkColumn^ ViewMedia_post;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Files_post;
+	private: System::Windows::Forms::DataGridViewButtonColumn^ EditButton;
+	private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
+	private: System::Windows::Forms::PictureBox^ pictureBox2;
+	private: System::Windows::Forms::GroupBox^ Authorization;
+	private: System::Windows::Forms::Label^ label8;
+	private: System::Windows::Forms::TextBox^ Authorization_Login;
+	private: System::Windows::Forms::Button^ BTNAuthorization;
+	private: System::Windows::Forms::TextBox^ Authorization_Password;
+	private: System::Windows::Forms::LinkLabel^ Btn_new_user;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		   String^ selectedFileForEditPost;
 	private:
 		static String^ GetRelativePath(String^ fromPath, String^ toPath) {
 			Uri^ fromUri = gcnew Uri(fromPath + "\\");
@@ -175,19 +98,21 @@ private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 			return relativeUri->ToString()->Replace('/', '\\');
 		}
 	private:
+		OleDbConnection^ DBconnection;
+		int currentEditPostID;
+		Nullable<int> currentUserId;
+		String^ selectedFileForNewPost;
+		String^ selectedFileForEditPost;
+	private:
 		bool isEditingFromArchive = false;
 	public:
 		MyForm(void)
 		{
 			InitializeComponent();
 
-			String^ dbPathPost = System::IO::Path::Combine(Application::StartupPath, "Database_post.accdb");
-			String^ connectString_post = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + dbPathPost + ";Persist Security Info=False;";
-			DBconnection_post = gcnew OleDbConnection(connectString_post);
-
-			String^ dbPathLogin = System::IO::Path::Combine(Application::StartupPath, "Database_Login.accdb");
-			String^ connectString_login = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + dbPathLogin + ";Persist Security Info=False;";
-			DBconnection_login = gcnew OleDbConnection(connectString_login);
+			String^ dbPath = System::IO::Path::Combine(Application::StartupPath, "Database_Login.accdb");
+			String^ connectString_full = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + dbPath + ";Persist Security Info=False;";
+			DBconnection = gcnew OleDbConnection(connectString_full);
 
 			String^ filePostFolder = System::IO::Path::Combine(Application::StartupPath, "FilePost");
 			if (!System::IO::Directory::Exists(filePostFolder)) {
@@ -202,8 +127,7 @@ private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 			Archive_Table->GridColor = System::Drawing::Color::White;
 			Archive_Table->CellBorderStyle = DataGridViewCellBorderStyle::Single;
 			
-			DBconnection_post->Open();
-			DBconnection_login->Open();
+			DBconnection->Open();
 		}
 	protected:
 		/// <summary>
@@ -239,12 +163,12 @@ private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle4 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle5 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle6 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle7 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle8 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle9 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle10 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle11 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle12 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->button_New_post = (gcnew System::Windows::Forms::Button());
 			this->Name_new_post = (gcnew System::Windows::Forms::Label());
 			this->Textbox_Name_new_post = (gcnew System::Windows::Forms::TextBox());
@@ -309,12 +233,21 @@ private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 			this->BtnSaveSettings = (gcnew System::Windows::Forms::Button());
 			this->ID_Group_text = (gcnew System::Windows::Forms::TextBox());
 			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
+			this->Authorization = (gcnew System::Windows::Forms::GroupBox());
+			this->Btn_new_user = (gcnew System::Windows::Forms::LinkLabel());
+			this->BTNAuthorization = (gcnew System::Windows::Forms::Button());
+			this->Authorization_Password = (gcnew System::Windows::Forms::TextBox());
+			this->Authorization_Login = (gcnew System::Windows::Forms::TextBox());
+			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->Panel_New_post->SuspendLayout();
 			this->Edit_post->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Archive_Table))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Table_post))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SettingsGroup->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
+			this->Authorization->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// button_New_post
@@ -625,39 +558,39 @@ private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 			this->Archive_Table->BackgroundColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(67)), static_cast<System::Int32>(static_cast<System::Byte>(93)));
 			this->Archive_Table->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			dataGridViewCellStyle1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
+			dataGridViewCellStyle7->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			dataGridViewCellStyle7->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
-			dataGridViewCellStyle1->ForeColor = System::Drawing::Color::White;
-			dataGridViewCellStyle1->Padding = System::Windows::Forms::Padding(5);
-			dataGridViewCellStyle1->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+			dataGridViewCellStyle7->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
+			dataGridViewCellStyle7->ForeColor = System::Drawing::Color::White;
+			dataGridViewCellStyle7->Padding = System::Windows::Forms::Padding(5);
+			dataGridViewCellStyle7->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->Archive_Table->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle7->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle7->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->Archive_Table->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
 			this->Archive_Table->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::DisableResizing;
 			this->Archive_Table->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(9) {
 				this->Archive_ID,
 					this->Archive_Data, this->Archive_Name, this->Archive_About, this->Archive_Text, this->Archive_Scencens, this->Archive_ViewMedia,
 					this->Archive_post, this->BtnReturn
 			});
-			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle2->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
+			dataGridViewCellStyle8->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle8->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
-			dataGridViewCellStyle2->ForeColor = System::Drawing::Color::White;
-			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+			dataGridViewCellStyle8->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
+			dataGridViewCellStyle8->ForeColor = System::Drawing::Color::White;
+			dataGridViewCellStyle8->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
-			this->Archive_Table->DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle8->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle8->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->Archive_Table->DefaultCellStyle = dataGridViewCellStyle8;
 			this->Archive_Table->GridColor = System::Drawing::Color::Black;
 			this->Archive_Table->Name = L"Archive_Table";
 			this->Archive_Table->ReadOnly = true;
-			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			dataGridViewCellStyle9->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->Archive_Table->RowsDefaultCellStyle = dataGridViewCellStyle3;
+			this->Archive_Table->RowsDefaultCellStyle = dataGridViewCellStyle9;
 			this->Archive_Table->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::Archive_Table_CellContentClick);
 			// 
 			// Archive_ID
@@ -735,39 +668,39 @@ private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 			this->Table_post->BackgroundColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(67)),
 				static_cast<System::Int32>(static_cast<System::Byte>(93)));
 			this->Table_post->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			dataGridViewCellStyle4->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			dataGridViewCellStyle4->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
+			dataGridViewCellStyle10->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			dataGridViewCellStyle10->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle4->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
-			dataGridViewCellStyle4->ForeColor = System::Drawing::Color::White;
-			dataGridViewCellStyle4->Padding = System::Windows::Forms::Padding(5);
-			dataGridViewCellStyle4->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+			dataGridViewCellStyle10->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
+			dataGridViewCellStyle10->ForeColor = System::Drawing::Color::White;
+			dataGridViewCellStyle10->Padding = System::Windows::Forms::Padding(5);
+			dataGridViewCellStyle10->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle4->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle4->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->Table_post->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+			dataGridViewCellStyle10->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle10->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->Table_post->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
 			this->Table_post->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::DisableResizing;
 			this->Table_post->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(10) {
 				this->ID, this->Date_post,
 					this->name_post, this->About_post, this->Text_post, this->Scencens_post, this->ViewMedia_post, this->Files_post, this->EditButton,
 					this->DeleteButton
 			});
-			dataGridViewCellStyle5->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle5->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
+			dataGridViewCellStyle11->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle11->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle5->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
-			dataGridViewCellStyle5->ForeColor = System::Drawing::Color::White;
-			dataGridViewCellStyle5->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+			dataGridViewCellStyle11->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
+			dataGridViewCellStyle11->ForeColor = System::Drawing::Color::White;
+			dataGridViewCellStyle11->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle5->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle5->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
-			this->Table_post->DefaultCellStyle = dataGridViewCellStyle5;
+			dataGridViewCellStyle11->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle11->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->Table_post->DefaultCellStyle = dataGridViewCellStyle11;
 			this->Table_post->GridColor = System::Drawing::Color::Black;
 			this->Table_post->Name = L"Table_post";
 			this->Table_post->ReadOnly = true;
-			dataGridViewCellStyle6->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			dataGridViewCellStyle12->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->Table_post->RowsDefaultCellStyle = dataGridViewCellStyle6;
+			this->Table_post->RowsDefaultCellStyle = dataGridViewCellStyle12;
 			this->Table_post->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::Table_post_CellContentClick);
 			// 
 			// ID
@@ -870,12 +803,12 @@ private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 			// 
 			// SettingsGroup
 			// 
+			resources->ApplyResources(this->SettingsGroup, L"SettingsGroup");
 			this->SettingsGroup->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(67)),
 				static_cast<System::Int32>(static_cast<System::Byte>(93)));
 			this->SettingsGroup->Controls->Add(this->BtnSaveSettings);
 			this->SettingsGroup->Controls->Add(this->ID_Group_text);
 			this->SettingsGroup->Controls->Add(this->label7);
-			resources->ApplyResources(this->SettingsGroup, L"SettingsGroup");
 			this->SettingsGroup->ForeColor = System::Drawing::Color::White;
 			this->SettingsGroup->Name = L"SettingsGroup";
 			this->SettingsGroup->TabStop = false;
@@ -898,12 +831,64 @@ private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 			resources->ApplyResources(this->label7, L"label7");
 			this->label7->Name = L"label7";
 			// 
+			// pictureBox2
+			// 
+			resources->ApplyResources(this->pictureBox2, L"pictureBox2");
+			this->pictureBox2->Name = L"pictureBox2";
+			this->pictureBox2->TabStop = false;
+			// 
+			// Authorization
+			// 
+			resources->ApplyResources(this->Authorization, L"Authorization");
+			this->Authorization->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(115)),
+				static_cast<System::Int32>(static_cast<System::Byte>(255)));
+			this->Authorization->Controls->Add(this->Btn_new_user);
+			this->Authorization->Controls->Add(this->BTNAuthorization);
+			this->Authorization->Controls->Add(this->Authorization_Password);
+			this->Authorization->Controls->Add(this->Authorization_Login);
+			this->Authorization->Controls->Add(this->label8);
+			this->Authorization->ForeColor = System::Drawing::Color::White;
+			this->Authorization->Name = L"Authorization";
+			this->Authorization->TabStop = false;
+			// 
+			// Btn_new_user
+			// 
+			resources->ApplyResources(this->Btn_new_user, L"Btn_new_user");
+			this->Btn_new_user->Name = L"Btn_new_user";
+			this->Btn_new_user->TabStop = true;
+			this->Btn_new_user->VisitedLinkColor = System::Drawing::Color::Blue;
+			// 
+			// BTNAuthorization
+			// 
+			resources->ApplyResources(this->BTNAuthorization, L"BTNAuthorization");
+			this->BTNAuthorization->ForeColor = System::Drawing::Color::Black;
+			this->BTNAuthorization->Name = L"BTNAuthorization";
+			this->BTNAuthorization->UseVisualStyleBackColor = true;
+			this->BTNAuthorization->Click += gcnew System::EventHandler(this, &MyForm::BTNAuthorization_Click);
+			// 
+			// Authorization_Password
+			// 
+			resources->ApplyResources(this->Authorization_Password, L"Authorization_Password");
+			this->Authorization_Password->Name = L"Authorization_Password";
+			// 
+			// Authorization_Login
+			// 
+			resources->ApplyResources(this->Authorization_Login, L"Authorization_Login");
+			this->Authorization_Login->Name = L"Authorization_Login";
+			// 
+			// label8
+			// 
+			resources->ApplyResources(this->label8, L"label8");
+			this->label8->Name = L"label8";
+			// 
 			// MyForm
 			// 
 			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			this->Controls->Add(this->Authorization);
+			this->Controls->Add(this->pictureBox2);
 			this->Controls->Add(this->SettingsGroup);
 			this->Controls->Add(this->Edit_post);
 			this->Controls->Add(this->Panel_New_post);
@@ -925,11 +910,30 @@ private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->SettingsGroup->ResumeLayout(false);
 			this->SettingsGroup->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
+			this->Authorization->ResumeLayout(false);
+			this->Authorization->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
+	private: System::Boolean IsAdminUser() {
+		if (!currentUserId.HasValue) return false;
+		try {
+			String^ query = "SELECT [Name_Users] FROM Login WHERE [ID] = ?";
+			OleDbCommand^ cmd = gcnew OleDbCommand(query, DBconnection);
+			cmd->Parameters->AddWithValue("@ID", currentUserId.Value);
+			Object^ result = cmd->ExecuteScalar();
+			if (result != nullptr && result != DBNull::Value) {
+				String^ username = safe_cast<String^>(result);
+				return (username->Equals("Admin", StringComparison::OrdinalIgnoreCase));
+			}
+		}
+		catch (Exception^) {
+		}
+		return false;
+	}
 	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
 		Table_post->AutoGenerateColumns = false;
 		Date_post->AutoSizeMode = DataGridViewAutoSizeColumnMode::None;
@@ -947,8 +951,24 @@ private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 				DeleteButton->UseColumnTextForButtonValue = true;
 		DeleteButton->Text = L"✕";
 		
-		String^ query = "SELECT [ID], [Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post], [Files] FROM TablePost WHERE [Published] = False ORDER BY [Date_post]";
-		OleDbCommand^ command = gcnew OleDbCommand(query, DBconnection_post);
+		String^ query;
+		OleDbCommand^ command;
+		if (IsAdminUser()) {
+			query = "SELECT [ID], [Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post], [Files] "
+				"FROM TablePost WHERE [Published] = False ORDER BY [Date_post]";
+			command = gcnew OleDbCommand(query, DBconnection);
+		}
+		else {
+			query = "SELECT [ID], [Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post], [Files] "
+				"FROM TablePost WHERE [Published] = False AND [Users_ID] = ? ORDER BY [Date_post]";
+			command = gcnew OleDbCommand(query, DBconnection);
+			if (currentUserId.HasValue) {
+				command->Parameters->AddWithValue("@UserID", currentUserId.Value);
+			}
+			else {
+				command->Parameters->AddWithValue("@UserID", DBNull::Value);
+			}
+		}
 		OleDbDataAdapter^ adapter = gcnew OleDbDataAdapter(command);
 		DataTable^ dataTable = gcnew DataTable();
 
@@ -971,7 +991,6 @@ private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 		}
 		LoadArchiveData();
 	}
-
 	private: System::Void LoadArchiveData() {
 		Archive_Table->AutoGenerateColumns = false;
 		Archive_Data->AutoSizeMode = DataGridViewAutoSizeColumnMode::None;
@@ -983,10 +1002,24 @@ private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 		BtnReturn->UseColumnTextForButtonValue = true;
 		BtnReturn->Text = L"↩";
 
-		String^ query = "SELECT [ID], [Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post], [Files] "
-			"FROM TablePost WHERE [Published] = True "
-			"ORDER BY [Date_post]";
-		OleDbCommand^ command = gcnew OleDbCommand(query, DBconnection_post);
+		String^ query;
+		OleDbCommand^ command;
+		if (IsAdminUser()) {
+			query = "SELECT [ID], [Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post], [Files] "
+				"FROM TablePost WHERE [Published] = True ORDER BY [Date_post]";
+			command = gcnew OleDbCommand(query, DBconnection);
+		}
+		else {
+			query = "SELECT [ID], [Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post], [Files] "
+				"FROM TablePost WHERE [Published] = True AND [Users_ID] = ? ORDER BY [Date_post]";
+			command = gcnew OleDbCommand(query, DBconnection);
+			if (currentUserId.HasValue) {
+				command->Parameters->AddWithValue("@UserID", currentUserId.Value);
+			}
+			else {
+				command->Parameters->AddWithValue("@UserID", DBNull::Value);
+			}
+		}
 		OleDbDataAdapter^ adapter = gcnew OleDbDataAdapter(command);
 		DataTable^ dataTable = gcnew DataTable();
 		adapter->Fill(dataTable);
@@ -1027,9 +1060,14 @@ private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 	}
 	
 	private: System::Void LoadGroupID() {
+		if (!currentUserId.HasValue) {
+			ID_Group_text->Text = "";
+			return;
+		}
 		try {
-			String^ query_Auth = "SELECT TOP 1 [ID_Group] FROM Login ORDER BY [ID]";
-			OleDbCommand^ cmd = gcnew OleDbCommand(query_Auth, DBconnection_login);
+			String^ query = "SELECT [ID_Group] FROM Login WHERE [ID] = ?";
+			OleDbCommand^ cmd = gcnew OleDbCommand(query, DBconnection);
+			cmd->Parameters->AddWithValue("@ID", currentUserId.Value);
 			Object^ result = cmd->ExecuteScalar();
 			if (result != nullptr && result != DBNull::Value) {
 				ID_Group_text->Text = safe_cast<String^>(result);
@@ -1043,6 +1081,7 @@ private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 			ID_Group_text->Text = "";
 		}
 	}
+	
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (Panel_New_post->Visible == false) {
 			Panel_New_post->Visible = true;
@@ -1056,10 +1095,16 @@ private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 	private: System::Void Save_button_Click(System::Object^ sender, System::EventArgs^ e) {
 		try {
 			
-			String^ insertQuery = "INSERT INTO TablePost ([Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post], [Files]) "
-				"VALUES (?, ?, ?, ?, ?, ?, ?)";
+			String^ insertQuery = "INSERT INTO TablePost ([Users_ID], [Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post], [Files]) "
+				"VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-			OleDbCommand^ cmd = gcnew OleDbCommand(insertQuery, DBconnection_post);
+			OleDbCommand^ cmd = gcnew OleDbCommand(insertQuery, DBconnection);
+			if (currentUserId.HasValue) {
+				cmd->Parameters->AddWithValue("@Users_ID", currentUserId.Value);
+			}
+			else {
+				cmd->Parameters->AddWithValue("@Users_ID", DBNull::Value);
+			}
 			DateTime selectedDate = Swith_date_new_post->Value;
 			DateTime dateAt9AM = selectedDate.Date + TimeSpan(9, 0, 0);
 			cmd->Parameters->AddWithValue("@Date_post", dateAt9AM);
@@ -1079,7 +1124,7 @@ private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 				: safe_cast<Object^>(textBox_Continuity_new_post->Text);
 			cmd->Parameters->AddWithValue("@Scencens_post", scencensValue);
 
-			Object^ mediaValue = String::IsNullOrWhiteSpace(Swith_view_media->Text) || Swith_view_media->SelectedIndex == -1
+			Object^ mediaValue = String::IsNullOrWhiteSpace(Swith_view_media->Text) || Swith_view_media->SelectedIndex == 0
 				? static_cast<Object^>(DBNull::Value)
 				: safe_cast<Object^>(Swith_view_media->Text);
 			cmd->Parameters->AddWithValue("@ViewMedia_post", mediaValue);
@@ -1206,7 +1251,7 @@ private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 			if (res == System::Windows::Forms::DialogResult::Yes) {
 				try {
 					String^ deleteQuery = "DELETE FROM TablePost WHERE [ID] = ?";
-					OleDbCommand^ cmd = gcnew OleDbCommand(deleteQuery, DBconnection_post);
+					OleDbCommand^ cmd = gcnew OleDbCommand(deleteQuery, DBconnection);
 					int idToDelete = Convert::ToInt32(Table_post->Rows[e->RowIndex]->Cells["ID"]->Value);
 					cmd->Parameters->AddWithValue("@ID", idToDelete);
 					cmd->ExecuteNonQuery();
@@ -1326,7 +1371,7 @@ private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 					"WHERE [ID] = ?";
 			}
 
-			OleDbCommand^ cmd = gcnew OleDbCommand(updateQuery, DBconnection_post);
+			OleDbCommand^ cmd = gcnew OleDbCommand(updateQuery, DBconnection);
 			DateTime selectedDate = dateTimePicker_Editpost->Value;
 			DateTime dateAt9AM = selectedDate.Date + TimeSpan(9, 0, 0);
 			cmd->Parameters->AddWithValue("@Date_post", dateAt9AM);
@@ -1415,27 +1460,33 @@ private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 		}
 	}
 	private: System::Void BtnSaveSettings_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (!currentUserId.HasValue) {
+			MessageBox::Show("Вы не авторизованы.", "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return;
+		}
 		try {
 			String^ newGroupID = ID_Group_text->Text->Trim();
-			String^ updateQuery = "UPDATE Login SET [ID_Group] = ? WHERE [ID] = 1";
-			OleDbCommand^ cmd = gcnew OleDbCommand(updateQuery, DBconnection_login);
+			String^ updateQuery = "UPDATE Login SET [ID_Group] = ? WHERE [ID] = ?";
+			OleDbCommand^ cmd = gcnew OleDbCommand(updateQuery, DBconnection);
 			cmd->Parameters->AddWithValue("@ID_Group", newGroupID == "" ? DBNull::Value : safe_cast<Object^>(newGroupID));
+			cmd->Parameters->AddWithValue("@ID", currentUserId.Value);
 			int rowsAffected = cmd->ExecuteNonQuery();
 			if (rowsAffected <= 0) {
-				MessageBox::Show("Не удалось обновить настройки. Проверьте, существует ли запись с ID=1 в таблице Login.", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				MessageBox::Show("Не удалось обновить настройки.", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			}
 			SettingsGroup->Visible = false;
-		}catch (Exception^ ex) {
+		}
+		catch (Exception^ ex) {
 			MessageBox::Show("Ошибка сохранения настроек:\n" + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
 	private: System::Void MyForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
 		try {
-			if (DBconnection_post != nullptr && DBconnection_post->State == ConnectionState::Open) {
-				DBconnection_post->Close();
+			if (DBconnection != nullptr && DBconnection->State == ConnectionState::Open) {
+				DBconnection->Close();
 			}
-			if (DBconnection_login != nullptr && DBconnection_login->State == ConnectionState::Open) {
-				DBconnection_login->Close();
+			if (DBconnection != nullptr && DBconnection->State == ConnectionState::Open) {
+				DBconnection->Close();
 			}
 		}
 		catch (Exception^) {}
@@ -1448,6 +1499,33 @@ private: System::Windows::Forms::DataGridViewButtonColumn^ DeleteButton;
 		else {
 			Archive_Table->Visible = false;
 			BtnArchive->Text = "Архив";
+		}
+	}
+	private: System::Void BTNAuthorization_Click(System::Object^ sender, System::EventArgs^ e) {
+		String^ login = Authorization_Login->Text->Trim();
+		String^ password = Authorization_Password->Text->Trim();
+		if (String::IsNullOrWhiteSpace(login) || String::IsNullOrWhiteSpace(password)) {
+			MessageBox::Show("Введите логин и пароль.", "Ошибка авторизации", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+		try {
+			String^ query = "SELECT [ID] FROM Login WHERE [Name_Users] = ? AND [Password_Users] = ?";
+			OleDbCommand^ cmd = gcnew OleDbCommand(query, DBconnection);
+			cmd->Parameters->AddWithValue("@Login", login);
+			cmd->Parameters->AddWithValue("@Password", password);
+			Object^ result = cmd->ExecuteScalar();
+			if (result != nullptr && result != DBNull::Value) {
+				currentUserId = safe_cast<int>(result);
+				Authorization->Visible = false;
+				pictureBox2->Visible = false;
+				MyForm_Load(this, gcnew System::EventArgs());
+			}
+			else {
+				MessageBox::Show("Неверный логин или пароль.", "Ошибка авторизации", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show("Ошибка при подключении к базе данных:\n" + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
 }; }
