@@ -8,7 +8,7 @@ namespace Project {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
-	using namespace System::Data::OleDb;
+	using namespace System::Data::SqlClient;
 
 	/// <summary>
 	/// Сводка для MyForm
@@ -17,7 +17,7 @@ namespace Project {
 	{
 
 	public:
-		static String^ connectString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=Database_Login.accdb;";
+		static String^ connectString = "Server=SUPERCARPLAY\\SQLEXPRESS02;Database=Database_program;Integrated Security=True;Encrypt=False;";
 	private: System::Windows::Forms::Label^ Name_new_post;
 	public:
 	private: System::Windows::Forms::TextBox^ Textbox_Name_new_post;
@@ -127,7 +127,7 @@ namespace Project {
 			return relativeUri->ToString()->Replace('/', '\\');
 		}
 	private:
-		OleDbConnection^ DBconnection;
+		SqlConnection^ DBconnection;
 		int currentEditPostID;
 		Nullable<int> currentUserId;
 		String^ selectedFileForNewPost;
@@ -139,9 +139,7 @@ namespace Project {
 		{
 			InitializeComponent();
 
-			String^ dbPath = System::IO::Path::Combine(Application::StartupPath, "Database_Login.accdb");
-			String^ connectString_full = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + dbPath + ";Persist Security Info=False;";
-			DBconnection = gcnew OleDbConnection(connectString_full);
+			DBconnection = gcnew SqlConnection(connectString);
 
 			String^ filePostFolder = System::IO::Path::Combine(Application::StartupPath, "FilePost");
 			if (!System::IO::Directory::Exists(filePostFolder)) {
@@ -156,7 +154,15 @@ namespace Project {
 			Archive_Table->GridColor = System::Drawing::Color::White;
 			Archive_Table->CellBorderStyle = DataGridViewCellBorderStyle::Single;
 			
-			DBconnection->Open();
+			try {
+				DBconnection->Open();
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show("Ошибка подключения к базе данных:\n" + ex->Message,
+					"Критическая ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				Application::Exit(); // Завершить приложение корректно
+				return;
+			}
 		}
 	protected:
 		/// <summary>
@@ -1065,8 +1071,8 @@ namespace Project {
 	private: System::Boolean IsAdminUser() {
 		if (!currentUserId.HasValue) return false;
 		try {
-			String^ query = "SELECT [Name_Users] FROM Login WHERE [ID] = ?";
-			OleDbCommand^ cmd = gcnew OleDbCommand(query, DBconnection);
+			String^ query = "SELECT [Name_Users] FROM Login WHERE [ID] = @ID";
+			SqlCommand^ cmd = gcnew SqlCommand(query, DBconnection);
 			cmd->Parameters->AddWithValue("@ID", currentUserId.Value);
 			Object^ result = cmd->ExecuteScalar();
 			if (result != nullptr && result != DBNull::Value) {
@@ -1096,16 +1102,16 @@ namespace Project {
 		DeleteButton->Text = L"✕";
 		
 		String^ query;
-		OleDbCommand^ command;
+		SqlCommand^ command;
 		if (IsAdminUser()) {
 			query = "SELECT [ID], [Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post], [Files] "
-				"FROM TablePost WHERE [Published] = False ORDER BY [Date_post]";
-			command = gcnew OleDbCommand(query, DBconnection);
+				"FROM TablePost WHERE [Published] = 0 ORDER BY [Date_post]";
+			command = gcnew SqlCommand(query, DBconnection);
 		}
 		else {
 			query = "SELECT [ID], [Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post], [Files] "
-				"FROM TablePost WHERE [Published] = False AND [Users_ID] = ? ORDER BY [Date_post]";
-			command = gcnew OleDbCommand(query, DBconnection);
+				"FROM TablePost WHERE [Published] = 0 AND [Users_ID] = @UserID ORDER BY [Date_post]";
+			command = gcnew SqlCommand(query, DBconnection);
 			if (currentUserId.HasValue) {
 				command->Parameters->AddWithValue("@UserID", currentUserId.Value);
 			}
@@ -1113,7 +1119,7 @@ namespace Project {
 				command->Parameters->AddWithValue("@UserID", DBNull::Value);
 			}
 		}
-		OleDbDataAdapter^ adapter = gcnew OleDbDataAdapter(command);
+		SqlDataAdapter^ adapter = gcnew SqlDataAdapter(command);
 		DataTable^ dataTable = gcnew DataTable();
 
 		adapter->Fill(dataTable);
@@ -1147,16 +1153,16 @@ namespace Project {
 		BtnReturn->Text = L"↩";
 
 		String^ query;
-		OleDbCommand^ command;
+		SqlCommand^ command;
 		if (IsAdminUser()) {
 			query = "SELECT [ID], [Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post], [Files] "
-				"FROM TablePost WHERE [Published] = True ORDER BY [Date_post]";
-			command = gcnew OleDbCommand(query, DBconnection);
+				"FROM TablePost WHERE [Published] = 1 ORDER BY [Date_post]";
+			command = gcnew SqlCommand(query, DBconnection);
 		}
 		else {
 			query = "SELECT [ID], [Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post], [Files] "
-				"FROM TablePost WHERE [Published] = True AND [Users_ID] = ? ORDER BY [Date_post]";
-			command = gcnew OleDbCommand(query, DBconnection);
+				"FROM TablePost WHERE [Published] = 1 AND [Users_ID] = @UserID ORDER BY [Date_post]";
+			command = gcnew SqlCommand(query, DBconnection);
 			if (currentUserId.HasValue) {
 				command->Parameters->AddWithValue("@UserID", currentUserId.Value);
 			}
@@ -1164,7 +1170,7 @@ namespace Project {
 				command->Parameters->AddWithValue("@UserID", DBNull::Value);
 			}
 		}
-		OleDbDataAdapter^ adapter = gcnew OleDbDataAdapter(command);
+		SqlDataAdapter^ adapter = gcnew SqlDataAdapter(command);
 		DataTable^ dataTable = gcnew DataTable();
 		adapter->Fill(dataTable);
 		Archive_Table->DataSource = dataTable;
@@ -1209,8 +1215,8 @@ namespace Project {
 			return;
 		}
 		try {
-			String^ query = "SELECT [ID_Group] FROM Login WHERE [ID] = ?";
-			OleDbCommand^ cmd = gcnew OleDbCommand(query, DBconnection);
+			String^ query = "SELECT [ID_Group] FROM Login WHERE [ID] = @ID";
+			SqlCommand^ cmd = gcnew SqlCommand(query, DBconnection);
 			cmd->Parameters->AddWithValue("@ID", currentUserId.Value);
 			Object^ result = cmd->ExecuteScalar();
 			if (result != nullptr && result != DBNull::Value) {
@@ -1240,9 +1246,9 @@ namespace Project {
 		try {
 			
 			String^ insertQuery = "INSERT INTO TablePost ([Users_ID], [Date_post], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post], [Files]) "
-				"VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+				"VALUES (@Users_ID, @Date_post, @name_post, @About_post, @Text_post, @Scencens_post, @ViewMedia_post, @Files)";
 
-			OleDbCommand^ cmd = gcnew OleDbCommand(insertQuery, DBconnection);
+			SqlCommand^ cmd = gcnew SqlCommand(insertQuery, DBconnection);
 			if (currentUserId.HasValue) {
 				cmd->Parameters->AddWithValue("@Users_ID", currentUserId.Value);
 			}
@@ -1394,8 +1400,8 @@ namespace Project {
 			);
 			if (res == System::Windows::Forms::DialogResult::Yes) {
 				try {
-					String^ deleteQuery = "DELETE FROM TablePost WHERE [ID] = ?";
-					OleDbCommand^ cmd = gcnew OleDbCommand(deleteQuery, DBconnection);
+					String^ deleteQuery = "DELETE FROM TablePost WHERE [ID] = @ID";
+					SqlCommand^ cmd = gcnew SqlCommand(deleteQuery, DBconnection);
 					int idToDelete = Convert::ToInt32(Table_post->Rows[e->RowIndex]->Cells["ID"]->Value);
 					cmd->Parameters->AddWithValue("@ID", idToDelete);
 					cmd->ExecuteNonQuery();
@@ -1493,29 +1499,29 @@ namespace Project {
 			String^ updateQuery;
 			if (isEditingFromArchive) {
 				updateQuery = "UPDATE TablePost SET " +
-					"[Date_post] = ?, " +
-					"[name_post] = ?, " +
-					"[About_post] = ?, " +
-					"[Text_post] = ?, " +
-					"[Scencens_post] = ?, " +
-					"[ViewMedia_post] = ?, " +
-					"[Files] = ?, " +
-					"[Published] = False " + 
-					"WHERE [ID] = ?";
+					"[Date_post] = @Date_post, " +
+					"[name_post] = @name_post, " +
+					"[About_post] = @About_post, " +
+					"[Text_post] = @Text_post, " +
+					"[Scencens_post] = @Scencens_post, " +
+					"[ViewMedia_post] = @ViewMedia_post, " +
+					"[Files] = @Files, " +
+					"[Published] = 0 " + 
+					"WHERE [ID] = @ID";
 			}
 			else {
 				updateQuery = "UPDATE TablePost SET " +
-					"[Date_post] = ?, " +
-					"[name_post] = ?, " +
-					"[About_post] = ?, " +
-					"[Text_post] = ?, " +
-					"[Scencens_post] = ?, " +
-					"[ViewMedia_post] = ?, " +
-					"[Files] = ? " +
-					"WHERE [ID] = ?";
+					"[Date_post] = @Date_post, " +
+					"[name_post] = @name_post, " +
+					"[About_post] = @About_post, " +
+					"[Text_post] = @Text_post, " +
+					"[Scencens_post] = @Scencens_post, " +
+					"[ViewMedia_post] = @ViewMedia_post, " +
+					"[Files] = @Files " +
+					"WHERE [ID] = @ID";
 			}
 
-			OleDbCommand^ cmd = gcnew OleDbCommand(updateQuery, DBconnection);
+			SqlCommand^ cmd = gcnew SqlCommand(updateQuery, DBconnection);
 			DateTime selectedDate = dateTimePicker_Editpost->Value;
 			DateTime dateAt9AM = selectedDate.Date + TimeSpan(9, 0, 0);
 			cmd->Parameters->AddWithValue("@Date_post", dateAt9AM);
@@ -1610,8 +1616,8 @@ namespace Project {
 		}
 		try {
 			String^ newGroupID = ID_Group_text->Text->Trim();
-			String^ updateQuery = "UPDATE Login SET [ID_Group] = ? WHERE [ID] = ?";
-			OleDbCommand^ cmd = gcnew OleDbCommand(updateQuery, DBconnection);
+			String^ updateQuery = "UPDATE Login SET [ID_Group] = @ID_Group WHERE [ID] = @ID";
+			SqlCommand^ cmd = gcnew SqlCommand(updateQuery, DBconnection);
 			cmd->Parameters->AddWithValue("@ID_Group", newGroupID == "" ? DBNull::Value : safe_cast<Object^>(newGroupID));
 			cmd->Parameters->AddWithValue("@ID", currentUserId.Value);
 			int rowsAffected = cmd->ExecuteNonQuery();
@@ -1626,9 +1632,6 @@ namespace Project {
 	}
 	private: System::Void MyForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
 		try {
-			if (DBconnection != nullptr && DBconnection->State == ConnectionState::Open) {
-				DBconnection->Close();
-			}
 			if (DBconnection != nullptr && DBconnection->State == ConnectionState::Open) {
 				DBconnection->Close();
 			}
@@ -1653,8 +1656,8 @@ namespace Project {
 			return;
 		}
 		try {
-			String^ query = "SELECT [ID] FROM Login WHERE [Name_Users] = ? AND [Password_Users] = ?";
-			OleDbCommand^ cmd = gcnew OleDbCommand(query, DBconnection);
+			String^ query = "SELECT [ID] FROM Login WHERE [Name_Users] = @Login AND [Password_Users] = @Password";
+			SqlCommand^ cmd = gcnew SqlCommand(query, DBconnection);
 			cmd->Parameters->AddWithValue("@Login", login);
 			cmd->Parameters->AddWithValue("@Password", password);
 			Object^ result = cmd->ExecuteScalar();
@@ -1693,8 +1696,8 @@ namespace Project {
 		}
 
 		try {
-			String^ checkQuery = "SELECT COUNT(*) FROM Login WHERE [Name_Users] = ?";
-			OleDbCommand^ checkCmd = gcnew OleDbCommand(checkQuery, DBconnection);
+			String^ checkQuery = "SELECT COUNT(*) FROM Login WHERE [Name_Users] = @Login";
+			SqlCommand^ checkCmd = gcnew SqlCommand(checkQuery, DBconnection);
 			checkCmd->Parameters->AddWithValue("@Login", login);
 			Object^ countResult = checkCmd->ExecuteScalar();
 			int existingCount = safe_cast<int>(countResult);
@@ -1703,8 +1706,8 @@ namespace Project {
 				MessageBox::Show("Пользователь с таким логином уже существует.", "Ошибка регистрации", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				return;
 			}
-			String^ insertQuery = "INSERT INTO Login ([Name_Users], [Password_Users]) VALUES (?, ?)";
-			OleDbCommand^ insertCmd = gcnew OleDbCommand(insertQuery, DBconnection);
+			String^ insertQuery = "INSERT INTO Login ([Name_Users], [Password_Users]) VALUES (@Name_Users, @Password_Users)";
+			SqlCommand^ insertCmd = gcnew SqlCommand(insertQuery, DBconnection);
 			insertCmd->Parameters->AddWithValue("@Name_Users", login);
 			insertCmd->Parameters->AddWithValue("@Password_Users", password);
 

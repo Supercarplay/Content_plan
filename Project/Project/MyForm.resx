@@ -5812,9 +5812,6 @@
   <data name="registr_password_repeat.Location" type="System.Drawing.Point, System.Drawing">
     <value>77, 131</value>
   </data>
-  <data name="registr_password_repeat.PasswordChar" type="System.Char, mscorlib" xml:space="preserve">
-    <value>*</value>
-  </data>
   <data name="registr_password_repeat.Size" type="System.Drawing.Size, System.Drawing">
     <value>234, 26</value>
   </data>
@@ -5868,9 +5865,6 @@
   </data>
   <data name="registr_password.Location" type="System.Drawing.Point, System.Drawing">
     <value>77, 96</value>
-  </data>
-  <data name="registr_password.PasswordChar" type="System.Char, mscorlib" xml:space="preserve">
-    <value>*</value>
   </data>
   <data name="registr_password.Size" type="System.Drawing.Size, System.Drawing">
     <value>234, 26</value>

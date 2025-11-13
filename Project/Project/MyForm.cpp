@@ -4,6 +4,7 @@ using namespace System;
 using namespace System::Windows::Forms;
 using namespace System::Globalization;
 using namespace System::Threading;
+using namespace System::Data::SqlClient;
 
 [STAThreadAttribute]
 int main(array<String^>^args) {
