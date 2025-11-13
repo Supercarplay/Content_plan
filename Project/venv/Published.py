@@ -10,16 +10,13 @@ from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve()
 PROJECT_DIR = SCRIPT_DIR.parent.parent
-MEDIA_ROOT = PROJECT_DIR / "x64" / "Debug"
+MEDIA_ROOT = PROJECT_DIR / "x64" / "Debug" / "FilePost"
 
 print(f"📁 Скрипт: {SCRIPT_DIR}")
 print(f"📂 Проект: {PROJECT_DIR}")
-print(f"📤 Корень медиафайлов и БД: {MEDIA_ROOT}")
+print(f"📤 Папка медиафайлов: {MEDIA_ROOT}")
 
 env_path = SCRIPT_DIR.parent / "Data.env"
-if not env_path.exists():
-    raise FileNotFoundError(f"Файл Data.env не найден: {env_path}")
-
 load_dotenv(env_path)
 print(f"✅ Загружен Data.env из: {env_path}")
 
@@ -27,19 +24,28 @@ TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 if not TELEGRAM_BOT_TOKEN:
     raise ValueError("Не задан TELEGRAM_BOT_TOKEN в Data.env")
 
-DATABASE_NAME = "Database_Login.accdb"
-database_path = MEDIA_ROOT / DATABASE_NAME
-
-if not database_path.exists():
-    raise FileNotFoundError(f"База данных не найдена: {database_path}")
-
-print(f"База данных: {database_path}")
-
 def get_db_connection():
-    conn_str = (
-        r'DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};'
-        f'DBQ={database_path};'
-    )
+    server = os.getenv("SQL_SERVER")
+    database = os.getenv("SQL_DATABASE")
+    trusted = os.getenv("SQL_TRUSTED_CONNECTION", "yes").lower() == "yes"
+    
+    if trusted:
+        conn_str = (
+            f"DRIVER={{ODBC Driver 17 for SQL Server}};"
+            f"SERVER={server};"
+            f"DATABASE={database};"
+            f"Trusted_Connection=yes;"
+        )
+    else:
+        username = os.getenv("SQL_USERNAME")
+        password = os.getenv("SQL_PASSWORD")
+        conn_str = (
+            f"DRIVER={{ODBC Driver 17 for SQL Server}};"
+            f"SERVER={server};"
+            f"DATABASE={database};"
+            f"UID={username};"
+            f"PWD={password};"
+        )
     return pyodbc.connect(conn_str)
 
 def format_post(row):
@@ -55,16 +61,14 @@ async def publish_unpublished_posts():
     try:
         with get_db_connection() as conn:
             cursor = conn.cursor()
-
             cursor.execute("""
                 SELECT DISTINCT tp.Users_ID, l.ID_Group
                 FROM TablePost tp
                 INNER JOIN Login l ON tp.Users_ID = l.ID
-                WHERE tp.Published = False
+                WHERE tp.Published = 0
                   AND tp.Date_post <= ?
                   AND l.ID_Group IS NOT NULL
             """, (current_time,))
-
             user_channel_map = {user_id: channel_id for user_id, channel_id in cursor.fetchall()}
 
         if not user_channel_map:
@@ -82,10 +86,9 @@ async def publish_unpublished_posts():
                     cursor.execute("""
                         SELECT [ID], [name_post], [About_post], [Text_post], [Scencens_post], [ViewMedia_post], [Files]
                         FROM TablePost
-                        WHERE Users_ID = ? AND Published = False AND Date_post <= ?
+                        WHERE Users_ID = ? AND Published = 0 AND Date_post <= ?
                         ORDER BY Date_post
                     """, (user_id, current_time))
-
                     posts = cursor.fetchall()
 
                 for post in posts:
@@ -96,7 +99,8 @@ async def publish_unpublished_posts():
 
                         file_to_send = None
                         if file_rel_path:
-                            full_path = MEDIA_ROOT / str(file_rel_path).strip()
+                            filename = os.path.basename(str(file_rel_path))
+                            full_path = MEDIA_ROOT / filename
                             if full_path.exists():
                                 file_to_send = full_path.resolve()
                                 print(f"✅ Файл найден: {full_path}")
@@ -117,17 +121,17 @@ async def publish_unpublished_posts():
                         else:
                             await bot.send_message(chat_id=channel_id, text=message_text, parse_mode='HTML')
 
-                        print(f"✅Опубликован пост ID={post_id} в канал {channel_id}")
+                        print(f"✅ Опубликован пост ID={post_id} в канал {channel_id}")
 
                         with get_db_connection() as conn_update:
                             cursor_u = conn_update.cursor()
-                            cursor_u.execute("UPDATE TablePost SET Published = ? WHERE ID = ?", (True, post_id))
+                            cursor_u.execute("UPDATE TablePost SET Published = 1 WHERE ID = ?", (post_id,))
                             conn_update.commit()
 
-                        await asyncio.sleep(1) 
+                        await asyncio.sleep(1)
 
                     except Exception as e:
-                        print(f"❌ Ошибка публикации поста ID={post_id} для пользователя {user_id}: {e}")
+                        print(f"❌ Ошибка публикации поста ID={post_id}: {e}")
 
             except Exception as e:
                 print(f"❌ Ошибка при обработке пользователя {user_id}: {e}")
@@ -138,7 +142,7 @@ async def publish_unpublished_posts():
 async def main():
     while True:
         await publish_unpublished_posts()
-        await asyncio.sleep(10) #секунды
+        await asyncio.sleep(10)
 
 if __name__ == '__main__':
     asyncio.run(main())
