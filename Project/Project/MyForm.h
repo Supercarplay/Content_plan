@@ -86,9 +86,38 @@ namespace Project {
 	private: System::Windows::Forms::GroupBox^ Authorization;
 	private: System::Windows::Forms::Label^ label8;
 	private: System::Windows::Forms::TextBox^ Authorization_Login;
+
+
 	private: System::Windows::Forms::Button^ BTNAuthorization;
 	private: System::Windows::Forms::TextBox^ Authorization_Password;
+
+
+	private: System::Windows::Forms::GroupBox^ Registr_new;
+	private: System::Windows::Forms::LinkLabel^ linkLabel1;
+	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::TextBox^ textBox1;
+	private: System::Windows::Forms::TextBox^ textBox2;
 	private: System::Windows::Forms::LinkLabel^ Btn_new_user;
+	private: System::Windows::Forms::GroupBox^ Registr_group;
+
+	private: System::Windows::Forms::TextBox^ registr_password_repeat;
+	private: System::Windows::Forms::Button^ Btn_registr;
+
+
+	private: System::Windows::Forms::TextBox^ registr_password;
+	private: System::Windows::Forms::TextBox^ registr_Login;
+
+
+
+
+	private: System::Windows::Forms::Label^ label10;
+	private: System::Windows::Forms::LinkLabel^ SignUp;
+
+
+
+
+	private: System::Windows::Forms::Label^ label9;
+
 
 	private:
 		static String^ GetRelativePath(String^ fromPath, String^ toPath) {
@@ -189,6 +218,12 @@ namespace Project {
 			this->linkFile = (gcnew System::Windows::Forms::LinkLabel());
 			this->BtnAddFiles = (gcnew System::Windows::Forms::Button());
 			this->Edit_post = (gcnew System::Windows::Forms::GroupBox());
+			this->Registr_new = (gcnew System::Windows::Forms::GroupBox());
+			this->linkLabel1 = (gcnew System::Windows::Forms::LinkLabel());
+			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
+			this->label9 = (gcnew System::Windows::Forms::Label());
 			this->linkEditFile = (gcnew System::Windows::Forms::LinkLabel());
 			this->BtnEditFile = (gcnew System::Windows::Forms::Button());
 			this->Save_editbutton = (gcnew System::Windows::Forms::Button());
@@ -240,14 +275,23 @@ namespace Project {
 			this->Authorization_Password = (gcnew System::Windows::Forms::TextBox());
 			this->Authorization_Login = (gcnew System::Windows::Forms::TextBox());
 			this->label8 = (gcnew System::Windows::Forms::Label());
+			this->Registr_group = (gcnew System::Windows::Forms::GroupBox());
+			this->SignUp = (gcnew System::Windows::Forms::LinkLabel());
+			this->registr_password_repeat = (gcnew System::Windows::Forms::TextBox());
+			this->Btn_registr = (gcnew System::Windows::Forms::Button());
+			this->registr_password = (gcnew System::Windows::Forms::TextBox());
+			this->registr_Login = (gcnew System::Windows::Forms::TextBox());
+			this->label10 = (gcnew System::Windows::Forms::Label());
 			this->Panel_New_post->SuspendLayout();
 			this->Edit_post->SuspendLayout();
+			this->Registr_new->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Archive_Table))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Table_post))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SettingsGroup->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->Authorization->SuspendLayout();
+			this->Registr_group->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// button_New_post
@@ -414,6 +458,7 @@ namespace Project {
 			// Edit_post
 			// 
 			resources->ApplyResources(this->Edit_post, L"Edit_post");
+			this->Edit_post->Controls->Add(this->Registr_new);
 			this->Edit_post->Controls->Add(this->linkEditFile);
 			this->Edit_post->Controls->Add(this->BtnEditFile);
 			this->Edit_post->Controls->Add(this->Save_editbutton);
@@ -433,6 +478,49 @@ namespace Project {
 			this->Edit_post->Name = L"Edit_post";
 			this->Edit_post->TabStop = false;
 			this->Edit_post->Tag = L"Edit_post";
+			// 
+			// Registr_new
+			// 
+			resources->ApplyResources(this->Registr_new, L"Registr_new");
+			this->Registr_new->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(115)),
+				static_cast<System::Int32>(static_cast<System::Byte>(255)));
+			this->Registr_new->Controls->Add(this->linkLabel1);
+			this->Registr_new->Controls->Add(this->button1);
+			this->Registr_new->Controls->Add(this->textBox1);
+			this->Registr_new->Controls->Add(this->textBox2);
+			this->Registr_new->Controls->Add(this->label9);
+			this->Registr_new->ForeColor = System::Drawing::Color::White;
+			this->Registr_new->Name = L"Registr_new";
+			this->Registr_new->TabStop = false;
+			// 
+			// linkLabel1
+			// 
+			resources->ApplyResources(this->linkLabel1, L"linkLabel1");
+			this->linkLabel1->Name = L"linkLabel1";
+			this->linkLabel1->TabStop = true;
+			this->linkLabel1->VisitedLinkColor = System::Drawing::Color::Blue;
+			// 
+			// button1
+			// 
+			resources->ApplyResources(this->button1, L"button1");
+			this->button1->ForeColor = System::Drawing::Color::Black;
+			this->button1->Name = L"button1";
+			this->button1->UseVisualStyleBackColor = true;
+			// 
+			// textBox1
+			// 
+			resources->ApplyResources(this->textBox1, L"textBox1");
+			this->textBox1->Name = L"textBox1";
+			// 
+			// textBox2
+			// 
+			resources->ApplyResources(this->textBox2, L"textBox2");
+			this->textBox2->Name = L"textBox2";
+			// 
+			// label9
+			// 
+			resources->ApplyResources(this->label9, L"label9");
+			this->label9->Name = L"label9";
 			// 
 			// linkEditFile
 			// 
@@ -857,6 +945,7 @@ namespace Project {
 			this->Btn_new_user->Name = L"Btn_new_user";
 			this->Btn_new_user->TabStop = true;
 			this->Btn_new_user->VisitedLinkColor = System::Drawing::Color::Blue;
+			this->Btn_new_user->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &MyForm::Btn_new_user_LinkClicked);
 			// 
 			// BTNAuthorization
 			// 
@@ -881,12 +970,63 @@ namespace Project {
 			resources->ApplyResources(this->label8, L"label8");
 			this->label8->Name = L"label8";
 			// 
+			// Registr_group
+			// 
+			resources->ApplyResources(this->Registr_group, L"Registr_group");
+			this->Registr_group->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(115)),
+				static_cast<System::Int32>(static_cast<System::Byte>(255)));
+			this->Registr_group->Controls->Add(this->SignUp);
+			this->Registr_group->Controls->Add(this->registr_password_repeat);
+			this->Registr_group->Controls->Add(this->Btn_registr);
+			this->Registr_group->Controls->Add(this->registr_password);
+			this->Registr_group->Controls->Add(this->registr_Login);
+			this->Registr_group->Controls->Add(this->label10);
+			this->Registr_group->ForeColor = System::Drawing::Color::White;
+			this->Registr_group->Name = L"Registr_group";
+			this->Registr_group->TabStop = false;
+			// 
+			// SignUp
+			// 
+			resources->ApplyResources(this->SignUp, L"SignUp");
+			this->SignUp->Name = L"SignUp";
+			this->SignUp->TabStop = true;
+			this->SignUp->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &MyForm::SignUp_LinkClicked);
+			// 
+			// registr_password_repeat
+			// 
+			resources->ApplyResources(this->registr_password_repeat, L"registr_password_repeat");
+			this->registr_password_repeat->Name = L"registr_password_repeat";
+			// 
+			// Btn_registr
+			// 
+			resources->ApplyResources(this->Btn_registr, L"Btn_registr");
+			this->Btn_registr->ForeColor = System::Drawing::Color::Black;
+			this->Btn_registr->Name = L"Btn_registr";
+			this->Btn_registr->UseVisualStyleBackColor = true;
+			this->Btn_registr->Click += gcnew System::EventHandler(this, &MyForm::Btn_registr_Click);
+			// 
+			// registr_password
+			// 
+			resources->ApplyResources(this->registr_password, L"registr_password");
+			this->registr_password->Name = L"registr_password";
+			// 
+			// registr_Login
+			// 
+			resources->ApplyResources(this->registr_Login, L"registr_Login");
+			this->registr_Login->Name = L"registr_Login";
+			// 
+			// label10
+			// 
+			resources->ApplyResources(this->label10, L"label10");
+			this->label10->Name = L"label10";
+			// 
 			// MyForm
 			// 
 			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			this->Controls->Add(this->Registr_group);
 			this->Controls->Add(this->Authorization);
 			this->Controls->Add(this->pictureBox2);
 			this->Controls->Add(this->SettingsGroup);
@@ -905,6 +1045,8 @@ namespace Project {
 			this->Panel_New_post->PerformLayout();
 			this->Edit_post->ResumeLayout(false);
 			this->Edit_post->PerformLayout();
+			this->Registr_new->ResumeLayout(false);
+			this->Registr_new->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Archive_Table))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Table_post))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
@@ -913,6 +1055,8 @@ namespace Project {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			this->Authorization->ResumeLayout(false);
 			this->Authorization->PerformLayout();
+			this->Registr_group->ResumeLayout(false);
+			this->Registr_group->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -1527,5 +1671,58 @@ namespace Project {
 		catch (Exception^ ex) {
 			MessageBox::Show("Ошибка при подключении к базе данных:\n" + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
+	}
+	private: System::Void Btn_new_user_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
+		Registr_group->Visible = true;
+	}
+	
+	private: System::Void SignUp_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
+		Registr_group->Visible = false;
+	}
+	private: System::Void Btn_registr_Click(System::Object^ sender, System::EventArgs^ e) {
+		String^ login = registr_Login->Text->Trim();
+		String^ password = registr_password->Text->Trim();
+		String^ passwordRepeat = registr_password_repeat->Text->Trim();
+		if (String::IsNullOrWhiteSpace(login) || String::IsNullOrWhiteSpace(password)) {
+			MessageBox::Show("Логин и пароль не могут быть пустыми.", "Ошибка регистрации", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+		if (password != passwordRepeat) {
+			MessageBox::Show("Пароли не совпадают.", "Ошибка регистрации", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		try {
+			String^ checkQuery = "SELECT COUNT(*) FROM Login WHERE [Name_Users] = ?";
+			OleDbCommand^ checkCmd = gcnew OleDbCommand(checkQuery, DBconnection);
+			checkCmd->Parameters->AddWithValue("@Login", login);
+			Object^ countResult = checkCmd->ExecuteScalar();
+			int existingCount = safe_cast<int>(countResult);
+
+			if (existingCount > 0) {
+				MessageBox::Show("Пользователь с таким логином уже существует.", "Ошибка регистрации", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+			String^ insertQuery = "INSERT INTO Login ([Name_Users], [Password_Users]) VALUES (?, ?)";
+			OleDbCommand^ insertCmd = gcnew OleDbCommand(insertQuery, DBconnection);
+			insertCmd->Parameters->AddWithValue("@Name_Users", login);
+			insertCmd->Parameters->AddWithValue("@Password_Users", password);
+
+			int rowsAffected = insertCmd->ExecuteNonQuery();
+			if (rowsAffected > 0) {
+				MessageBox::Show("Регистрация прошла успешно! Теперь вы можете войти.", "Успех", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				registr_Login->Clear();
+				registr_password->Clear();
+				registr_password_repeat->Clear();
+				Registr_group->Visible = false;
+			}
+			else {
+				MessageBox::Show("Не удалось создать пользователя.", "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show("Ошибка при регистрации:\n" + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+		
 	}
 }; }
