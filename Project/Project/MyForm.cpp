@@ -191,8 +191,9 @@ System::Void Project::MyForm::Save_button_Click(System::Object^ sender, System::
 			cmd->Parameters->AddWithValue("@Users_ID", DBNull::Value);
 		}
 		DateTime selectedDate = Swith_date_new_post->Value;
-		DateTime dateAt9AM = selectedDate.Date + TimeSpan(9, 0, 0);
-		cmd->Parameters->AddWithValue("@Date_post", dateAt9AM);
+		DateTime selectedTime = TimePicker_new_post->Value;
+		DateTime combinedDateTime = selectedDate.Date + selectedTime.TimeOfDay;
+		cmd->Parameters->AddWithValue("@Date_post", combinedDateTime);
 		cmd->Parameters->AddWithValue("@name_post", Textbox_Name_new_post->Text);
 		Object^ aboutValue = String::IsNullOrWhiteSpace(Textbox_About_new_post->Text)
 			? static_cast<Object^>(DBNull::Value)
@@ -292,7 +293,9 @@ System::Void Project::MyForm::Table_post_CellContentClick(System::Object^ sender
 		Object^ FileObj = row->Cells["Files_post"]->Value;
 
 		if (dateObj != nullptr && dateObj != DBNull::Value) {
-			dateTimePicker_Editpost->Value = safe_cast<DateTime>(dateObj);
+			DateTime postDateTime = safe_cast<DateTime>(dateObj);
+			dateTimePicker_Editpost->Value = postDateTime.Date;
+			TimePicker_Editpost->Value = DateTime::Today + postDateTime.TimeOfDay;
 		}
 
 		Name_Edit_post->Text = (nameObj != nullptr && nameObj != DBNull::Value) ? safe_cast<String^>(nameObj) : "";
@@ -399,7 +402,9 @@ System::Void Project::MyForm::Archive_Table_CellContentClick(System::Object^ sen
 		Object^ fileObj = row->Cells["Archive_post"]->Value;
 
 		if (dateObj != nullptr && dateObj != DBNull::Value) {
-			dateTimePicker_Editpost->Value = safe_cast<DateTime>(dateObj);
+			DateTime postDateTime = safe_cast<DateTime>(dateObj);
+			dateTimePicker_Editpost->Value = postDateTime.Date;
+			TimePicker_Editpost->Value = DateTime::Today + postDateTime.TimeOfDay;
 		}
 		Name_Edit_post->Text = (nameObj != nullptr && nameObj != DBNull::Value) ? safe_cast<String^>(nameObj) : "";
 		About_Edit_post->Text = (aboutObj != nullptr && aboutObj != DBNull::Value) ? safe_cast<String^>(aboutObj) : "";
