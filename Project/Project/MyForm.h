@@ -24,6 +24,10 @@ namespace Project {
 	private: System::Windows::Forms::TextBox^ Textbox_About_new_post;
 	private: System::Windows::Forms::Label^ Date_new_post;
 	private: System::Windows::Forms::DateTimePicker^ Swith_date_new_post;
+	private: System::Windows::Forms::Label^ Time_new_Post;
+	private: System::Windows::Forms::DateTimePicker^ TimePicker_new_post;
+	private: System::Windows::Forms::Label^ Time_Edit_post;
+	private: System::Windows::Forms::Label^ DateTimePicker^ TimePicker_Editpost;
 	private: System::Windows::Forms::Label^ view_media;
 	private: System::Windows::Forms::ComboBox^ Swith_view_media;
 	private: System::Windows::Forms::Label^ Text_New_post;
