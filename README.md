@@ -177,7 +177,6 @@ To develop an intuitive desktop application that will greatly simplify the conte
 
 ⚙️ Personal settings for each user
 
-----
 
 🛠 Development information 
 =
