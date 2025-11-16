@@ -24,10 +24,10 @@ namespace Project {
 	private: System::Windows::Forms::TextBox^ Textbox_About_new_post;
 	private: System::Windows::Forms::Label^ Date_new_post;
 	private: System::Windows::Forms::DateTimePicker^ Swith_date_new_post;
-	private: System::Windows::Forms::Label^ Time_new_Post;
+	private: System::Windows::Forms::Label^ Time_new_post;
 	private: System::Windows::Forms::DateTimePicker^ TimePicker_new_post;
 	private: System::Windows::Forms::Label^ Time_Edit_post;
-	private: System::Windows::Forms::Label^ DateTimePicker^ TimePicker_Editpost;
+	private: System::Windows::Forms::DateTimePicker^ TimePicker_Editpost;
 	private: System::Windows::Forms::Label^ view_media;
 	private: System::Windows::Forms::ComboBox^ Swith_view_media;
 	private: System::Windows::Forms::Label^ Text_New_post;
@@ -236,6 +236,10 @@ namespace Project {
 			this->Date_new_post = (gcnew System::Windows::Forms::Label());
 			this->Swith_date_new_post = (gcnew System::Windows::Forms::DateTimePicker());
 			this->view_media = (gcnew System::Windows::Forms::Label());
+			this->Time_new_post = (gcnew System::Windows::Forms::Label());
+			this->TimePicker_new_post = (gcnew System::Windows::Forms::DateTimePicker());
+			this->Time_Edit_post = (gcnew System::Windows::Forms::Label());
+			this->TimePicker_Editpost = (gcnew System::Windows::Forms::DateTimePicker());
 			this->Swith_view_media = (gcnew System::Windows::Forms::ComboBox());
 			this->Text_New_post = (gcnew System::Windows::Forms::Label());
 			this->Continuity_new_post = (gcnew System::Windows::Forms::Label());
@@ -443,6 +447,30 @@ namespace Project {
 			this->Save_button->Name = L"Save_button";
 			this->Save_button->UseVisualStyleBackColor = true;
 			this->Save_button->Click += gcnew System::EventHandler(this, &MyForm::Save_button_Click);
+			//
+			// Time_new_post
+			// 
+			this->Time_new_post->ForeColor = System::Drawing::Color::White;
+			resources->ApplyResources(this->Time_new_post, L"Time_new_post");
+			// 
+			// TimePicker_new_post
+			// 
+			this->TimePicker_new_post->Format = System::Windows::Forms::DateTimePickerFormat::Time;
+			this->TimePicker_new_post->ShowUpDown = true;
+			this->TimePicker_new_post->Value = System::DateTime::Now;
+			resources->ApplyResources(this->TimePicker_new_post, L"TimePicker_new_post");
+			// 
+			// Time_Edit_post
+			// 
+			this->Time_Edit_post->ForeColor = System::Drawing::Color::White;
+			resources->ApplyResources(this->Time_Edit_post, L"Time_Edit_post");
+			// 
+			// TimePicker_Editpost
+			// 
+			this->TimePicker_Editpost->Format = System::Windows::Forms::DateTimePickerFormat::Time;
+			this->TimePicker_Editpost->ShowUpDown = true;
+			this->TimePicker_Editpost->Value = System::DateTime::Now;
+			resources->ApplyResources(this->TimePicker_Editpost, L"TimePicker_Editpost");
 			// 
 			// Panel_New_post
 			// 
@@ -458,6 +486,9 @@ namespace Project {
 			this->Panel_New_post->Controls->Add(this->view_media);
 			this->Panel_New_post->Controls->Add(this->Swith_date_new_post);
 			this->Panel_New_post->Controls->Add(this->Date_new_post);
+			this->Panel_New_post->Controls->Add(this->Time_new_post);
+			this->Panel_New_post->Controls->Add(this->TimePicker_new_post);
+			this->Panel_New_post->Controls->Add(this->view_media);
 			this->Panel_New_post->Controls->Add(this->Textbox_About_new_post);
 			this->Panel_New_post->Controls->Add(this->About_new_post);
 			this->Panel_New_post->Controls->Add(this->Textbox_Name_new_post);
@@ -500,6 +531,9 @@ namespace Project {
 			this->Edit_post->Controls->Add(this->label3);
 			this->Edit_post->Controls->Add(this->dateTimePicker_Editpost);
 			this->Edit_post->Controls->Add(this->label4);
+			this->Edit_post->Controls->Add(this->Time_Edit_post);
+			this->Edit_post->Controls->Add(this->TimePicker_Editpost);
+			this->Edit_post->Controls->Add(this->About_Edit_post);
 			this->Edit_post->Controls->Add(this->About_Edit_post);
 			this->Edit_post->Controls->Add(this->label5);
 			this->Edit_post->Controls->Add(this->Name_Edit_post);
