@@ -466,8 +466,9 @@ System::Void Project::MyForm::Save_editbutton_Click(System::Object^ sender, Syst
 
 		SqlCommand^ cmd = gcnew SqlCommand(updateQuery, DBconnection);
 		DateTime selectedDate = dateTimePicker_Editpost->Value;
-		DateTime dateAt9AM = selectedDate.Date + TimeSpan(9, 0, 0);
-		cmd->Parameters->AddWithValue("@Date_post", dateAt9AM);
+		DateTime selectedTime = TimePicker_Editpost->Value;
+		DateTime combinedDateTime = selectedDate.Date + selectedTime.TimeOfDay;
+		cmd->Parameters->AddWithValue("@Date_post", combinedDateTime);
 		cmd->Parameters->AddWithValue("@name_post", Name_Edit_post->Text);
 		Object^ aboutValue = String::IsNullOrWhiteSpace(About_Edit_post->Text)
 			? static_cast<Object^>(DBNull::Value)
