@@ -16,12 +16,7 @@ namespace Project {
 	{
 
 	public:
-		static String^ connectString =
-			"Server=192.168.0.102,58907;"  // ← IP сервера
-			"Database=Database_program;"
-			"User Id=appuser;"
-			"Password=XMqFcAR_0W;"
-			"Encrypt=False;";
+		static String^ connectString = "Server=SUPERCARPLAY\\SQLEXPRESS02;Database=Database_program;Integrated Security=True;Encrypt=False;";
 	private: System::Windows::Forms::Label^ Name_new_post;
 	public:
 	private: System::Windows::Forms::TextBox^ Textbox_Name_new_post;
@@ -29,9 +24,9 @@ namespace Project {
 	private: System::Windows::Forms::TextBox^ Textbox_About_new_post;
 	private: System::Windows::Forms::Label^ Date_new_post;
 	private: System::Windows::Forms::DateTimePicker^ Swith_date_new_post;
-
+	private: System::Windows::Forms::Label^ Time_new_post;
 	private: System::Windows::Forms::DateTimePicker^ TimePicker_new_post;
-
+	private: System::Windows::Forms::Label^ Time_Edit_post;
 	private: System::Windows::Forms::DateTimePicker^ TimePicker_Editpost;
 	private: System::Windows::Forms::Label^ view_media;
 	private: System::Windows::Forms::ComboBox^ Swith_view_media;
@@ -100,11 +95,11 @@ namespace Project {
 	private: System::Windows::Forms::TextBox^ Authorization_Password;
 
 
-
-
-
-
-
+	private: System::Windows::Forms::GroupBox^ Registr_new;
+	private: System::Windows::Forms::LinkLabel^ linkLabel1;
+	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::TextBox^ textBox1;
+	private: System::Windows::Forms::TextBox^ textBox2;
 	private: System::Windows::Forms::LinkLabel^ Btn_new_user;
 	private: System::Windows::Forms::GroupBox^ Registr_group;
 
@@ -119,13 +114,12 @@ namespace Project {
 
 
 	private: System::Windows::Forms::Label^ label10;
-
 	private: System::Windows::Forms::LinkLabel^ SignUp;
 
 
 
 
-
+	private: System::Windows::Forms::Label^ label9;
 
 
 	private:
@@ -228,12 +222,12 @@ namespace Project {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle19 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle20 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle21 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle22 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle23 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle24 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle4 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle5 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle6 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->button_New_post = (gcnew System::Windows::Forms::Button());
 			this->Name_new_post = (gcnew System::Windows::Forms::Label());
 			this->Textbox_Name_new_post = (gcnew System::Windows::Forms::TextBox());
@@ -242,7 +236,9 @@ namespace Project {
 			this->Date_new_post = (gcnew System::Windows::Forms::Label());
 			this->Swith_date_new_post = (gcnew System::Windows::Forms::DateTimePicker());
 			this->view_media = (gcnew System::Windows::Forms::Label());
+			this->Time_new_post = (gcnew System::Windows::Forms::Label());
 			this->TimePicker_new_post = (gcnew System::Windows::Forms::DateTimePicker());
+			this->Time_Edit_post = (gcnew System::Windows::Forms::Label());
 			this->TimePicker_Editpost = (gcnew System::Windows::Forms::DateTimePicker());
 			this->Swith_view_media = (gcnew System::Windows::Forms::ComboBox());
 			this->Text_New_post = (gcnew System::Windows::Forms::Label());
@@ -256,6 +252,12 @@ namespace Project {
 			this->linkFile = (gcnew System::Windows::Forms::LinkLabel());
 			this->BtnAddFiles = (gcnew System::Windows::Forms::Button());
 			this->Edit_post = (gcnew System::Windows::Forms::GroupBox());
+			this->Registr_new = (gcnew System::Windows::Forms::GroupBox());
+			this->linkLabel1 = (gcnew System::Windows::Forms::LinkLabel());
+			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
+			this->label9 = (gcnew System::Windows::Forms::Label());
 			this->linkEditFile = (gcnew System::Windows::Forms::LinkLabel());
 			this->BtnEditFile = (gcnew System::Windows::Forms::Button());
 			this->Save_editbutton = (gcnew System::Windows::Forms::Button());
@@ -316,6 +318,7 @@ namespace Project {
 			this->label10 = (gcnew System::Windows::Forms::Label());
 			this->Panel_New_post->SuspendLayout();
 			this->Edit_post->SuspendLayout();
+			this->Registr_new->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Archive_Table))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Table_post))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -381,22 +384,6 @@ namespace Project {
 			resources->ApplyResources(this->view_media, L"view_media");
 			this->view_media->Name = L"view_media";
 			// 
-			// TimePicker_new_post
-			// 
-			this->TimePicker_new_post->Format = System::Windows::Forms::DateTimePickerFormat::Time;
-			resources->ApplyResources(this->TimePicker_new_post, L"TimePicker_new_post");
-			this->TimePicker_new_post->Name = L"TimePicker_new_post";
-			this->TimePicker_new_post->ShowUpDown = true;
-			this->TimePicker_new_post->Value = System::DateTime(2025, 11, 16, 9, 0, 0, 0);
-			// 
-			// TimePicker_Editpost
-			// 
-			this->TimePicker_Editpost->Format = System::Windows::Forms::DateTimePickerFormat::Time;
-			resources->ApplyResources(this->TimePicker_Editpost, L"TimePicker_Editpost");
-			this->TimePicker_Editpost->Name = L"TimePicker_Editpost";
-			this->TimePicker_Editpost->ShowUpDown = true;
-			this->TimePicker_Editpost->Value = System::DateTime(2025, 11, 16, 16, 9, 31, 0);
-			// 
 			// Swith_view_media
 			// 
 			resources->ApplyResources(this->Swith_view_media, L"Swith_view_media");
@@ -460,6 +447,30 @@ namespace Project {
 			this->Save_button->Name = L"Save_button";
 			this->Save_button->UseVisualStyleBackColor = true;
 			this->Save_button->Click += gcnew System::EventHandler(this, &MyForm::Save_button_Click);
+			//
+			// Time_new_post
+			// 
+			this->Time_new_post->ForeColor = System::Drawing::Color::White;
+			resources->ApplyResources(this->Time_new_post, L"Time_new_post");
+			// 
+			// TimePicker_new_post
+			// 
+			this->TimePicker_new_post->Format = System::Windows::Forms::DateTimePickerFormat::Time;
+			this->TimePicker_new_post->ShowUpDown = true;
+			this->TimePicker_new_post->Value = System::DateTime::Now;
+			resources->ApplyResources(this->TimePicker_new_post, L"TimePicker_new_post");
+			// 
+			// Time_Edit_post
+			// 
+			this->Time_Edit_post->ForeColor = System::Drawing::Color::White;
+			resources->ApplyResources(this->Time_Edit_post, L"Time_Edit_post");
+			// 
+			// TimePicker_Editpost
+			// 
+			this->TimePicker_Editpost->Format = System::Windows::Forms::DateTimePickerFormat::Time;
+			this->TimePicker_Editpost->ShowUpDown = true;
+			this->TimePicker_Editpost->Value = System::DateTime::Now;
+			resources->ApplyResources(this->TimePicker_Editpost, L"TimePicker_Editpost");
 			// 
 			// Panel_New_post
 			// 
@@ -472,8 +483,10 @@ namespace Project {
 			this->Panel_New_post->Controls->Add(this->Continuity_new_post);
 			this->Panel_New_post->Controls->Add(this->Text_New_post);
 			this->Panel_New_post->Controls->Add(this->Swith_view_media);
+			this->Panel_New_post->Controls->Add(this->view_media);
 			this->Panel_New_post->Controls->Add(this->Swith_date_new_post);
 			this->Panel_New_post->Controls->Add(this->Date_new_post);
+			this->Panel_New_post->Controls->Add(this->Time_new_post);
 			this->Panel_New_post->Controls->Add(this->TimePicker_new_post);
 			this->Panel_New_post->Controls->Add(this->view_media);
 			this->Panel_New_post->Controls->Add(this->Textbox_About_new_post);
@@ -506,6 +519,7 @@ namespace Project {
 			// Edit_post
 			// 
 			resources->ApplyResources(this->Edit_post, L"Edit_post");
+			this->Edit_post->Controls->Add(this->Registr_new);
 			this->Edit_post->Controls->Add(this->linkEditFile);
 			this->Edit_post->Controls->Add(this->BtnEditFile);
 			this->Edit_post->Controls->Add(this->Save_editbutton);
@@ -517,7 +531,9 @@ namespace Project {
 			this->Edit_post->Controls->Add(this->label3);
 			this->Edit_post->Controls->Add(this->dateTimePicker_Editpost);
 			this->Edit_post->Controls->Add(this->label4);
+			this->Edit_post->Controls->Add(this->Time_Edit_post);
 			this->Edit_post->Controls->Add(this->TimePicker_Editpost);
+			this->Edit_post->Controls->Add(this->About_Edit_post);
 			this->Edit_post->Controls->Add(this->About_Edit_post);
 			this->Edit_post->Controls->Add(this->label5);
 			this->Edit_post->Controls->Add(this->Name_Edit_post);
@@ -526,6 +542,49 @@ namespace Project {
 			this->Edit_post->Name = L"Edit_post";
 			this->Edit_post->TabStop = false;
 			this->Edit_post->Tag = L"Edit_post";
+			// 
+			// Registr_new
+			// 
+			resources->ApplyResources(this->Registr_new, L"Registr_new");
+			this->Registr_new->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(115)),
+				static_cast<System::Int32>(static_cast<System::Byte>(255)));
+			this->Registr_new->Controls->Add(this->linkLabel1);
+			this->Registr_new->Controls->Add(this->button1);
+			this->Registr_new->Controls->Add(this->textBox1);
+			this->Registr_new->Controls->Add(this->textBox2);
+			this->Registr_new->Controls->Add(this->label9);
+			this->Registr_new->ForeColor = System::Drawing::Color::White;
+			this->Registr_new->Name = L"Registr_new";
+			this->Registr_new->TabStop = false;
+			// 
+			// linkLabel1
+			// 
+			resources->ApplyResources(this->linkLabel1, L"linkLabel1");
+			this->linkLabel1->Name = L"linkLabel1";
+			this->linkLabel1->TabStop = true;
+			this->linkLabel1->VisitedLinkColor = System::Drawing::Color::Blue;
+			// 
+			// button1
+			// 
+			resources->ApplyResources(this->button1, L"button1");
+			this->button1->ForeColor = System::Drawing::Color::Black;
+			this->button1->Name = L"button1";
+			this->button1->UseVisualStyleBackColor = true;
+			// 
+			// textBox1
+			// 
+			resources->ApplyResources(this->textBox1, L"textBox1");
+			this->textBox1->Name = L"textBox1";
+			// 
+			// textBox2
+			// 
+			resources->ApplyResources(this->textBox2, L"textBox2");
+			this->textBox2->Name = L"textBox2";
+			// 
+			// label9
+			// 
+			resources->ApplyResources(this->label9, L"label9");
+			this->label9->Name = L"label9";
 			// 
 			// linkEditFile
 			// 
@@ -651,39 +710,39 @@ namespace Project {
 			this->Archive_Table->BackgroundColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(67)), static_cast<System::Int32>(static_cast<System::Byte>(93)));
 			this->Archive_Table->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			dataGridViewCellStyle19->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			dataGridViewCellStyle19->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
+			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			dataGridViewCellStyle1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle19->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
-			dataGridViewCellStyle19->ForeColor = System::Drawing::Color::White;
-			dataGridViewCellStyle19->Padding = System::Windows::Forms::Padding(5);
-			dataGridViewCellStyle19->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
+			dataGridViewCellStyle1->ForeColor = System::Drawing::Color::White;
+			dataGridViewCellStyle1->Padding = System::Windows::Forms::Padding(5);
+			dataGridViewCellStyle1->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle19->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle19->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->Archive_Table->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+			dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->Archive_Table->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
 			this->Archive_Table->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::DisableResizing;
 			this->Archive_Table->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(9) {
 				this->Archive_ID,
 					this->Archive_Data, this->Archive_Name, this->Archive_About, this->Archive_Text, this->Archive_Scencens, this->Archive_ViewMedia,
 					this->Archive_post, this->BtnReturn
 			});
-			dataGridViewCellStyle20->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle20->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
+			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle2->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle20->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
-			dataGridViewCellStyle20->ForeColor = System::Drawing::Color::White;
-			dataGridViewCellStyle20->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
+			dataGridViewCellStyle2->ForeColor = System::Drawing::Color::White;
+			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle20->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle20->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
-			this->Archive_Table->DefaultCellStyle = dataGridViewCellStyle20;
+			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->Archive_Table->DefaultCellStyle = dataGridViewCellStyle2;
 			this->Archive_Table->GridColor = System::Drawing::Color::Black;
 			this->Archive_Table->Name = L"Archive_Table";
 			this->Archive_Table->ReadOnly = true;
-			dataGridViewCellStyle21->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->Archive_Table->RowsDefaultCellStyle = dataGridViewCellStyle21;
+			this->Archive_Table->RowsDefaultCellStyle = dataGridViewCellStyle3;
 			this->Archive_Table->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::Archive_Table_CellContentClick);
 			// 
 			// Archive_ID
@@ -761,39 +820,39 @@ namespace Project {
 			this->Table_post->BackgroundColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(67)),
 				static_cast<System::Int32>(static_cast<System::Byte>(93)));
 			this->Table_post->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			dataGridViewCellStyle22->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			dataGridViewCellStyle22->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
+			dataGridViewCellStyle4->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			dataGridViewCellStyle4->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle22->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
-			dataGridViewCellStyle22->ForeColor = System::Drawing::Color::White;
-			dataGridViewCellStyle22->Padding = System::Windows::Forms::Padding(5);
-			dataGridViewCellStyle22->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+			dataGridViewCellStyle4->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
+			dataGridViewCellStyle4->ForeColor = System::Drawing::Color::White;
+			dataGridViewCellStyle4->Padding = System::Windows::Forms::Padding(5);
+			dataGridViewCellStyle4->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle22->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle22->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->Table_post->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
+			dataGridViewCellStyle4->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle4->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->Table_post->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
 			this->Table_post->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::DisableResizing;
 			this->Table_post->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(10) {
 				this->ID, this->Date_post,
 					this->name_post, this->About_post, this->Text_post, this->Scencens_post, this->ViewMedia_post, this->Files_post, this->EditButton,
 					this->DeleteButton
 			});
-			dataGridViewCellStyle23->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle23->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
+			dataGridViewCellStyle5->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle5->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle23->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
-			dataGridViewCellStyle23->ForeColor = System::Drawing::Color::White;
-			dataGridViewCellStyle23->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+			dataGridViewCellStyle5->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
+			dataGridViewCellStyle5->ForeColor = System::Drawing::Color::White;
+			dataGridViewCellStyle5->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle23->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle23->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
-			this->Table_post->DefaultCellStyle = dataGridViewCellStyle23;
+			dataGridViewCellStyle5->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle5->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->Table_post->DefaultCellStyle = dataGridViewCellStyle5;
 			this->Table_post->GridColor = System::Drawing::Color::Black;
 			this->Table_post->Name = L"Table_post";
 			this->Table_post->ReadOnly = true;
-			dataGridViewCellStyle24->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			dataGridViewCellStyle6->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->Table_post->RowsDefaultCellStyle = dataGridViewCellStyle24;
+			this->Table_post->RowsDefaultCellStyle = dataGridViewCellStyle6;
 			this->Table_post->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::Table_post_CellContentClick);
 			// 
 			// ID
@@ -1050,6 +1109,8 @@ namespace Project {
 			this->Panel_New_post->PerformLayout();
 			this->Edit_post->ResumeLayout(false);
 			this->Edit_post->PerformLayout();
+			this->Registr_new->ResumeLayout(false);
+			this->Registr_new->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Archive_Table))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Table_post))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
