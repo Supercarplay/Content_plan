@@ -50,8 +50,6 @@ Content Verst — это полнофункциональное Windows-прил
 
 ☑️ Резервное копирование и целостность данных
 
-☑️ Быстрый поиск и фильтрация контента
-
 🎨 Пользовательский интерфейс
 -
 ☑️ Интуитивно понятный интерфейс на Windows Forms
@@ -68,7 +66,7 @@ Content Verst — это полнофункциональное Windows-прил
 =
 📅 Планирование публикаций с установкой точной даты и времени
 
-🎭 Классификация контента по типам (Reels, Stories, Post)
+🎭 Классификация контента по типам (Видео, фотография)
 
 📎 Прикрепление файлов с автоматическим копированием в папку проекта
 
@@ -147,8 +145,6 @@ To develop an intuitive desktop application that will greatly simplify the conte
 
 ☑️ Backup and data integrity
 
-☑️ Fast content search and filtering
-
 🎨 User interface
 -
 ☑️ Intuitive interface on Windows Forms
@@ -165,7 +161,7 @@ To develop an intuitive desktop application that will greatly simplify the conte
 =
 📅 Publication planning with setting the exact date and time
 
-🎭 Classification of content by type (Reels, Stories, Post)
+🎭 Classification of content by type (Video, photo)
 
 📎 Attaching files with automatic copying to the project folder
 
