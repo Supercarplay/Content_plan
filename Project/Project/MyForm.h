@@ -198,6 +198,47 @@ namespace Project {
 
 			InitializePlaceholders();
 
+			btnToggleAuthPassword = gcnew Button();
+			btnToggleAuthPassword->Size = System::Drawing::Size(30, Authorization_Password->Height - 4);
+			btnToggleAuthPassword->Location = System::Drawing::Point(Authorization_Password->Width - btnToggleAuthPassword->Width - 2, 2);
+			btnToggleAuthPassword->Text = "👁";
+			btnToggleAuthPassword->BackColor = System::Drawing::Color::White;
+			btnToggleAuthPassword->FlatStyle = Windows::Forms::FlatStyle::Flat;
+			Authorization_Password->Controls->Add(btnToggleAuthPassword);
+			btnToggleAuthPassword->BringToFront();
+			btnToggleAuthPassword->Click += gcnew System::EventHandler(this, &MyForm::btnToggleAuthPassword_Click);
+
+			btnToggleRegPassword = gcnew Button();
+			btnToggleRegPassword->Size = System::Drawing::Size(30, registr_password->Height - 4);
+			btnToggleRegPassword->Location = System::Drawing::Point(registr_password->Width - btnToggleRegPassword->Width - 2, 2);
+			btnToggleRegPassword->Text = "👁";
+			btnToggleRegPassword->BackColor = System::Drawing::Color::White;
+			btnToggleRegPassword->FlatStyle = Windows::Forms::FlatStyle::Flat;
+			registr_password->Controls->Add(btnToggleRegPassword);
+			btnToggleRegPassword->BringToFront();
+			btnToggleRegPassword->Click += gcnew System::EventHandler(this, &MyForm::btnToggleRegPassword_Click);
+
+			btnToggleRegPasswordRepeat = gcnew Button();
+			btnToggleRegPasswordRepeat->Size = System::Drawing::Size(30, registr_password_repeat->Height - 4);
+			btnToggleRegPasswordRepeat->Location = System::Drawing::Point(registr_password_repeat->Width - btnToggleRegPasswordRepeat->Width - 2, 2);
+			btnToggleRegPasswordRepeat->Text = "👁";
+			btnToggleRegPasswordRepeat->BackColor = System::Drawing::Color::White;
+			btnToggleRegPasswordRepeat->FlatStyle = Windows::Forms::FlatStyle::Flat;
+			registr_password_repeat->Controls->Add(btnToggleRegPasswordRepeat);
+			btnToggleRegPasswordRepeat->BringToFront();
+			btnToggleRegPasswordRepeat->Click += gcnew System::EventHandler(this, &MyForm::btnToggleRegPasswordRepeat_Click);
+
+			Authorization_Login->Enter += gcnew System::EventHandler(this, &MyForm::Authorization_Login_Enter);
+			Authorization_Login->Leave += gcnew System::EventHandler(this, &MyForm::Authorization_Login_Leave);
+			Authorization_Password->Enter += gcnew System::EventHandler(this, &MyForm::Authorization_Password_Enter);
+			Authorization_Password->Leave += gcnew System::EventHandler(this, &MyForm::Authorization_Password_Leave);
+			registr_Login->Enter += gcnew System::EventHandler(this, &MyForm::registr_Login_Enter);
+			registr_Login->Leave += gcnew System::EventHandler(this, &MyForm::registr_Login_Leave);
+			registr_password->Enter += gcnew System::EventHandler(this, &MyForm::registr_password_Enter);
+			registr_password->Leave += gcnew System::EventHandler(this, &MyForm::registr_password_Leave);
+			registr_password_repeat->Enter += gcnew System::EventHandler(this, &MyForm::registr_password_repeat_Enter);
+			registr_password_repeat->Leave += gcnew System::EventHandler(this, &MyForm::registr_password_repeat_Leave);
+
 			DBconnection = gcnew SqlConnection(connectString);
 
 			String^ filePostFolder = System::IO::Path::Combine(Application::StartupPath, "FilePost");
