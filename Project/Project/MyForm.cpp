@@ -638,9 +638,23 @@ System::Void Project::MyForm::SignUp_LinkClicked(System::Object^ sender, System:
 	Registr_group->Visible = false;
 }
 System::Void Project::MyForm::Btn_registr_Click(System::Object^ sender, System::EventArgs^ e) {
-	String^ login = registr_Login->Text->Trim();
-	String^ password = registr_password->Text->Trim();
-	String^ passwordRepeat = registr_password_repeat->Text->Trim();
+	String^ login = registr_Login->Text;
+	String^ password = registr_password->Text;
+	String^ passwordRepeat = registr_password_repeat->Text;
+
+	if (login == regLoginPlaceholder) login = "";
+	if (password == regPasswordPlaceholder) password = "";
+	if (passwordRepeat == regPasswordRepeatPlaceholder) passwordRepeat = "";
+
+	login = login->Trim();
+	password = password->Trim();
+	passwordRepeat = passwordRepeat->Trim();
+
+
+	//String^ login = registr_Login->Text->Trim();
+	//String^ password = registr_password->Text->Trim();
+	//String^ passwordRepeat = registr_password_repeat->Text->Trim();
+
 	if (String::IsNullOrWhiteSpace(login) || String::IsNullOrWhiteSpace(password)) {
 		MessageBox::Show("Логин и пароль не могут быть пустыми.", "Ошибка регистрации", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		return;
