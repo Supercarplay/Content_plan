@@ -594,8 +594,18 @@ System::Void Project::MyForm::BtnArchive_Click(System::Object^ sender, System::E
 	}
 }
 System::Void Project::MyForm::BTNAuthorization_Click(System::Object^ sender, System::EventArgs^ e) {
-	String^ login = Authorization_Login->Text->Trim();
-	String^ password = Authorization_Password->Text->Trim();
+	String^ login = Authorization_Login->Text;
+	String^ password = Authorization_Password->Text;
+
+	if (login == authLoginPlaceholder) login = "";
+	if (password == authPasswordPlaceholder) password = "";
+
+	login = login->Trim();
+	password = password->Trim();
+
+	//String^ login = Authorization_Login->Text->Trim();
+	//String^ password = Authorization_Password->Text->Trim();
+
 	if (String::IsNullOrWhiteSpace(login) || String::IsNullOrWhiteSpace(password)) {
 		MessageBox::Show("Введите логин и пароль.", "Ошибка авторизации", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		return;
@@ -672,4 +682,38 @@ System::Void Project::MyForm::Btn_registr_Click(System::Object^ sender, System::
 		MessageBox::Show("Ошибка при регистрации:\n" + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
 	}
 
+}
+System::Void Project::MyForm::InitializePlaceholders()
+{
+	SetPlaceholder(Authorization_Login, authLoginPlaceholder);
+	SetPlaceholder(Authorization_Password, authPasswordPlaceholder);
+	SetPlaceholder(registr_Login, regLoginPlaceholder);
+	SetPlaceholder(registr_password, regPasswordPlaceholder);
+	SetPlaceholder(registr_password_repeat, regPasswordRepeatPlaceholder);
+}
+
+System::Void Project::MyForm::SetPlaceholder(System::Windows::Forms::TextBox^ textBox, String^ placeholder)
+{
+	if (String::IsNullOrWhiteSpace(textBox->Text) || textBox->Text == placeholder)
+	{
+		textBox->Text = placeholder;
+		textBox->ForeColor = System::Drawing::Color::Gray;
+		if (textBox == Authorization_Password  textBox == registr_password  textBox == registr_password_repeat)
+		{
+			textBox->UseSystemPasswordChar = false;
+		}
+	}
+}
+
+System::Void Project::MyForm::RemovePlaceholder(System::Windows::Forms::TextBox^ textBox, String^ placeholder)
+{
+	if (textBox->Text == placeholder)
+	{
+		textBox->Text = "";
+		textBox->ForeColor = System::Drawing::Color::Black;
+		if (textBox == Authorization_Password  textBox == registr_password  textBox == registr_password_repeat)
+		{
+			textBox->UseSystemPasswordChar = true;
+		}
+	}
 }
