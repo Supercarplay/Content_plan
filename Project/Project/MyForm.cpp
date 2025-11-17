@@ -712,7 +712,7 @@ System::Void Project::MyForm::SetPlaceholder(System::Windows::Forms::TextBox^ te
 	{
 		textBox->Text = placeholder;
 		textBox->ForeColor = System::Drawing::Color::Gray;
-		if (textBox == Authorization_Password  textBox == registr_password  textBox == registr_password_repeat)
+		if (textBox == Authorization_Password || textBox == registr_password || textBox == registr_password_repeat)
 		{
 			textBox->UseSystemPasswordChar = false;
 		}
@@ -725,9 +725,35 @@ System::Void Project::MyForm::RemovePlaceholder(System::Windows::Forms::TextBox^
 	{
 		textBox->Text = "";
 		textBox->ForeColor = System::Drawing::Color::Black;
-		if (textBox == Authorization_Password  textBox == registr_password  textBox == registr_password_repeat)
+		if (textBox == Authorization_Password || textBox == registr_password || textBox == registr_password_repeat)
 		{
 			textBox->UseSystemPasswordChar = true;
 		}
+	}
+}
+System::Void Project::MyForm::btnToggleAuthPassword_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	if (Authorization_Password->Text != authPasswordPlaceholder)
+	{
+		Authorization_Password->UseSystemPasswordChar = !Authorization_Password->UseSystemPasswordChar;
+		btnToggleAuthPassword->Text = Authorization_Password->UseSystemPasswordChar ? "👁" : "🔒";
+	}
+}
+
+System::Void Project::MyForm::btnToggleRegPassword_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	if (registr_password->Text != regPasswordPlaceholder)
+	{
+		registr_password->UseSystemPasswordChar = !registr_password->UseSystemPasswordChar;
+		btnToggleRegPassword->Text = registr_password->UseSystemPasswordChar ? "👁" : "🔒";
+	}
+}
+
+System::Void Project::MyForm::btnToggleRegPasswordRepeat_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	if (registr_password_repeat->Text != regPasswordRepeatPlaceholder)
+	{
+		registr_password_repeat->UseSystemPasswordChar = !registr_password_repeat->UseSystemPasswordChar;
+		btnToggleRegPasswordRepeat->Text = registr_password_repeat->UseSystemPasswordChar ? "👁" : "🔒";
 	}
 }
