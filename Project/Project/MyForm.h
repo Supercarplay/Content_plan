@@ -181,10 +181,22 @@ namespace Project {
 		System::Windows::Forms::Button^ btnToggleAuthPassword;
 		System::Windows::Forms::Button^ btnToggleRegPassword;
 		System::Windows::Forms::Button^ btnToggleRegPasswordRepeat;
+	private:
+		System::Void InitializePlaceholders();
+		System::Void SetPlaceholder(System::Windows::Forms::TextBox^ textBox, String^ placeholder);
+		System::Void RemovePlaceholder(System::Windows::Forms::TextBox^ textBox, String^ placeholder);
+
+		String^ authLoginPlaceholder = L"Логин";
+		String^ authPasswordPlaceholder = L"Пароль";
+		String^ regLoginPlaceholder = L"Логин";
+		String^ regPasswordPlaceholder = L"Пароль";
+		String^ regPasswordRepeatPlaceholder = L"Повторите пароль";
 	public:
 		MyForm(void)
 		{
 			InitializeComponent();
+
+			InitializePlaceholders();
 
 			DBconnection = gcnew SqlConnection(connectString);
 
