@@ -164,6 +164,23 @@ namespace Project {
 		System::Void Btn_new_user_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);
 		System::Void SignUp_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);
 		System::Void Btn_registr_Click(System::Object^ sender, System::EventArgs^ e);
+	private:
+		System::Void Authorization_Login_Enter(System::Object^ sender, System::EventArgs^ e);
+		System::Void Authorization_Login_Leave(System::Object^ sender, System::EventArgs^ e);
+		System::Void Authorization_Password_Enter(System::Object^ sender, System::EventArgs^ e);
+		System::Void Authorization_Password_Leave(System::Object^ sender, System::EventArgs^ e);
+		System::Void registr_Login_Enter(System::Object^ sender, System::EventArgs^ e);
+		System::Void registr_Login_Leave(System::Object^ sender, System::EventArgs^ e);
+		System::Void registr_password_Enter(System::Object^ sender, System::EventArgs^ e);
+		System::Void registr_password_Leave(System::Object^ sender, System::EventArgs^ e);
+		System::Void registr_password_repeat_Enter(System::Object^ sender, System::EventArgs^ e);
+		System::Void registr_password_repeat_Leave(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnToggleAuthPassword_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnToggleRegPassword_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnToggleRegPasswordRepeat_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Windows::Forms::Button^ btnToggleAuthPassword;
+		System::Windows::Forms::Button^ btnToggleRegPassword;
+		System::Windows::Forms::Button^ btnToggleRegPasswordRepeat;
 	public:
 		MyForm(void)
 		{
