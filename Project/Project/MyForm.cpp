@@ -594,19 +594,10 @@ System::Void Project::MyForm::BtnArchive_Click(System::Object^ sender, System::E
 	}
 }
 System::Void Project::MyForm::BTNAuthorization_Click(System::Object^ sender, System::EventArgs^ e) {
-	String^ login = Authorization_Login->Text;
-	String^ password = Authorization_Password->Text;
+	String^ login = Authorization_Login->Text->Trim();
+	String^ password = Authorization_Password->Text->Trim();
 
-	if (login == authLoginPlaceholder) login = "";
-	if (password == authPasswordPlaceholder) password = "";
-
-	login = login->Trim();
-	password = password->Trim();
-
-	//String^ login = Authorization_Login->Text->Trim();
-	//String^ password = Authorization_Password->Text->Trim();
-
-	if (String::IsNullOrWhiteSpace(login) || String::IsNullOrWhiteSpace(password)) {
+	if (String::IsNullOrWhiteSpace(login) || String::IsNullOrWhiteSpace(password) || (login=="Логин" && password=="Пароль")) {
 		MessageBox::Show("Введите логин и пароль.", "Ошибка авторизации", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		return;
 	}
@@ -636,26 +627,16 @@ System::Void Project::MyForm::Btn_new_user_LinkClicked(System::Object^ sender, S
 
 System::Void Project::MyForm::SignUp_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
 	Registr_group->Visible = false;
+	registr_Login->Clear();
+	registr_password->Clear();
+	registr_password_repeat->Clear();
 }
 System::Void Project::MyForm::Btn_registr_Click(System::Object^ sender, System::EventArgs^ e) {
-	String^ login = registr_Login->Text;
-	String^ password = registr_password->Text;
-	String^ passwordRepeat = registr_password_repeat->Text;
+	String^ login = registr_Login->Text->Trim();
+	String^ password = registr_password->Text->Trim();
+	String^ passwordRepeat = registr_password_repeat->Text->Trim();
 
-	if (login == regLoginPlaceholder) login = "";
-	if (password == regPasswordPlaceholder) password = "";
-	if (passwordRepeat == regPasswordRepeatPlaceholder) passwordRepeat = "";
-
-	login = login->Trim();
-	password = password->Trim();
-	passwordRepeat = passwordRepeat->Trim();
-
-
-	//String^ login = registr_Login->Text->Trim();
-	//String^ password = registr_password->Text->Trim();
-	//String^ passwordRepeat = registr_password_repeat->Text->Trim();
-
-	if (String::IsNullOrWhiteSpace(login) || String::IsNullOrWhiteSpace(password)) {
+	if (String::IsNullOrWhiteSpace(login) || String::IsNullOrWhiteSpace(password) || (login == "Логин" && password == "Пароль")) {
 		MessageBox::Show("Логин и пароль не могут быть пустыми.", "Ошибка регистрации", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		return;
 	}
@@ -696,64 +677,4 @@ System::Void Project::MyForm::Btn_registr_Click(System::Object^ sender, System::
 		MessageBox::Show("Ошибка при регистрации:\n" + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
 	}
 
-}
-System::Void Project::MyForm::InitializePlaceholders()
-{
-	SetPlaceholder(Authorization_Login, authLoginPlaceholder);
-	SetPlaceholder(Authorization_Password, authPasswordPlaceholder);
-	SetPlaceholder(registr_Login, regLoginPlaceholder);
-	SetPlaceholder(registr_password, regPasswordPlaceholder);
-	SetPlaceholder(registr_password_repeat, regPasswordRepeatPlaceholder);
-}
-
-System::Void Project::MyForm::SetPlaceholder(System::Windows::Forms::TextBox^ textBox, String^ placeholder)
-{
-	if (String::IsNullOrWhiteSpace(textBox->Text) || textBox->Text == placeholder)
-	{
-		textBox->Text = placeholder;
-		textBox->ForeColor = System::Drawing::Color::Gray;
-		if (textBox == Authorization_Password || textBox == registr_password || textBox == registr_password_repeat)
-		{
-			textBox->UseSystemPasswordChar = false;
-		}
-	}
-}
-
-System::Void Project::MyForm::RemovePlaceholder(System::Windows::Forms::TextBox^ textBox, String^ placeholder)
-{
-	if (textBox->Text == placeholder)
-	{
-		textBox->Text = "";
-		textBox->ForeColor = System::Drawing::Color::Black;
-		if (textBox == Authorization_Password || textBox == registr_password || textBox == registr_password_repeat)
-		{
-			textBox->UseSystemPasswordChar = true;
-		}
-	}
-}
-System::Void Project::MyForm::btnToggleAuthPassword_Click(System::Object^ sender, System::EventArgs^ e)
-{
-	if (Authorization_Password->Text != authPasswordPlaceholder)
-	{
-		Authorization_Password->UseSystemPasswordChar = !Authorization_Password->UseSystemPasswordChar;
-		btnToggleAuthPassword->Text = Authorization_Password->UseSystemPasswordChar ? "👁" : "🔒";
-	}
-}
-
-System::Void Project::MyForm::btnToggleRegPassword_Click(System::Object^ sender, System::EventArgs^ e)
-{
-	if (registr_password->Text != regPasswordPlaceholder)
-	{
-		registr_password->UseSystemPasswordChar = !registr_password->UseSystemPasswordChar;
-		btnToggleRegPassword->Text = registr_password->UseSystemPasswordChar ? "👁" : "🔒";
-	}
-}
-
-System::Void Project::MyForm::btnToggleRegPasswordRepeat_Click(System::Object^ sender, System::EventArgs^ e)
-{
-	if (registr_password_repeat->Text != regPasswordRepeatPlaceholder)
-	{
-		registr_password_repeat->UseSystemPasswordChar = !registr_password_repeat->UseSystemPasswordChar;
-		btnToggleRegPasswordRepeat->Text = registr_password_repeat->UseSystemPasswordChar ? "👁" : "🔒";
-	}
 }

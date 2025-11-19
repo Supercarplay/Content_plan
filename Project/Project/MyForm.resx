@@ -708,6 +708,54 @@
   <data name="Panel_New_post.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="&gt;&gt;linkFile.Name" xml:space="preserve">
+    <value>linkFile</value>
+  </data>
+  <data name="&gt;&gt;linkFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkFile.Parent" xml:space="preserve">
+    <value>Panel_New_post</value>
+  </data>
+  <data name="&gt;&gt;linkFile.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;BtnAddFiles.Name" xml:space="preserve">
+    <value>BtnAddFiles</value>
+  </data>
+  <data name="&gt;&gt;BtnAddFiles.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtnAddFiles.Parent" xml:space="preserve">
+    <value>Panel_New_post</value>
+  </data>
+  <data name="&gt;&gt;BtnAddFiles.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="Panel_New_post.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 67</value>
+  </data>
+  <data name="Panel_New_post.Size" type="System.Drawing.Size, System.Drawing">
+    <value>982, 415</value>
+  </data>
+  <data name="Panel_New_post.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="Panel_New_post.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;Panel_New_post.Name" xml:space="preserve">
+    <value>Panel_New_post</value>
+  </data>
+  <data name="&gt;&gt;Panel_New_post.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Panel_New_post.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Panel_New_post.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
   <data name="linkFile.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -767,30 +815,6 @@
   </data>
   <data name="&gt;&gt;BtnAddFiles.ZOrder" xml:space="preserve">
     <value>17</value>
-  </data>
-  <data name="Panel_New_post.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 67</value>
-  </data>
-  <data name="Panel_New_post.Size" type="System.Drawing.Size, System.Drawing">
-    <value>982, 415</value>
-  </data>
-  <data name="Panel_New_post.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="Panel_New_post.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;Panel_New_post.Name" xml:space="preserve">
-    <value>Panel_New_post</value>
-  </data>
-  <data name="&gt;&gt;Panel_New_post.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Panel_New_post.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;Panel_New_post.ZOrder" xml:space="preserve">
-    <value>5</value>
   </data>
   <data name="Edit_post.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -5326,92 +5350,46 @@
   <data name="Authorization.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;Btn_new_user.Name" xml:space="preserve">
-    <value>Btn_new_user</value>
+  <data name="btn_Show_Password.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAAp1JREFUSEvtlLtLOlAUx4OyMulBkK8CyR5TJKKRi4KmEUivoUmaqqGG1mjLBoOG
+        +gMko6EtsLXIRZTcGgQRCnSqoSEKyl72/XEOnIv2GILfA370BZF77znnc8+5X63BX1DN+40/oR/It/Rv
+        IeVyGW9vb/w5Pj7GwsIC/H4/urq64HA4MDk5iZ2dHVxfX6v4r/Qp5PX1lb8PDg64YFtbG/r6+uDxeLC6
+        uorZ2VkMDg6iubkZer0ec3NzuLm5qcqtVBVEbn57e4uRkRE0NjZieHgYJycneHx8rAxlFYtFrK2toaWl
+        BWazmS9Fen5+ropTEGk3l8vBYrHAZDLh8PCQ9whM2trawsDAAKanp3FxcSGpuLq6gtfrRX19Pebn53nv
+        5eVFnTNEipydnUGr1WJoaEjNWoKnpqbQ0NDAxXp6evj2hUKBLycjWl9f55hQKMRr6UhBzs/PeTz0BpIo
+        8NPTU9TV1SEej/P6/v4eNpuN30gkBWOxGJqamjAzM6POGELzNhgM6O3t5c2npycVQNrf34fRaGSwdBYO
+        h+F0OqviJI/eiSYSiUR4rTpJpVLQaDT80KTKmWYyGe4kmUzymjqlTmh0Ioknu7e2tmJsbEydMUQe/ejo
+        iG/g8/lQKpUYLvMOBALQ6XRYWlpCf38/F8pms5wrgL29Pc4fHR3ltewrd0mxRCKB9vZ2dHd3I51O8x7B
+        qNjy8jKsViuCwaA6Iz08PPBvp7a2lg1C+uAukXRE/rfb7WxJcgq57jPd3d1he3ubLd/R0YGNjQ3erwSQ
+        PvziK0cUjUaVXQk6Pj6Ozc1NLC4uwu12sxmo64mJCVxeXnLOewDpA0QkIHLM7u4uW5Lc1NnZyX8pLpcL
+        KysryOfzKl4s/15fQn6nfiDf0v8D+QVZ17MA540JGwAAAABJRU5ErkJggg==
+</value>
   </data>
-  <data name="&gt;&gt;Btn_new_user.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="btn_Show_Password.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;Btn_new_user.Parent" xml:space="preserve">
-    <value>Authorization</value>
+  <data name="btn_Show_Password.Location" type="System.Drawing.Point, System.Drawing">
+    <value>285, 103</value>
   </data>
-  <data name="&gt;&gt;Btn_new_user.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="btn_Show_Password.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 26</value>
   </data>
-  <data name="&gt;&gt;BTNAuthorization.Name" xml:space="preserve">
-    <value>BTNAuthorization</value>
+  <data name="btn_Show_Password.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
   </data>
-  <data name="&gt;&gt;BTNAuthorization.Type" xml:space="preserve">
+  <data name="&gt;&gt;btn_Show_Password.Name" xml:space="preserve">
+    <value>btn_Show_Password</value>
+  </data>
+  <data name="&gt;&gt;btn_Show_Password.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;BTNAuthorization.Parent" xml:space="preserve">
+  <data name="&gt;&gt;btn_Show_Password.Parent" xml:space="preserve">
     <value>Authorization</value>
   </data>
-  <data name="&gt;&gt;BTNAuthorization.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;Authorization_Password.Name" xml:space="preserve">
-    <value>Authorization_Password</value>
-  </data>
-  <data name="&gt;&gt;Authorization_Password.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Authorization_Password.Parent" xml:space="preserve">
-    <value>Authorization</value>
-  </data>
-  <data name="&gt;&gt;Authorization_Password.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;Authorization_Login.Name" xml:space="preserve">
-    <value>Authorization_Login</value>
-  </data>
-  <data name="&gt;&gt;Authorization_Login.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Authorization_Login.Parent" xml:space="preserve">
-    <value>Authorization</value>
-  </data>
-  <data name="&gt;&gt;Authorization_Login.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;label8.Name" xml:space="preserve">
-    <value>label8</value>
-  </data>
-  <data name="&gt;&gt;label8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
-    <value>Authorization</value>
-  </data>
-  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="Authorization.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 12pt</value>
-  </data>
-  <data name="Authorization.Location" type="System.Drawing.Point, System.Drawing">
-    <value>304, 141</value>
-  </data>
-  <data name="Authorization.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
-  </data>
-  <data name="Authorization.Size" type="System.Drawing.Size, System.Drawing">
-    <value>392, 243</value>
-  </data>
-  <data name="Authorization.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
-  </data>
-  <data name="&gt;&gt;Authorization.Name" xml:space="preserve">
-    <value>Authorization</value>
-  </data>
-  <data name="&gt;&gt;Authorization.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Authorization.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;Authorization.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;btn_Show_Password.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="Btn_new_user.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -5441,7 +5419,7 @@
     <value>Authorization</value>
   </data>
   <data name="&gt;&gt;Btn_new_user.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="BTNAuthorization.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -5468,13 +5446,10 @@
     <value>Authorization</value>
   </data>
   <data name="&gt;&gt;BTNAuthorization.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="Authorization_Password.Location" type="System.Drawing.Point, System.Drawing">
     <value>77, 103</value>
-  </data>
-  <data name="Authorization_Password.PasswordChar" type="System.Char, mscorlib" xml:space="preserve">
-    <value>*</value>
   </data>
   <data name="Authorization_Password.Size" type="System.Drawing.Size, System.Drawing">
     <value>234, 26</value>
@@ -5495,7 +5470,7 @@
     <value>Authorization</value>
   </data>
   <data name="&gt;&gt;Authorization_Password.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="Authorization_Login.Location" type="System.Drawing.Point, System.Drawing">
     <value>77, 60</value>
@@ -5519,7 +5494,7 @@
     <value>Authorization</value>
   </data>
   <data name="&gt;&gt;Authorization_Login.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="label8.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -5549,13 +5524,52 @@
     <value>Authorization</value>
   </data>
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
+  </data>
+  <data name="Authorization.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Times New Roman, 12pt</value>
+  </data>
+  <data name="Authorization.Location" type="System.Drawing.Point, System.Drawing">
+    <value>304, 141</value>
+  </data>
+  <data name="Authorization.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 5, 5, 5</value>
+  </data>
+  <data name="Authorization.Size" type="System.Drawing.Size, System.Drawing">
+    <value>392, 243</value>
+  </data>
+  <data name="Authorization.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="&gt;&gt;Authorization.Name" xml:space="preserve">
+    <value>Authorization</value>
+  </data>
+  <data name="&gt;&gt;Authorization.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Authorization.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Authorization.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="Registr_group.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
   </data>
   <data name="Registr_group.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="&gt;&gt;btn_Show_repeat_Password.Name" xml:space="preserve">
+    <value>btn_Show_repeat_Password</value>
+  </data>
+  <data name="&gt;&gt;btn_Show_repeat_Password.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_Show_repeat_Password.Parent" xml:space="preserve">
+    <value>Registr_group</value>
+  </data>
+  <data name="&gt;&gt;btn_Show_repeat_Password.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;SignUp.Name" xml:space="preserve">
     <value>SignUp</value>
@@ -5567,7 +5581,7 @@
     <value>Registr_group</value>
   </data>
   <data name="&gt;&gt;SignUp.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;registr_password_repeat.Name" xml:space="preserve">
     <value>registr_password_repeat</value>
@@ -5579,7 +5593,7 @@
     <value>Registr_group</value>
   </data>
   <data name="&gt;&gt;registr_password_repeat.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;Btn_registr.Name" xml:space="preserve">
     <value>Btn_registr</value>
@@ -5591,7 +5605,7 @@
     <value>Registr_group</value>
   </data>
   <data name="&gt;&gt;Btn_registr.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;registr_password.Name" xml:space="preserve">
     <value>registr_password</value>
@@ -5603,7 +5617,7 @@
     <value>Registr_group</value>
   </data>
   <data name="&gt;&gt;registr_password.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="&gt;&gt;registr_Login.Name" xml:space="preserve">
     <value>registr_Login</value>
@@ -5615,7 +5629,7 @@
     <value>Registr_group</value>
   </data>
   <data name="&gt;&gt;registr_Login.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="&gt;&gt;label10.Name" xml:space="preserve">
     <value>label10</value>
@@ -5627,7 +5641,7 @@
     <value>Registr_group</value>
   </data>
   <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="Registr_group.Font" type="System.Drawing.Font, System.Drawing">
     <value>Times New Roman, 12pt</value>
@@ -5659,6 +5673,44 @@
   <data name="&gt;&gt;Registr_group.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="btn_Show_repeat_Password.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAAp1JREFUSEvtlLtLOlAUx4OyMulBkK8CyR5TJKKRi4KmEUivoUmaqqGG1mjLBoOG
+        +gMko6EtsLXIRZTcGgQRCnSqoSEKyl72/XEOnIv2GILfA370BZF77znnc8+5X63BX1DN+40/oR/It/Rv
+        IeVyGW9vb/w5Pj7GwsIC/H4/urq64HA4MDk5iZ2dHVxfX6v4r/Qp5PX1lb8PDg64YFtbG/r6+uDxeLC6
+        uorZ2VkMDg6iubkZer0ec3NzuLm5qcqtVBVEbn57e4uRkRE0NjZieHgYJycneHx8rAxlFYtFrK2toaWl
+        BWazmS9Fen5+ropTEGk3l8vBYrHAZDLh8PCQ9whM2trawsDAAKanp3FxcSGpuLq6gtfrRX19Pebn53nv
+        5eVFnTNEipydnUGr1WJoaEjNWoKnpqbQ0NDAxXp6evj2hUKBLycjWl9f55hQKMRr6UhBzs/PeTz0BpIo
+        8NPTU9TV1SEej/P6/v4eNpuN30gkBWOxGJqamjAzM6POGELzNhgM6O3t5c2npycVQNrf34fRaGSwdBYO
+        h+F0OqviJI/eiSYSiUR4rTpJpVLQaDT80KTKmWYyGe4kmUzymjqlTmh0Ioknu7e2tmJsbEydMUQe/ejo
+        iG/g8/lQKpUYLvMOBALQ6XRYWlpCf38/F8pms5wrgL29Pc4fHR3ltewrd0mxRCKB9vZ2dHd3I51O8x7B
+        qNjy8jKsViuCwaA6Iz08PPBvp7a2lg1C+uAukXRE/rfb7WxJcgq57jPd3d1he3ubLd/R0YGNjQ3erwSQ
+        PvziK0cUjUaVXQk6Pj6Ozc1NLC4uwu12sxmo64mJCVxeXnLOewDpA0QkIHLM7u4uW5Lc1NnZyX8pLpcL
+        KysryOfzKl4s/15fQn6nfiDf0v8D+QVZ17MA540JGwAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="btn_Show_repeat_Password.Location" type="System.Drawing.Point, System.Drawing">
+    <value>285, 131</value>
+  </data>
+  <data name="btn_Show_repeat_Password.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 26</value>
+  </data>
+  <data name="btn_Show_repeat_Password.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;btn_Show_repeat_Password.Name" xml:space="preserve">
+    <value>btn_Show_repeat_Password</value>
+  </data>
+  <data name="&gt;&gt;btn_Show_repeat_Password.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_Show_repeat_Password.Parent" xml:space="preserve">
+    <value>Registr_group</value>
+  </data>
+  <data name="&gt;&gt;btn_Show_repeat_Password.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="SignUp.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -5684,7 +5736,7 @@
     <value>Registr_group</value>
   </data>
   <data name="&gt;&gt;SignUp.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="registr_password_repeat.Location" type="System.Drawing.Point, System.Drawing">
     <value>77, 131</value>
@@ -5696,7 +5748,7 @@
     <value>4</value>
   </data>
   <data name="registr_password_repeat.Text" xml:space="preserve">
-    <value>Пароль</value>
+    <value>Повторите пароль</value>
   </data>
   <data name="&gt;&gt;registr_password_repeat.Name" xml:space="preserve">
     <value>registr_password_repeat</value>
@@ -5708,7 +5760,7 @@
     <value>Registr_group</value>
   </data>
   <data name="&gt;&gt;registr_password_repeat.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="Btn_registr.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -5738,7 +5790,7 @@
     <value>Registr_group</value>
   </data>
   <data name="&gt;&gt;Btn_registr.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="registr_password.Location" type="System.Drawing.Point, System.Drawing">
     <value>77, 96</value>
@@ -5762,7 +5814,7 @@
     <value>Registr_group</value>
   </data>
   <data name="&gt;&gt;registr_password.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="registr_Login.Location" type="System.Drawing.Point, System.Drawing">
     <value>77, 60</value>
@@ -5786,7 +5838,7 @@
     <value>Registr_group</value>
   </data>
   <data name="&gt;&gt;registr_Login.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="label10.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -5819,7 +5871,7 @@
     <value>Registr_group</value>
   </data>
   <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

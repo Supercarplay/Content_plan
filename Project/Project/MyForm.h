@@ -17,21 +17,18 @@ namespace Project {
 
 	public:
 		static String^ connectString =
-			"Server=192.168.0.102,58907;"  // ← IP сервера
+			"Server=192.168.0.179,58907;"  // ← IP сервера
 			"Database=Database_program;"
-			"User Id=appuser;"
-			"Password=XMqFcAR_0W;"
+			"User Id=CVuser;"
+			"Password=wpM2JV@Kk-;"
 			"Encrypt=False;";
 	private: System::Windows::Forms::Label^ Name_new_post;
-	public:
 	private: System::Windows::Forms::TextBox^ Textbox_Name_new_post;
 	private: System::Windows::Forms::Label^ About_new_post;
 	private: System::Windows::Forms::TextBox^ Textbox_About_new_post;
 	private: System::Windows::Forms::Label^ Date_new_post;
 	private: System::Windows::Forms::DateTimePicker^ Swith_date_new_post;
-
 	private: System::Windows::Forms::DateTimePicker^ TimePicker_new_post;
-
 	private: System::Windows::Forms::DateTimePicker^ TimePicker_Editpost;
 	private: System::Windows::Forms::Label^ view_media;
 	private: System::Windows::Forms::ComboBox^ Swith_view_media;
@@ -119,6 +116,8 @@ namespace Project {
 
 
 	private: System::Windows::Forms::Label^ label10;
+private: System::Windows::Forms::Button^ btn_Show_repeat_Password;
+private: System::Windows::Forms::Button^ btn_Show_Password;
 
 	private: System::Windows::Forms::LinkLabel^ SignUp;
 
@@ -164,7 +163,6 @@ namespace Project {
 		System::Void Btn_new_user_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);
 		System::Void SignUp_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e);
 		System::Void Btn_registr_Click(System::Object^ sender, System::EventArgs^ e);
-	private:
 		System::Void Authorization_Login_Enter(System::Object^ sender, System::EventArgs^ e);
 		System::Void Authorization_Login_Leave(System::Object^ sender, System::EventArgs^ e);
 		System::Void Authorization_Password_Enter(System::Object^ sender, System::EventArgs^ e);
@@ -175,69 +173,16 @@ namespace Project {
 		System::Void registr_password_Leave(System::Object^ sender, System::EventArgs^ e);
 		System::Void registr_password_repeat_Enter(System::Object^ sender, System::EventArgs^ e);
 		System::Void registr_password_repeat_Leave(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnToggleAuthPassword_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnToggleRegPassword_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void btnToggleRegPasswordRepeat_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Windows::Forms::Button^ btnToggleAuthPassword;
-		System::Windows::Forms::Button^ btnToggleRegPassword;
-		System::Windows::Forms::Button^ btnToggleRegPasswordRepeat;
-	private:
-		System::Void InitializePlaceholders();
-		System::Void SetPlaceholder(System::Windows::Forms::TextBox^ textBox, String^ placeholder);
-		System::Void RemovePlaceholder(System::Windows::Forms::TextBox^ textBox, String^ placeholder);
-
-		String^ authLoginPlaceholder = L"Логин";
-		String^ authPasswordPlaceholder = L"Пароль";
-		String^ regLoginPlaceholder = L"Логин";
-		String^ regPasswordPlaceholder = L"Пароль";
-		String^ regPasswordRepeatPlaceholder = L"Повторите пароль";
+		System::Void btn_Show_repeat_Password_MouseLeave(System::Object^ sender, System::EventArgs^ e);
+		System::Void btn_Show_repeat_Password_MouseEnter(System::Object^ sender, System::EventArgs^ e);
+		System::Void btn_Show_repeat_Password_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e);
+		System::Void btn_Show_Password_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e);
+		System::Void btn_Show_Password_MouseEnter(System::Object^ sender, System::EventArgs^ e);
+		System::Void btn_Show_Password_MouseLeave(System::Object^ sender, System::EventArgs^ e);
 	public:
 		MyForm(void)
 		{
 			InitializeComponent();
-
-			InitializePlaceholders();
-
-			btnToggleAuthPassword = gcnew Button();
-			btnToggleAuthPassword->Size = System::Drawing::Size(30, Authorization_Password->Height - 4);
-			btnToggleAuthPassword->Location = System::Drawing::Point(Authorization_Password->Width - btnToggleAuthPassword->Width - 2, 2);
-			btnToggleAuthPassword->Text = "👁";
-			btnToggleAuthPassword->BackColor = System::Drawing::Color::White;
-			btnToggleAuthPassword->FlatStyle = Windows::Forms::FlatStyle::Flat;
-			Authorization_Password->Controls->Add(btnToggleAuthPassword);
-			btnToggleAuthPassword->BringToFront();
-			btnToggleAuthPassword->Click += gcnew System::EventHandler(this, &MyForm::btnToggleAuthPassword_Click);
-
-			btnToggleRegPassword = gcnew Button();
-			btnToggleRegPassword->Size = System::Drawing::Size(30, registr_password->Height - 4);
-			btnToggleRegPassword->Location = System::Drawing::Point(registr_password->Width - btnToggleRegPassword->Width - 2, 2);
-			btnToggleRegPassword->Text = "👁";
-			btnToggleRegPassword->BackColor = System::Drawing::Color::White;
-			btnToggleRegPassword->FlatStyle = Windows::Forms::FlatStyle::Flat;
-			registr_password->Controls->Add(btnToggleRegPassword);
-			btnToggleRegPassword->BringToFront();
-			btnToggleRegPassword->Click += gcnew System::EventHandler(this, &MyForm::btnToggleRegPassword_Click);
-
-			btnToggleRegPasswordRepeat = gcnew Button();
-			btnToggleRegPasswordRepeat->Size = System::Drawing::Size(30, registr_password_repeat->Height - 4);
-			btnToggleRegPasswordRepeat->Location = System::Drawing::Point(registr_password_repeat->Width - btnToggleRegPasswordRepeat->Width - 2, 2);
-			btnToggleRegPasswordRepeat->Text = "👁";
-			btnToggleRegPasswordRepeat->BackColor = System::Drawing::Color::White;
-			btnToggleRegPasswordRepeat->FlatStyle = Windows::Forms::FlatStyle::Flat;
-			registr_password_repeat->Controls->Add(btnToggleRegPasswordRepeat);
-			btnToggleRegPasswordRepeat->BringToFront();
-			btnToggleRegPasswordRepeat->Click += gcnew System::EventHandler(this, &MyForm::btnToggleRegPasswordRepeat_Click);
-
-			Authorization_Login->Enter += gcnew System::EventHandler(this, &MyForm::Authorization_Login_Enter);
-			Authorization_Login->Leave += gcnew System::EventHandler(this, &MyForm::Authorization_Login_Leave);
-			Authorization_Password->Enter += gcnew System::EventHandler(this, &MyForm::Authorization_Password_Enter);
-			Authorization_Password->Leave += gcnew System::EventHandler(this, &MyForm::Authorization_Password_Leave);
-			registr_Login->Enter += gcnew System::EventHandler(this, &MyForm::registr_Login_Enter);
-			registr_Login->Leave += gcnew System::EventHandler(this, &MyForm::registr_Login_Leave);
-			registr_password->Enter += gcnew System::EventHandler(this, &MyForm::registr_password_Enter);
-			registr_password->Leave += gcnew System::EventHandler(this, &MyForm::registr_password_Leave);
-			registr_password_repeat->Enter += gcnew System::EventHandler(this, &MyForm::registr_password_repeat_Enter);
-			registr_password_repeat->Leave += gcnew System::EventHandler(this, &MyForm::registr_password_repeat_Leave);
 
 			DBconnection = gcnew SqlConnection(connectString);
 
@@ -298,12 +243,12 @@ namespace Project {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle19 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle20 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle21 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle22 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle23 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle24 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle7 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle8 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle9 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle10 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle11 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle12 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->button_New_post = (gcnew System::Windows::Forms::Button());
 			this->Name_new_post = (gcnew System::Windows::Forms::Label());
 			this->Textbox_Name_new_post = (gcnew System::Windows::Forms::TextBox());
@@ -372,12 +317,14 @@ namespace Project {
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->Authorization = (gcnew System::Windows::Forms::GroupBox());
+			this->btn_Show_Password = (gcnew System::Windows::Forms::Button());
 			this->Btn_new_user = (gcnew System::Windows::Forms::LinkLabel());
 			this->BTNAuthorization = (gcnew System::Windows::Forms::Button());
 			this->Authorization_Password = (gcnew System::Windows::Forms::TextBox());
 			this->Authorization_Login = (gcnew System::Windows::Forms::TextBox());
 			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->Registr_group = (gcnew System::Windows::Forms::GroupBox());
+			this->btn_Show_repeat_Password = (gcnew System::Windows::Forms::Button());
 			this->SignUp = (gcnew System::Windows::Forms::LinkLabel());
 			this->registr_password_repeat = (gcnew System::Windows::Forms::TextBox());
 			this->Btn_registr = (gcnew System::Windows::Forms::Button());
@@ -721,39 +668,39 @@ namespace Project {
 			this->Archive_Table->BackgroundColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(67)), static_cast<System::Int32>(static_cast<System::Byte>(93)));
 			this->Archive_Table->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			dataGridViewCellStyle19->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			dataGridViewCellStyle19->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
+			dataGridViewCellStyle7->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			dataGridViewCellStyle7->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle19->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
-			dataGridViewCellStyle19->ForeColor = System::Drawing::Color::White;
-			dataGridViewCellStyle19->Padding = System::Windows::Forms::Padding(5);
-			dataGridViewCellStyle19->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+			dataGridViewCellStyle7->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
+			dataGridViewCellStyle7->ForeColor = System::Drawing::Color::White;
+			dataGridViewCellStyle7->Padding = System::Windows::Forms::Padding(5);
+			dataGridViewCellStyle7->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle19->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle19->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->Archive_Table->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+			dataGridViewCellStyle7->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle7->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->Archive_Table->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
 			this->Archive_Table->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::DisableResizing;
 			this->Archive_Table->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(9) {
 				this->Archive_ID,
 					this->Archive_Data, this->Archive_Name, this->Archive_About, this->Archive_Text, this->Archive_Scencens, this->Archive_ViewMedia,
 					this->Archive_post, this->BtnReturn
 			});
-			dataGridViewCellStyle20->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle20->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
+			dataGridViewCellStyle8->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle8->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle20->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
-			dataGridViewCellStyle20->ForeColor = System::Drawing::Color::White;
-			dataGridViewCellStyle20->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+			dataGridViewCellStyle8->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
+			dataGridViewCellStyle8->ForeColor = System::Drawing::Color::White;
+			dataGridViewCellStyle8->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle20->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle20->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
-			this->Archive_Table->DefaultCellStyle = dataGridViewCellStyle20;
+			dataGridViewCellStyle8->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle8->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->Archive_Table->DefaultCellStyle = dataGridViewCellStyle8;
 			this->Archive_Table->GridColor = System::Drawing::Color::Black;
 			this->Archive_Table->Name = L"Archive_Table";
 			this->Archive_Table->ReadOnly = true;
-			dataGridViewCellStyle21->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			dataGridViewCellStyle9->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->Archive_Table->RowsDefaultCellStyle = dataGridViewCellStyle21;
+			this->Archive_Table->RowsDefaultCellStyle = dataGridViewCellStyle9;
 			this->Archive_Table->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::Archive_Table_CellContentClick);
 			// 
 			// Archive_ID
@@ -831,39 +778,39 @@ namespace Project {
 			this->Table_post->BackgroundColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(67)),
 				static_cast<System::Int32>(static_cast<System::Byte>(93)));
 			this->Table_post->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			dataGridViewCellStyle22->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			dataGridViewCellStyle22->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
+			dataGridViewCellStyle10->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			dataGridViewCellStyle10->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle22->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
-			dataGridViewCellStyle22->ForeColor = System::Drawing::Color::White;
-			dataGridViewCellStyle22->Padding = System::Windows::Forms::Padding(5);
-			dataGridViewCellStyle22->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+			dataGridViewCellStyle10->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
+			dataGridViewCellStyle10->ForeColor = System::Drawing::Color::White;
+			dataGridViewCellStyle10->Padding = System::Windows::Forms::Padding(5);
+			dataGridViewCellStyle10->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle22->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle22->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->Table_post->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
+			dataGridViewCellStyle10->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle10->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->Table_post->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
 			this->Table_post->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::DisableResizing;
 			this->Table_post->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(10) {
 				this->ID, this->Date_post,
 					this->name_post, this->About_post, this->Text_post, this->Scencens_post, this->ViewMedia_post, this->Files_post, this->EditButton,
 					this->DeleteButton
 			});
-			dataGridViewCellStyle23->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle23->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
+			dataGridViewCellStyle11->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle11->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle23->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
-			dataGridViewCellStyle23->ForeColor = System::Drawing::Color::White;
-			dataGridViewCellStyle23->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+			dataGridViewCellStyle11->Font = (gcnew System::Drawing::Font(L"Times New Roman", 9.75F));
+			dataGridViewCellStyle11->ForeColor = System::Drawing::Color::White;
+			dataGridViewCellStyle11->SelectionBackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(33)), static_cast<System::Int32>(static_cast<System::Byte>(71)));
-			dataGridViewCellStyle23->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle23->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
-			this->Table_post->DefaultCellStyle = dataGridViewCellStyle23;
+			dataGridViewCellStyle11->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle11->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->Table_post->DefaultCellStyle = dataGridViewCellStyle11;
 			this->Table_post->GridColor = System::Drawing::Color::Black;
 			this->Table_post->Name = L"Table_post";
 			this->Table_post->ReadOnly = true;
-			dataGridViewCellStyle24->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			dataGridViewCellStyle12->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->Table_post->RowsDefaultCellStyle = dataGridViewCellStyle24;
+			this->Table_post->RowsDefaultCellStyle = dataGridViewCellStyle12;
 			this->Table_post->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::Table_post_CellContentClick);
 			// 
 			// ID
@@ -1005,6 +952,7 @@ namespace Project {
 			resources->ApplyResources(this->Authorization, L"Authorization");
 			this->Authorization->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(115)),
 				static_cast<System::Int32>(static_cast<System::Byte>(255)));
+			this->Authorization->Controls->Add(this->btn_Show_Password);
 			this->Authorization->Controls->Add(this->Btn_new_user);
 			this->Authorization->Controls->Add(this->BTNAuthorization);
 			this->Authorization->Controls->Add(this->Authorization_Password);
@@ -1013,6 +961,16 @@ namespace Project {
 			this->Authorization->ForeColor = System::Drawing::Color::White;
 			this->Authorization->Name = L"Authorization";
 			this->Authorization->TabStop = false;
+			// 
+			// btn_Show_Password
+			// 
+			this->btn_Show_Password->BackColor = System::Drawing::Color::White;
+			resources->ApplyResources(this->btn_Show_Password, L"btn_Show_Password");
+			this->btn_Show_Password->Name = L"btn_Show_Password";
+			this->btn_Show_Password->UseVisualStyleBackColor = false;
+			this->btn_Show_Password->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::btn_Show_Password_MouseClick);
+			this->btn_Show_Password->MouseEnter += gcnew System::EventHandler(this, &MyForm::btn_Show_Password_MouseEnter);
+			this->btn_Show_Password->MouseLeave += gcnew System::EventHandler(this, &MyForm::btn_Show_Password_MouseLeave);
 			// 
 			// Btn_new_user
 			// 
@@ -1032,13 +990,19 @@ namespace Project {
 			// 
 			// Authorization_Password
 			// 
+			this->Authorization_Password->ForeColor = System::Drawing::Color::Gray;
 			resources->ApplyResources(this->Authorization_Password, L"Authorization_Password");
 			this->Authorization_Password->Name = L"Authorization_Password";
+			this->Authorization_Password->Enter += gcnew System::EventHandler(this, &MyForm::Authorization_Password_Enter);
+			this->Authorization_Password->Leave += gcnew System::EventHandler(this, &MyForm::Authorization_Password_Leave);
 			// 
 			// Authorization_Login
 			// 
+			this->Authorization_Login->ForeColor = System::Drawing::Color::Gray;
 			resources->ApplyResources(this->Authorization_Login, L"Authorization_Login");
 			this->Authorization_Login->Name = L"Authorization_Login";
+			this->Authorization_Login->Enter += gcnew System::EventHandler(this, &MyForm::Authorization_Login_Enter);
+			this->Authorization_Login->Leave += gcnew System::EventHandler(this, &MyForm::Authorization_Login_Leave);
 			// 
 			// label8
 			// 
@@ -1050,6 +1014,7 @@ namespace Project {
 			resources->ApplyResources(this->Registr_group, L"Registr_group");
 			this->Registr_group->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(115)),
 				static_cast<System::Int32>(static_cast<System::Byte>(255)));
+			this->Registr_group->Controls->Add(this->btn_Show_repeat_Password);
 			this->Registr_group->Controls->Add(this->SignUp);
 			this->Registr_group->Controls->Add(this->registr_password_repeat);
 			this->Registr_group->Controls->Add(this->Btn_registr);
@@ -1060,6 +1025,16 @@ namespace Project {
 			this->Registr_group->Name = L"Registr_group";
 			this->Registr_group->TabStop = false;
 			// 
+			// btn_Show_repeat_Password
+			// 
+			this->btn_Show_repeat_Password->BackColor = System::Drawing::Color::White;
+			resources->ApplyResources(this->btn_Show_repeat_Password, L"btn_Show_repeat_Password");
+			this->btn_Show_repeat_Password->Name = L"btn_Show_repeat_Password";
+			this->btn_Show_repeat_Password->UseVisualStyleBackColor = false;
+			this->btn_Show_repeat_Password->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::btn_Show_repeat_Password_MouseClick);
+			this->btn_Show_repeat_Password->MouseEnter += gcnew System::EventHandler(this, &MyForm::btn_Show_repeat_Password_MouseEnter);
+			this->btn_Show_repeat_Password->MouseLeave += gcnew System::EventHandler(this, &MyForm::btn_Show_repeat_Password_MouseLeave);
+			// 
 			// SignUp
 			// 
 			resources->ApplyResources(this->SignUp, L"SignUp");
@@ -1069,8 +1044,11 @@ namespace Project {
 			// 
 			// registr_password_repeat
 			// 
+			this->registr_password_repeat->ForeColor = System::Drawing::Color::Gray;
 			resources->ApplyResources(this->registr_password_repeat, L"registr_password_repeat");
 			this->registr_password_repeat->Name = L"registr_password_repeat";
+			this->registr_password_repeat->Enter += gcnew System::EventHandler(this, &MyForm::registr_password_repeat_Enter);
+			this->registr_password_repeat->Leave += gcnew System::EventHandler(this, &MyForm::registr_password_repeat_Leave);
 			// 
 			// Btn_registr
 			// 
@@ -1082,13 +1060,19 @@ namespace Project {
 			// 
 			// registr_password
 			// 
+			this->registr_password->ForeColor = System::Drawing::Color::Gray;
 			resources->ApplyResources(this->registr_password, L"registr_password");
 			this->registr_password->Name = L"registr_password";
+			this->registr_password->Enter += gcnew System::EventHandler(this, &MyForm::registr_password_Enter);
+			this->registr_password->Leave += gcnew System::EventHandler(this, &MyForm::registr_password_Leave);
 			// 
 			// registr_Login
 			// 
+			this->registr_Login->ForeColor = System::Drawing::Color::Gray;
 			resources->ApplyResources(this->registr_Login, L"registr_Login");
 			this->registr_Login->Name = L"registr_Login";
+			this->registr_Login->Enter += gcnew System::EventHandler(this, &MyForm::registr_Login_Enter);
+			this->registr_Login->Leave += gcnew System::EventHandler(this, &MyForm::registr_Login_Leave);
 			// 
 			// label10
 			// 
