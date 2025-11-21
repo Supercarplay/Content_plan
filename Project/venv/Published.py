@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 import asyncio
 import html
 from pathlib import Path
+from telegram.ext import Application, CommandHandler
 
 SCRIPT_DIR = Path(__file__).resolve()
 PROJECT_DIR = SCRIPT_DIR.parent.parent
@@ -27,8 +28,11 @@ if not TELEGRAM_BOT_TOKEN:
 def get_db_connection():
     server = os.getenv("SQL_SERVER")
     database = os.getenv("SQL_DATABASE")
-    trusted = os.getenv("SQL_TRUSTED_CONNECTION", "yes").lower() == "yes"
-    
+    trusted = os.getenv("SQL_TRUSTED_CONNECTION", "no").lower() == "yes"
+
+    if not server or not database:
+        raise ValueError("Не заданы SQL_SERVER или SQL_DATABASE в Data.env")
+
     if trusted:
         conn_str = (
             f"DRIVER={{ODBC Driver 17 for SQL Server}};"
@@ -39,12 +43,15 @@ def get_db_connection():
     else:
         username = os.getenv("SQL_USERNAME")
         password = os.getenv("SQL_PASSWORD")
+        if not username or not password:
+            raise ValueError("Для SQL-аутентификации нужны SQL_USERNAME и SQL_PASSWORD")
         conn_str = (
             f"DRIVER={{ODBC Driver 17 for SQL Server}};"
             f"SERVER={server};"
             f"DATABASE={database};"
             f"UID={username};"
             f"PWD={password};"
+            f"Encrypt=no;"
         )
     return pyodbc.connect(conn_str)
 
@@ -139,10 +146,68 @@ async def publish_unpublished_posts():
     except Exception as e:
         print(f"💥 Критическая ошибка: {e}")
 
-async def main():
+
+async def call_admin(update, context):
+    user = update.effective_user
+    try:
+        admin_id = int(os.getenv("ADMIN_TELEGRAM_ID"))
+    except (TypeError, ValueError):
+        await update.message.reply_text("❌ Ошибка: админ не настроен.")
+        return
+
+    admin_message = (
+        f"🆘 Вызов администратора!\n\n"
+        f"Пользователь: {user.full_name}\n"
+        f"ID: <code>{user.id}</code>\n"
+        f"Username: @{user.username if user.username else '—'}\n"
+        f"Ссылка: <a href='tg://user?id={user.id}'>Написать</a>"
+    )
+
+    try:
+        await context.bot.send_message(
+            chat_id=admin_id,
+            text=admin_message,
+            parse_mode='HTML'
+        )
+        await update.message.reply_text("✅ Администратор уведомлён.")
+    except Exception as e:
+        print(f"Ошибка отправки админу: {e}")
+        await update.message.reply_text("❌ Не удалось вызвать администратора.")
+
+
+async def publish_loop():
     while True:
-        await publish_unpublished_posts()
+        try:
+            await publish_unpublished_posts()
+        except Exception as e:
+            print(f"Ошибка публикации: {e}")
         await asyncio.sleep(10)
+
+
+async def main():
+    admin_id = os.getenv("ADMIN_TELEGRAM_ID")
+    if not admin_id:
+        raise ValueError("Не задан ADMIN_TELEGRAM_ID в Data.env")
+
+    application = Application.builder().token(TELEGRAM_BOT_TOKEN).build()
+
+    application.add_handler(CommandHandler("admin", call_admin))
+
+    await application.initialize()
+    await application.start()
+    await application.updater.start_polling()
+
+    publish_task = asyncio.create_task(publish_loop())
+    print("✅ Бот запущен. Доступна команда: /admin")
+
+    try:
+        await asyncio.Event().wait()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        publish_task.cancel()
+        await application.stop()
+        await application.shutdown()
 
 if __name__ == '__main__':
     asyncio.run(main())

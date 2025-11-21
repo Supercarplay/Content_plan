@@ -2,7 +2,7 @@
 #include "MyForm.h"
 using namespace Project;
 using namespace System;
-
+//Акаунт с правами Администатора
 System::Boolean Project::MyForm::IsAdminUser() {
 	if (!currentUserId.HasValue) return false;
 	try {
@@ -19,6 +19,7 @@ System::Boolean Project::MyForm::IsAdminUser() {
 	}
 	return false;
 }
+//Функционал приложения при загрузке и закрытие
 System::Void Project::MyForm::MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
 	Table_post->AutoGenerateColumns = false;
 	Date_post->AutoSizeMode = DataGridViewAutoSizeColumnMode::None;
@@ -166,7 +167,28 @@ System::Void Project::MyForm::LoadGroupID() {
 		ID_Group_text->Text = "";
 	}
 }
-
+//	Адаптация приложения при изменениях размеров
+System::Void Project::MyForm::MyForm_Resize(System::Object^ sender, System::EventArgs^ e) {
+	if (this->Width > 1400) {
+		name_post->AutoSizeMode = DataGridViewAutoSizeColumnMode::None;
+		name_post->Width = 250;
+		About_post->AutoSizeMode = DataGridViewAutoSizeColumnMode::None;
+		About_post->Width = 250;
+		Archive_Name->AutoSizeMode = DataGridViewAutoSizeColumnMode::None;
+		Archive_Name->Width = 250;
+		Archive_About->AutoSizeMode = DataGridViewAutoSizeColumnMode::None;
+		Archive_About->Width = 250;
+	}
+	else {
+		name_post->AutoSizeMode = DataGridViewAutoSizeColumnMode::Fill;
+		About_post->AutoSizeMode = DataGridViewAutoSizeColumnMode::Fill;
+		Archive_Name->AutoSizeMode = DataGridViewAutoSizeColumnMode::Fill;
+		Archive_About->AutoSizeMode = DataGridViewAutoSizeColumnMode::Fill;
+	}
+}
+//
+// Структура сохрананения новых постов
+//
 System::Void Project::MyForm::button1_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (Panel_New_post->Visible == false) {
 		Panel_New_post->Visible = true;
@@ -241,8 +263,9 @@ System::Void Project::MyForm::Save_button_Click(System::Object^ sender, System::
 	linkFile->Visible = false;
 	BtnAddFiles->Text = L"Добавить файл";
 }
-
-
+//
+// Структура взаимодействия с кнопками удаление и редактирования и просмотр файла
+//
 System::Void Project::MyForm::Table_post_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 	if (e->RowIndex < 0) return;
 
@@ -354,7 +377,9 @@ System::Void Project::MyForm::Table_post_CellContentClick(System::Object^ sender
 		}
 	}
 }
-
+//
+// Структура взаимодействия с кнопками восстановления и просмотр файла в архиве
+//
 System::Void Project::MyForm::Archive_Table_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 	if (e->RowIndex < 0) return;
 	int returnColIndex = Archive_Table->Columns["BtnReturn"]->Index;
@@ -437,6 +462,9 @@ System::Void Project::MyForm::Archive_Table_CellContentClick(System::Object^ sen
 		Edit_post->Visible = true;
 	}
 }
+//
+//	Редактирование постов
+//
 System::Void Project::MyForm::Save_editbutton_Click(System::Object^ sender, System::EventArgs^ e) {
 	try {
 		String^ updateQuery;
@@ -509,6 +537,9 @@ System::Void Project::MyForm::Save_editbutton_Click(System::Object^ sender, Syst
 	linkEditFile->Visible = false;
 	BtnEditFile->Text = L"Добавить файл";
 }
+//
+//	Добавление файлов
+//
 System::Void Project::MyForm::BtnAddFiles_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
 		try {
@@ -545,6 +576,9 @@ System::Void Project::MyForm::BtnEditFile_Click(System::Object^ sender, System::
 		}
 	}
 }
+//
+//	Настройка бота для публикаций
+//
 System::Void Project::MyForm::Btnsettings_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (SettingsGroup->Visible == false) {
 		SettingsGroup->Visible = true;
@@ -593,6 +627,9 @@ System::Void Project::MyForm::BtnArchive_Click(System::Object^ sender, System::E
 		BtnArchive->Text = "Архив";
 	}
 }
+//
+//	Авторизация и регистрация(Перенести в отдельный файл при выпуске)
+//
 System::Void Project::MyForm::BTNAuthorization_Click(System::Object^ sender, System::EventArgs^ e) {
 	String^ login = Authorization_Login->Text->Trim();
 	String^ password = Authorization_Password->Text->Trim();
@@ -677,4 +714,11 @@ System::Void Project::MyForm::Btn_registr_Click(System::Object^ sender, System::
 		MessageBox::Show("Ошибка при регистрации:\n" + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
 	}
 
+}
+
+System::Void Project::MyForm::OnRefreshTimerTick(System::Object ^ sender, System::EventArgs ^ e) {
+	MyForm_Load(sender, e); // Перезагрузка
+}
+System::Void Project::MyForm::Add_bot_settings_Click(System::Object^ sender, System::EventArgs^ e) {
+	System::Diagnostics::Process::Start("https://t.me/");
 }

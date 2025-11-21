@@ -17,7 +17,7 @@ namespace Project {
 
 	public:
 		static String^ connectString =
-			"Server=192.168.0.179,58907;"  // ← IP сервера
+			"Server=192.168.0.58,58907;"  // IP сервера
 			"Database=Database_program;"
 			"User Id=CVuser;"
 			"Password=wpM2JV@Kk-;"
@@ -116,8 +116,10 @@ namespace Project {
 
 
 	private: System::Windows::Forms::Label^ label10;
-private: System::Windows::Forms::Button^ btn_Show_repeat_Password;
-private: System::Windows::Forms::Button^ btn_Show_Password;
+	private: System::Windows::Forms::Button^ btn_Show_repeat_Password;
+	private: System::Windows::Forms::Button^ btn_Show_Password;
+	private: System::Windows::Forms::Button^ Add_bot_settings;
+
 
 	private: System::Windows::Forms::LinkLabel^ SignUp;
 
@@ -179,6 +181,12 @@ private: System::Windows::Forms::Button^ btn_Show_Password;
 		System::Void btn_Show_Password_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e);
 		System::Void btn_Show_Password_MouseEnter(System::Object^ sender, System::EventArgs^ e);
 		System::Void btn_Show_Password_MouseLeave(System::Object^ sender, System::EventArgs^ e);
+		System::Void MyForm_Resize(System::Object^ sender, System::EventArgs^ e);
+		System::Void Add_bot_settings_Click(System::Object^ sender, System::EventArgs^ e);
+
+		//Таймер обновления БД
+		System::Windows::Forms::Timer^ refreshTimer;
+		System::Void OnRefreshTimerTick(System::Object^ sender, System::EventArgs^ e);
 	public:
 		MyForm(void)
 		{
@@ -208,6 +216,11 @@ private: System::Windows::Forms::Button^ btn_Show_Password;
 				Application::Exit();
 				return;
 			}
+
+			refreshTimer = gcnew System::Windows::Forms::Timer();
+			refreshTimer->Interval = 10000; // 10 секунд
+			refreshTimer->Tick += gcnew System::EventHandler(this, &MyForm::OnRefreshTimerTick);
+			refreshTimer->Start();
 		}
 	protected:
 		/// <summary>
@@ -331,6 +344,7 @@ private: System::Windows::Forms::Button^ btn_Show_Password;
 			this->registr_password = (gcnew System::Windows::Forms::TextBox());
 			this->registr_Login = (gcnew System::Windows::Forms::TextBox());
 			this->label10 = (gcnew System::Windows::Forms::Label());
+			this->Add_bot_settings = (gcnew System::Windows::Forms::Button());
 			this->Panel_New_post->SuspendLayout();
 			this->Edit_post->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Archive_Table))->BeginInit();
@@ -916,6 +930,7 @@ private: System::Windows::Forms::Button^ btn_Show_Password;
 			resources->ApplyResources(this->SettingsGroup, L"SettingsGroup");
 			this->SettingsGroup->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(67)),
 				static_cast<System::Int32>(static_cast<System::Byte>(93)));
+			this->SettingsGroup->Controls->Add(this->Add_bot_settings);
 			this->SettingsGroup->Controls->Add(this->BtnSaveSettings);
 			this->SettingsGroup->Controls->Add(this->ID_Group_text);
 			this->SettingsGroup->Controls->Add(this->label7);
@@ -950,8 +965,8 @@ private: System::Windows::Forms::Button^ btn_Show_Password;
 			// Authorization
 			// 
 			resources->ApplyResources(this->Authorization, L"Authorization");
-			this->Authorization->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(115)),
-				static_cast<System::Int32>(static_cast<System::Byte>(255)));
+			this->Authorization->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(60)),
+				static_cast<System::Int32>(static_cast<System::Byte>(150)));
 			this->Authorization->Controls->Add(this->btn_Show_Password);
 			this->Authorization->Controls->Add(this->Btn_new_user);
 			this->Authorization->Controls->Add(this->BTNAuthorization);
@@ -975,6 +990,8 @@ private: System::Windows::Forms::Button^ btn_Show_Password;
 			// Btn_new_user
 			// 
 			resources->ApplyResources(this->Btn_new_user, L"Btn_new_user");
+			this->Btn_new_user->LinkColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(130)),
+				static_cast<System::Int32>(static_cast<System::Byte>(255)));
 			this->Btn_new_user->Name = L"Btn_new_user";
 			this->Btn_new_user->TabStop = true;
 			this->Btn_new_user->VisitedLinkColor = System::Drawing::Color::Blue;
@@ -1012,8 +1029,8 @@ private: System::Windows::Forms::Button^ btn_Show_Password;
 			// Registr_group
 			// 
 			resources->ApplyResources(this->Registr_group, L"Registr_group");
-			this->Registr_group->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(115)),
-				static_cast<System::Int32>(static_cast<System::Byte>(255)));
+			this->Registr_group->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(60)),
+				static_cast<System::Int32>(static_cast<System::Byte>(150)));
 			this->Registr_group->Controls->Add(this->btn_Show_repeat_Password);
 			this->Registr_group->Controls->Add(this->SignUp);
 			this->Registr_group->Controls->Add(this->registr_password_repeat);
@@ -1038,6 +1055,8 @@ private: System::Windows::Forms::Button^ btn_Show_Password;
 			// SignUp
 			// 
 			resources->ApplyResources(this->SignUp, L"SignUp");
+			this->SignUp->LinkColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(130)),
+				static_cast<System::Int32>(static_cast<System::Byte>(255)));
 			this->SignUp->Name = L"SignUp";
 			this->SignUp->TabStop = true;
 			this->SignUp->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &MyForm::SignUp_LinkClicked);
@@ -1079,12 +1098,21 @@ private: System::Windows::Forms::Button^ btn_Show_Password;
 			resources->ApplyResources(this->label10, L"label10");
 			this->label10->Name = L"label10";
 			// 
+			// Add_bot_settings
+			// 
+			resources->ApplyResources(this->Add_bot_settings, L"Add_bot_settings");
+			this->Add_bot_settings->ForeColor = System::Drawing::Color::Black;
+			this->Add_bot_settings->Name = L"Add_bot_settings";
+			this->Add_bot_settings->UseVisualStyleBackColor = true;
+			this->Add_bot_settings->Click += gcnew System::EventHandler(this, &MyForm::Add_bot_settings_Click);
+			// 
 			// MyForm
 			// 
 			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(33)),
 				static_cast<System::Int32>(static_cast<System::Byte>(71)));
+			
 			this->Controls->Add(this->Registr_group);
 			this->Controls->Add(this->Authorization);
 			this->Controls->Add(this->pictureBox2);
@@ -1100,6 +1128,7 @@ private: System::Windows::Forms::Button^ btn_Show_Password;
 			this->Name = L"MyForm";
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MyForm::MyForm_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
+			this->Resize += gcnew System::EventHandler(this, &MyForm::MyForm_Resize);
 			this->Panel_New_post->ResumeLayout(false);
 			this->Panel_New_post->PerformLayout();
 			this->Edit_post->ResumeLayout(false);
