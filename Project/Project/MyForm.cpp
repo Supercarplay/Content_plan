@@ -167,6 +167,24 @@ System::Void Project::MyForm::LoadGroupID() {
 		ID_Group_text->Text = "";
 	}
 }
+System::Void Project::MyForm::MyForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	try {
+		if (DBconnection != nullptr && DBconnection->State == ConnectionState::Open) {
+			DBconnection->Close();
+		}
+	}
+	catch (Exception^) {}
+}
+System::Void Project::MyForm::BtnArchive_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (Archive_Table->Visible == false) {
+		Archive_Table->Visible = true;
+		BtnArchive->Text = "Закрыть";
+	}
+	else {
+		Archive_Table->Visible = false;
+		BtnArchive->Text = "Архив";
+	}
+}
 //	Адаптация приложения при изменениях размеров
 System::Void Project::MyForm::MyForm_Resize(System::Object^ sender, System::EventArgs^ e) {
 	if (this->Width > 1400) {
@@ -197,6 +215,19 @@ System::Void Project::MyForm::button1_Click(System::Object^ sender, System::Even
 	else {
 		Panel_New_post->Visible = false;
 		button_New_post->Text = L"Добавить пост";
+		try {
+			DateTime selectedDate = Swith_date_new_post->Value;
+			String^ DopName = selectedDate.ToString("yyyyMMdd");
+			String^ filePostDir = System::IO::Path::Combine(Application::StartupPath, "FilePost");
+			String^ DeleteFile = System::IO::Path::Combine(filePostDir, DopName + "_" + HistoryFileNewPost);
+			if (System::IO::File::Exists(DeleteFile)) {
+				System::IO::File::Delete(DeleteFile);
+			}
+			linkFile->Text = L"Ссылка на файл";
+			selectedFileForNewPost=nullptr;
+			BtnAddFiles->Text = L"Добавить файл";
+		}
+		catch (Exception^ ex) {}
 	}
 }
 System::Void Project::MyForm::Save_button_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -275,10 +306,16 @@ System::Void Project::MyForm::Table_post_CellContentClick(System::Object^ sender
 	if (e->ColumnIndex == Table_post->Columns["ViewMedia_post"]->Index) {
 		DataGridViewRow^ row = Table_post->Rows[e->RowIndex];
 		Object^ fileObj = row->Cells["Files_post"]->Value;
-
+		Object^ dateObj = row->Cells["Date_post"]->Value;
+		String^ DopName;
+		if (dateObj != nullptr && dateObj != DBNull::Value) {
+			DateTime postDate = safe_cast<DateTime>(dateObj);
+			DopName = postDate.ToString("yyyyMMdd");
+		}
 		if (fileObj != nullptr && fileObj != DBNull::Value) {
 			String^ relativePath = safe_cast<String^>(fileObj);
-			String^ fullPath = System::IO::Path::Combine(Application::StartupPath, relativePath);
+			String^ filePostDir = System::IO::Path::Combine(Application::StartupPath, "FilePost");
+			String^ fullPath = System::IO::Path::Combine(filePostDir, DopName + "_" + relativePath);
 
 			if (System::IO::File::Exists(fullPath)) {
 				try {
@@ -364,10 +401,17 @@ System::Void Project::MyForm::Table_post_CellContentClick(System::Object^ sender
 		);
 		if (res == System::Windows::Forms::DialogResult::Yes) {
 			try {
+				String^ fileName = Convert::ToString(Table_post->Rows[e->RowIndex]->Cells["Files_post"]->Value);
+				String^ filePostDir = System::IO::Path::Combine(Application::StartupPath, "FilePost");
+				String^ dest = System::IO::Path::Combine(filePostDir, fileName);
+
 				String^ deleteQuery = "DELETE FROM TablePost WHERE [ID] = @ID";
 				SqlCommand^ cmd = gcnew SqlCommand(deleteQuery, DBconnection);
 				int idToDelete = Convert::ToInt32(Table_post->Rows[e->RowIndex]->Cells["ID"]->Value);
 				cmd->Parameters->AddWithValue("@ID", idToDelete);
+				if (System::IO::File::Exists(dest)) {
+					System::IO::File::Delete(dest);
+				}
 				cmd->ExecuteNonQuery();
 				MyForm_Load(this, gcnew System::EventArgs());
 			}
@@ -387,9 +431,16 @@ System::Void Project::MyForm::Archive_Table_CellContentClick(System::Object^ sen
 	if (e->ColumnIndex == Archive_Table->Columns["Archive_ViewMedia"]->Index) {
 		DataGridViewRow^ row = Archive_Table->Rows[e->RowIndex];
 		Object^ fileObj = row->Cells["Archive_post"]->Value;
+		Object^ dateObj = row->Cells["Date_post"]->Value;
+		String^ DopName;
+		if (dateObj != nullptr && dateObj != DBNull::Value) {
+			DateTime postDate = safe_cast<DateTime>(dateObj);
+			DopName = postDate.ToString("yyyyMMdd");
+		}
 		if (fileObj != nullptr && fileObj != DBNull::Value) {
 			String^ relativePath = safe_cast<String^>(fileObj);
-			String^ fullPath = System::IO::Path::Combine(Application::StartupPath, relativePath);
+			String^ filePostDir = System::IO::Path::Combine(Application::StartupPath, "FilePost");
+			String^ fullPath = System::IO::Path::Combine(filePostDir, DopName + "_" + relativePath);
 			if (System::IO::File::Exists(fullPath)) {
 				try {
 					System::Diagnostics::Process::Start(fullPath);
@@ -543,15 +594,25 @@ System::Void Project::MyForm::Save_editbutton_Click(System::Object^ sender, Syst
 System::Void Project::MyForm::BtnAddFiles_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
 		try {
+			DateTime selectedDate = Swith_date_new_post->Value;
+			String^ DopName = selectedDate.ToString("yyyyMMdd");
 			String^ src = openFileDialog->FileName;
 			String^ fileName = System::IO::Path::GetFileName(src);
 			String^ filePostDir = System::IO::Path::Combine(Application::StartupPath, "FilePost");
-			String^ dest = System::IO::Path::Combine(filePostDir, fileName);
+			String^ dest = System::IO::Path::Combine(filePostDir, DopName+"_"+fileName);
 			System::IO::File::Copy(src, dest, true);
-			selectedFileForNewPost = MyForm::GetRelativePath(Application::StartupPath, dest);
+			selectedFileForNewPost = fileName;
+			//	Попытка удалить уже имеющися файл
+			try{
+				String^ DeleteFile = System::IO::Path::Combine(filePostDir, DopName+"_"+HistoryFileNewPost);
+				if (System::IO::File::Exists(DeleteFile)) {
+					System::IO::File::Delete(DeleteFile);
+				}
+			}catch (Exception^ ex){}
 			linkFile->Text = fileName;
 			linkFile->Visible = true;
 			BtnAddFiles->Text = L"Изменить файл";
+			HistoryFileNewPost = selectedFileForNewPost;
 		}
 		catch (Exception^ ex) {
 			MessageBox::Show("Ошибка: " + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
@@ -561,15 +622,26 @@ System::Void Project::MyForm::BtnAddFiles_Click(System::Object^ sender, System::
 System::Void Project::MyForm::BtnEditFile_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
 		try {
+			DateTime selectedDate = Swith_date_new_post->Value;
+			String^ DopName = selectedDate.ToString("yyyyMMdd");
 			String^ src = openFileDialog->FileName;
 			String^ fileName = System::IO::Path::GetFileName(src);
 			String^ filePostDir = System::IO::Path::Combine(Application::StartupPath, "FilePost");
-			String^ dest = System::IO::Path::Combine(filePostDir, fileName);
+			String^ dest = System::IO::Path::Combine(filePostDir, DopName + "_" + fileName);
+			HistoryFileEditPost = selectedFileForEditPost;
+			try {
+				String^ DeleteFile = System::IO::Path::Combine(filePostDir, DopName + "_" + HistoryFileEditPost);
+				if (System::IO::File::Exists(DeleteFile)) {
+					System::IO::File::Delete(DeleteFile);
+				}
+			}
+			catch (Exception^ ex) {}
 			System::IO::File::Copy(src, dest, true);
-			selectedFileForEditPost = MyForm::GetRelativePath(Application::StartupPath, dest);
+			selectedFileForEditPost = fileName;
 			linkEditFile->Text = fileName;
 			linkEditFile->Visible = true;
-			BtnEditFile->Text = L"Изменить файл";
+			BtnAddFiles->Text = L"Изменить файл";
+			
 		}
 		catch (Exception^ ex) {
 			MessageBox::Show("Ошибка: " + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
@@ -609,23 +681,8 @@ System::Void Project::MyForm::BtnSaveSettings_Click(System::Object^ sender, Syst
 		MessageBox::Show("Ошибка сохранения настроек:\n" + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
 	}
 }
-System::Void Project::MyForm::MyForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
-	try {
-		if (DBconnection != nullptr && DBconnection->State == ConnectionState::Open) {
-			DBconnection->Close();
-		}
-	}
-	catch (Exception^) {}
-}
-System::Void Project::MyForm::BtnArchive_Click(System::Object^ sender, System::EventArgs^ e) {
-	if (Archive_Table->Visible == false) {
-		Archive_Table->Visible = true;
-		BtnArchive->Text = "Закрыть";
-	}
-	else {
-		Archive_Table->Visible = false;
-		BtnArchive->Text = "Архив";
-	}
+System::Void Project::MyForm::Add_bot_settings_Click(System::Object^ sender, System::EventArgs^ e) {
+	System::Diagnostics::Process::Start("https://t.me/");
 }
 //
 //	Авторизация и регистрация(Перенести в отдельный файл при выпуске)
@@ -718,7 +775,4 @@ System::Void Project::MyForm::Btn_registr_Click(System::Object^ sender, System::
 
 System::Void Project::MyForm::OnRefreshTimerTick(System::Object ^ sender, System::EventArgs ^ e) {
 	MyForm_Load(sender, e); // Перезагрузка
-}
-System::Void Project::MyForm::Add_bot_settings_Click(System::Object^ sender, System::EventArgs^ e) {
-	System::Diagnostics::Process::Start("https://t.me/");
 }

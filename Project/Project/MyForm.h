@@ -129,19 +129,15 @@ namespace Project {
 
 
 
-	private:
-		static String^ GetRelativePath(String^ fromPath, String^ toPath) {
-			Uri^ fromUri = gcnew Uri(fromPath + "\\");
-			Uri^ toUri = gcnew Uri(toPath);
-			Uri^ relativeUri = fromUri->MakeRelativeUri(toUri);
-			return relativeUri->ToString()->Replace('/', '\\');
-		}
+
 	private:
 		SqlConnection^ DBconnection;
 		int currentEditPostID;
 		Nullable<int> currentUserId;
 		String^ selectedFileForNewPost;
 		String^ selectedFileForEditPost;
+		String^ HistoryFileNewPost;
+		String^ HistoryFileEditPost;
 	private:
 		bool isEditingFromArchive = false;
 	private:
