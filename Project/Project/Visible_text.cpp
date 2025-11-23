@@ -2,7 +2,7 @@
 #include "MyForm.h"
 using namespace Project;
 using namespace System;
-
+// Авторизация
 System::Void Project::MyForm::Authorization_Login_Enter(System::Object^ sender, System::EventArgs^ e) {
 	String^ login = Authorization_Login->Text->Trim();
 

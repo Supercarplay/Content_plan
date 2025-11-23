@@ -17,7 +17,7 @@ namespace Project {
 
 	public:
 		static String^ connectString =
-			"Server=192.168.0.58,58907;"  // IP сервера
+			"Server=192.168.0.179,58907;"  // IP сервера
 			"Database=Database_program;"
 			"User Id=CVuser;"
 			"Password=wpM2JV@Kk-;"
@@ -183,6 +183,7 @@ namespace Project {
 		//Таймер обновления БД
 		System::Windows::Forms::Timer^ refreshTimer;
 		System::Void OnRefreshTimerTick(System::Object^ sender, System::EventArgs^ e);
+		System::Void SyncDirectories(String^ localDir, String^ serverDir);
 	public:
 		MyForm(void)
 		{

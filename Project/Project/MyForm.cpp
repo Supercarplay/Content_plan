@@ -774,5 +774,14 @@ System::Void Project::MyForm::Btn_registr_Click(System::Object^ sender, System::
 }
 
 System::Void Project::MyForm::OnRefreshTimerTick(System::Object ^ sender, System::EventArgs ^ e) {
-	MyForm_Load(sender, e); // Перезагрузка
+	String^ localDir = System::IO::Path::Combine(Application::StartupPath, "FilePost");
+	String^ serverDir = "\\\\192.168.0.179\\SharedPostFiles";
+	try {
+		bool exists = System::IO::Directory::Exists(serverDir);
+	}
+	catch (Exception^ ex) {
+		MessageBox::Show("Ошибка доступа: " + ex->Message);
+	}
+	SyncDirectories(localDir, serverDir);
+	MyForm_Load(sender, e);
 }
