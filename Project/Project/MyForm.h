@@ -17,7 +17,7 @@ namespace Project {
 
 	public:
 		static String^ connectString =
-			"Server=192.168.0.58,58907;"  // IP сервера
+			"Server=192.168.0.179,58907;"  // IP сервера
 			"Database=Database_program;"
 			"User Id=CVuser;"
 			"Password=wpM2JV@Kk-;"
@@ -138,6 +138,8 @@ namespace Project {
 		String^ selectedFileForEditPost;
 		String^ HistoryFileNewPost;
 		String^ HistoryFileEditPost;
+		String^ localDir = System::IO::Path::Combine(Application::StartupPath, "FilePost");
+		String^ serverDir = "\\\\192.168.0.179\\SharedPostFiles";
 	private:
 		bool isEditingFromArchive = false;
 	private:
@@ -183,6 +185,7 @@ namespace Project {
 		//Таймер обновления БД
 		System::Windows::Forms::Timer^ refreshTimer;
 		System::Void OnRefreshTimerTick(System::Object^ sender, System::EventArgs^ e);
+		System::Void SyncDirectories(String^ localDir, String^ serverDir);
 	public:
 		MyForm(void)
 		{
