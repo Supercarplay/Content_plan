@@ -61,6 +61,10 @@ System::Void Project::MyForm::SyncDirectories(String^ localDir, String^ serverDi
                 String^ dest = System::IO::Path::Combine(localDir, name);
                 System::IO::File::Copy(serverMap[name]->FullName, dest, true);
             }
+            else if (inLocal && !inServer) {
+                // Только локально → удаляем, так как его нет на сервере
+                System::IO::File::Delete(localMap[name]->FullName);
+            }
         }
     }
     catch (Exception^ ex) {
