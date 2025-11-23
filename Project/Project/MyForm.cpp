@@ -220,8 +220,10 @@ System::Void Project::MyForm::button1_Click(System::Object^ sender, System::Even
 			String^ DopName = selectedDate.ToString("yyyyMMdd");
 			String^ filePostDir = System::IO::Path::Combine(Application::StartupPath, "FilePost");
 			String^ DeleteFile = System::IO::Path::Combine(filePostDir, DopName + "_" + HistoryFileNewPost);
-			if (System::IO::File::Exists(DeleteFile)) {
+			String^ DeleteFileServer = System::IO::Path::Combine(serverDir, DopName + "_" + HistoryFileNewPost);
+			if (System::IO::File::Exists(DeleteFile) && System::IO::File::Exists(DeleteFileServer)) {
 				System::IO::File::Delete(DeleteFile);
+				System::IO::File::Delete(DeleteFileServer);
 			}
 			linkFile->Text = L"Ссылка на файл";
 			selectedFileForNewPost=nullptr;
@@ -230,6 +232,7 @@ System::Void Project::MyForm::button1_Click(System::Object^ sender, System::Even
 		catch (Exception^ ex) {}
 	}
 }
+
 System::Void Project::MyForm::Save_button_Click(System::Object^ sender, System::EventArgs^ e) {
 	try {
 
@@ -604,15 +607,21 @@ System::Void Project::MyForm::BtnAddFiles_Click(System::Object^ sender, System::
 			String^ fileName = System::IO::Path::GetFileName(src);
 			String^ filePostDir = System::IO::Path::Combine(Application::StartupPath, "FilePost");
 			String^ dest = System::IO::Path::Combine(filePostDir, DopName+"_"+fileName);
+			String^ destServer = System::IO::Path::Combine(serverDir, DopName + "_" + fileName);
 			System::IO::File::Copy(src, dest, true);
+			System::IO::File::Copy(src, destServer, true);
 			selectedFileForNewPost = fileName;
 			//	Попытка удалить уже имеющися файл
 			try{
 				String^ DeleteFile = System::IO::Path::Combine(filePostDir, DopName+"_"+HistoryFileNewPost);
-				if (System::IO::File::Exists(DeleteFile)) {
+				String^ DeleteFileServer = System::IO::Path::Combine(destServer, DopName + "_" + HistoryFileNewPost);
+				if (System::IO::File::Exists(DeleteFile) && System::IO::File::Exists(DeleteFileServer)) {
 					System::IO::File::Delete(DeleteFile);
+					System::IO::File::Delete(DeleteFileServer);
 				}
-			}catch (Exception^ ex){}
+			}catch (Exception^ ex){
+				MessageBox::Show("Ошибка: " + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
 			linkFile->Text = fileName;
 			linkFile->Visible = true;
 			BtnAddFiles->Text = L"Изменить файл";
@@ -632,11 +641,14 @@ System::Void Project::MyForm::BtnEditFile_Click(System::Object^ sender, System::
 			String^ fileName = System::IO::Path::GetFileName(src);
 			String^ filePostDir = System::IO::Path::Combine(Application::StartupPath, "FilePost");
 			String^ dest = System::IO::Path::Combine(filePostDir, DopName + "_" + fileName);
+			String^ destServer = System::IO::Path::Combine(serverDir, DopName + "_" + fileName);
 			HistoryFileEditPost = selectedFileForEditPost;
 			try {
 				String^ DeleteFile = System::IO::Path::Combine(filePostDir, DopName + "_" + HistoryFileEditPost);
-				if (System::IO::File::Exists(DeleteFile)) {
+				String^ DeleteFileServer = System::IO::Path::Combine(destServer, DopName + "_" + HistoryFileEditPost);
+				if (System::IO::File::Exists(DeleteFile) && System::IO::File::Exists(DeleteFileServer)) {
 					System::IO::File::Delete(DeleteFile);
+					System::IO::File::Delete(DeleteFileServer);
 				}
 			}
 			catch (Exception^ ex) {}
