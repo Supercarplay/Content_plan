@@ -138,6 +138,8 @@ namespace Project {
 		String^ selectedFileForEditPost;
 		String^ HistoryFileNewPost;
 		String^ HistoryFileEditPost;
+		String^ localDir = System::IO::Path::Combine(Application::StartupPath, "FilePost");
+		String^ serverDir = "\\\\192.168.0.179\\SharedPostFiles";
 	private:
 		bool isEditingFromArchive = false;
 	private:

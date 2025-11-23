@@ -322,11 +322,13 @@ System::Void Project::MyForm::Table_post_CellContentClick(System::Object^ sender
 					System::Diagnostics::Process::Start(fullPath);
 				}
 				catch (Exception^ ex) {
-					MessageBox::Show("Не удалось открыть файл:\n" + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+					MessageBox::Show("Выполняется синхронизация, ожидайте", "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					SyncDirectories(localDir, serverDir);
 				}
 			}
 			else {
-				MessageBox::Show("Файл не найден:\n" + fullPath, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				MessageBox::Show("Выполняется синхронизация, ожидайте", "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				SyncDirectories(localDir, serverDir);
 			}
 		}
 		else {
@@ -446,11 +448,13 @@ System::Void Project::MyForm::Archive_Table_CellContentClick(System::Object^ sen
 					System::Diagnostics::Process::Start(fullPath);
 				}
 				catch (Exception^ ex) {
-					MessageBox::Show("Не удалось открыть файл:" + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+					MessageBox::Show("Выполняется синхронизация, ожидайте", "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					SyncDirectories(localDir, serverDir);
 				}
 			}
 			else {
-				MessageBox::Show("Файл не найден:" + fullPath, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				MessageBox::Show("Выполняется синхронизация, ожидайте", "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				SyncDirectories(localDir, serverDir);
 			}
 		}
 		else {
@@ -774,8 +778,6 @@ System::Void Project::MyForm::Btn_registr_Click(System::Object^ sender, System::
 }
 
 System::Void Project::MyForm::OnRefreshTimerTick(System::Object ^ sender, System::EventArgs ^ e) {
-	String^ localDir = System::IO::Path::Combine(Application::StartupPath, "FilePost");
-	String^ serverDir = "\\\\192.168.0.179\\SharedPostFiles";
 	try {
 		bool exists = System::IO::Directory::Exists(serverDir);
 	}
